@@ -500,6 +500,11 @@ function deviceOrientationListener(event) {
 }
 
 
+function noCompass()
+{
+	document.getElementById("alignment").innerHTML = 'No Compass!!!';
+}
+
 if (window.DeviceOrientationEvent) {
 	if(('ondeviceorientationabsolute' in window)) {
 		window.addEventListener("deviceorientationabsolute", deviceOrientationListener);
@@ -510,10 +515,10 @@ if (window.DeviceOrientationEvent) {
 		window.addEventListener("deviceorientation",gyroListener);
 	}
 	else {
-		alert("Your broowser doesn't support Absolute Device Orientation")
+		noCompass();
 	}
 } else {
-	alert("Sorry, your browser doesn't support Device Orientation");
+	noCompass();
 }
 
 // Elements for taking the snapshot
