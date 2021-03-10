@@ -412,7 +412,25 @@ function plotStars()
 
 	}
 	plotLines(camRays);
+	plotAltAz(camRays[2]);
 	setTimeout(plotStars,200)
+}
+
+function plotAltAz(fwd)
+{
+	var alt = Math.asin(fwd[2]) / Math.PI * 180;
+	var az  = Math.atan2(fwd[0],fwd[1]) / Math.PI * 180;
+	alt = 'Alt:' + alt.toFixed(1);
+	if(az < 0)
+		az = 360 + az;
+	az  = 'Az:' + az.toFixed(1);
+	context.font = "30px Sans"
+	context.textBaseline = 'bottom';
+	context.textAlign = 'end';
+	context.fillStyle = 'red';
+	context.fillText(alt,canvas.width - 5,canvas.height - 5)
+	context.textAlign = 'start';
+	context.fillText(az,5,canvas.height - 5)
 }
 
 function selectTaret(index)
@@ -461,6 +479,16 @@ function gyroListener(event)
 	gdata.alpha_gyro = event.alpha;
 }
 
+function deviceOrientationListenerWK(event)
+{
+	var e = {
+		alpha : event.webkitCompassHeading,
+		beta : event.beta,
+		gamma : event.gamma
+	}
+	deviceOrientationListener(e);
+}
+
 function deviceOrientationListener(event) {
 	if(!(event.alpha === null)) {
 		gdata.alpha = event.alpha;
@@ -469,28 +497,21 @@ function deviceOrientationListener(event) {
 	}
 	var status=use_gyro ? "Aligned" : "Not Aligned";
 	document.getElementById("alignment").innerHTML = status
-
-	var M = getRotationMatrix(gdata.alpha,gdata.beta,gdata.gamma);
-
-	return;
-
-	var rz = getCameraRays();
-	var extra = "Aligned=" + use_gyro + "</br><table>"
-	for(var i=0;i<3;i++) {
-		extra += "<tr>"
-		for (var j=0;j<3;j++) {
-			extra+= "<td>" + Math.round(rz[i][j]*100) + "</td>";
-		}
-		extra += "</tr>";
-	}
-
-	document.getElementById("orient").innerHTML = "a=" + Math.round(gdata.alpha*10)/10 + " b=" + Math.round(gdata.beta*10)/10 + " g=" + Math.round(gdata.gamma*10)/10 + " <br>" + extra;
 }
 
 
 if (window.DeviceOrientationEvent) {
-	window.addEventListener("deviceorientationabsolute", deviceOrientationListener);
-	window.addEventListener("deviceorientation",gyroListener);
+	if(('ondeviceorientationabsolute' in window)) {
+		window.addEventListener("deviceorientationabsolute", deviceOrientationListener);
+		window.addEventListener("deviceorientation",gyroListener);
+	}
+	else if(window.DeviceOrientationEvent.webkitCompassHeading) {
+		window.addEventListener("deviceorientation", deviceOrientationListenerWK);
+		window.addEventListener("deviceorientation",gyroListener);
+	}
+	else {
+		alert("Your broowser doesn't support Absolute Device Orientation")
+	}
 } else {
 	alert("Sorry, your browser doesn't support Device Orientation");
 }
@@ -503,6 +524,7 @@ var context = canvas.getContext('2d');
 setTimeout(getLocation,500)
 setTimeout(plotStars,1000)
 document.body.addEventListener('mousedown',selectionEvent);
+
 
 </script>
 
