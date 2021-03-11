@@ -10,18 +10,22 @@ button { width: 15% ; height:80px; font-size:30px }
 <body>
 <canvas style="position:absolute; left:0; top:0; z-index:-1"  id="myCanvas" width="640" height="480"> </canvas>
 <p>
-	<button onclick="global_fov=90;">FOV 90&deg;</button>
-	<button onclick="global_fov=60;">FOV 60&deg;</button>
-	<button onclick="global_fov=30;">FOV 30&deg;</button>
-	<button onclick="global_mag=3;">MAG 3</button>
-	<button onclick="global_mag=4;">MAG 4</button>
-	<button onclick="global_mag=5;">MAG 5</button>
+		<button onclick="global_fov=90;">FOV 90&deg;</button>
+		<button onclick="global_fov=60;">FOV 60&deg;</button>
+		<button onclick="global_fov=30;">FOV 30&deg;</button>
+		<button onclick="global_mag=3;">MAG 3</button>
+		<button onclick="global_mag=4;">MAG 4</button>
+		<button onclick="global_mag=5;">MAG 5</button>
 </p>
 <p>
 	<button onclick="align();">Align</button>
 	<button onclick="global_expecting_select=selectTaret;" >Target</button>
-	<button onclick="resetAll();">Reset</button>
 	<span id="alignment"></span>
+	<button style="float:right" onclick="resetAll();">Reset</button>
+</p>
+<p>
+<button style="float:left" onclick="gdata.alpha_user_offset -= global_fov / 10;" >&lt;&lt;</button>
+<button style="float:right" onclick="gdata.alpha_user_offset += global_fov / 10;" >&gt;&gt;</button>
 </p>
 <p id="orient"></p>
 <p id="orientN"></p>
@@ -39,6 +43,7 @@ var gdata = {
 	"lat" : 31.8804575,
 	"lon" : 34.8046192,
 	"alpha" : 24.900000000000002,
+	"alpha_user_offset" : 0,
 	"alpha_gyro" : 0,
 	"alpha_diff" : 0,
 	"beta" : 177.9,
@@ -49,7 +54,6 @@ var gdata = {
 var align_matrix = [1,0,0,0,1,0,0,0,1];
 var use_gyro = false;
 
-console.log('!!!')
 
 /// taken from https://www.w3.org/TR/2016/CR-orientation-event-20160818/#worked-example-2
 
@@ -60,12 +64,14 @@ function resetAll()
 	global_expecting_select = null;
 	global_target_index = -1;
 	global_align_index = -1;
+	gdata.alpha_user_offset = 0;
 	use_gyro=false;
 }
 
 function align()
 {
-	use_gyro=false;
+	use_gyro = false;
+	global_align_index = -1;
 	global_expecting_select = selectAlign;
 }
 
@@ -124,8 +130,8 @@ function selectAlign(index)
 	align_matrix = matMul(daz_mat,dalt_mat); 
 	
 	use_gyro = true;
+	gdata.alpha_diff = (gdata.alpha + gdata.alpha_user_offset) - gdata.alpha_gyro;
 	global_align_index = index;
-	gdata.alpha_diff = gdata.alpha - gdata.alpha_gyro;
 	global_expecting_select = null;
 }
 
@@ -184,7 +190,7 @@ function getCameraRays()
 {
 	// zxy
 	// after Mul comonents are [S,E,D]
-	var alpha = use_gyro ? gdata.alpha_gyro + gdata.alpha_diff : gdata.alpha;
+	var alpha = use_gyro ? gdata.alpha_gyro + gdata.alpha_diff : gdata.alpha + gdata.alpha_user_offset;
 	var M = getRotationMatrix(alpha,gdata.beta,gdata.gamma);
 	//var top = mvec(M,[1,0,0]);
 	//var lft = mvec(M,[0,1,0]);
