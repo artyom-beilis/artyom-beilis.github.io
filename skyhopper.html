@@ -10,22 +10,22 @@ button { width: 15% ; height:80px; font-size:30px }
 <body>
 <canvas style="position:absolute; left:0; top:0; z-index:-1"  id="myCanvas" width="640" height="480"> </canvas>
 <p>
-		<button onclick="global_fov=90;">FOV 90&deg;</button>
-		<button onclick="global_fov=60;">FOV 60&deg;</button>
-		<button onclick="global_fov=30;">FOV 30&deg;</button>
-		<button onclick="global_mag=3;">MAG 3</button>
-		<button onclick="global_mag=4;">MAG 4</button>
-		<button onclick="global_mag=5;">MAG 5</button>
+		<button class="ui_but" onclick="global_fov=90;">FOV 90&deg;</button>
+		<button class="ui_but" onclick="global_fov=60;">FOV 60&deg;</button>
+		<button class="ui_but" onclick="global_fov=30;">FOV 30&deg;</button>
+		<button class="ui_but" onclick="global_mag=3;">MAG 3</button>
+		<button class="ui_but" onclick="global_mag=4;">MAG 4</button>
+		<button class="ui_but" onclick="global_mag=5;">MAG 5</button>
 </p>
 <p>
-	<button onclick="align();">Align</button>
-	<button onclick="global_expecting_select=selectTaret;" >Target</button>
+	<button class="ui_but" onclick="align();">Align</button>
+	<!-- <button class="ui_but" onclick="global_expecting_select=selectTaret;" >Target</button> -->
 	<span id="alignment"></span>
-	<button style="float:right" onclick="resetAll();">Reset</button>
+	<button class="ui_but" style="float:right" onclick="resetAll();">Reset</button>
 </p>
 <p>
-<button style="float:left" onclick="gdata.alpha_user_offset -= global_fov / 10;" >&lt;&lt;</button>
-<button style="float:right" onclick="gdata.alpha_user_offset += global_fov / 10;" >&gt;&gt;</button>
+<button class="ui_but" style="float:left" onclick="gdata.alpha_user_offset -= global_fov / 10;" >&lt;&lt;</button>
+<button class="ui_but" style="float:right" onclick="gdata.alpha_user_offset += global_fov / 10;" >&gt;&gt;</button>
 </p>
 <p id="orient"></p>
 <p id="orientN"></p>
@@ -128,7 +128,7 @@ function selectAlign(index)
 	use_gyro = true;
 	gdata.alpha_diff = (gdata.alpha + gdata.alpha_user_offset) - gdata.alpha_gyro;
 	global_align_index = index;
-	global_expecting_select = null;
+	global_expecting_select = selectTaret;
 }
 
 /// rotation matrix is 
@@ -365,6 +365,21 @@ function plotLines(camRays)
 }
 
 
+function plotCross()
+{
+	context.strokeStyle = "blue";
+	context.fillStyle = "blue";
+	context.lineWidth = 3;
+	var dirs = [[1,0],[0,1],[-1,0],[0,-1]];
+	var length = 50;
+	var offset =10;
+	for(var i=0;i<dirs.length;i++) {
+		context.moveTo(canvas.width/2 + offset*dirs[i][0],canvas.height/2 + offset*dirs[i][1]);
+		context.lineTo(canvas.width/2 + length*dirs[i][0],canvas.height/2 + length*dirs[i][1]);
+	}
+	context.stroke();
+}
+
 function plotBearing(xyz)
 {
 	context.beginPath();
@@ -427,6 +442,9 @@ function plotStars()
 		plotBearing(xyz);
 
 	}
+	else if(use_gyro) {
+		plotCross();
+	}
 	plotLines(camRays);
 	plotAltAz(camRays[2]);
 	setTimeout(plotStars,200)
@@ -452,7 +470,7 @@ function plotAltAz(fwd)
 function selectTaret(index)
 {
 	global_target_index = index;
-	global_expecting_select = null;
+	//global_expecting_select = null;
 }
 
 function selectionEvent(e)
@@ -519,23 +537,40 @@ function noCompass()
 	document.getElementById("alignment").innerHTML = 'No Compass!!!';
 }
 
-if (window.DeviceOrientationEvent) {
-	if(('ondeviceorientationabsolute' in window)) {
-		window.addEventListener("deviceorientationabsolute", deviceOrientationListener);
-		window.addEventListener("deviceorientation",gyroListener);
+function dontPropMouseDown(lst)
+{
+	for(var i=0;i<lst.length;i++) {
+		var elements = document.getElementsByClassName(lst[i]);
+		for(var j=0;j<elements.length;j++) {
+			elements[j].addEventListener('mousedown',function(e) {
+				e.stopPropagation();
+			});
+		}
 	}
-	else if(window.DeviceOrientationEvent.webkitCompassHeading) {
-		window.addEventListener("deviceorientation", deviceOrientationListenerWK);
-		window.addEventListener("deviceorientation",gyroListener);
-	}
-	else {
-		noCompass();
-	}
-} else {
-	noCompass();
 }
 
-// Elements for taking the snapshot
+function setupOrientationEvents()
+{
+	if (window.DeviceOrientationEvent) {
+		if(('ondeviceorientationabsolute' in window)) {
+			window.addEventListener("deviceorientationabsolute", deviceOrientationListener);
+			window.addEventListener("deviceorientation",gyroListener);
+		}
+		else if(window.DeviceOrientationEvent.webkitCompassHeading) {
+			window.addEventListener("deviceorientation", deviceOrientationListenerWK);
+			window.addEventListener("deviceorientation",gyroListener);
+		}
+		else {
+			noCompass();
+		}
+	} else {
+		noCompass();
+	}
+}
+
+
+setupOrientationEvents();
+// global drawing stuff
 var canvas = document.getElementById('myCanvas');
 canvas.width = document.body.clientWidth;
 canvas.height = document.body.clientHeight;
@@ -543,7 +578,7 @@ var context = canvas.getContext('2d');
 setTimeout(getLocation,500)
 setTimeout(plotStars,1000)
 document.body.addEventListener('mousedown',selectionEvent);
-
+dontPropMouseDown(["ui_but"]);
 
 </script>
 
