@@ -55,10 +55,6 @@ var align_matrix = [1,0,0,0,1,0,0,0,1];
 var use_gyro = false;
 
 
-/// taken from https://www.w3.org/TR/2016/CR-orientation-event-20160818/#worked-example-2
-
-var degtorad = Math.PI / 180; // Degree-to-Radian conversion
-
 function resetAll()
 {
 	global_expecting_select = null;
@@ -134,6 +130,12 @@ function selectAlign(index)
 	global_align_index = index;
 	global_expecting_select = null;
 }
+
+/// rotation matrix is 
+/// taken from https://www.w3.org/TR/2016/CR-orientation-event-20160818/#worked-example-2
+
+var degtorad = Math.PI / 180; // Degree-to-Radian conversion
+
 
 function getRotationMatrix( alpha, beta, gamma ) {
 
@@ -237,8 +239,6 @@ function rayFromPos(RAd,DEd)
 	var az = Math.atan2(az_y,az_x)
 	var sinH = Math.sin(f) * Math.sin(DE) + Math.cos(f) * Math.cos(DE) * Math.cos(H);
 	var hz = Math.asin(sinH)
-	if(RAd == 0 && DEd == 90)
-		console.log(az_y,az_x,"AZ:",az / deg2rad,"HZ",hz / deg2rad)
 	var ray_n = -Math.cos(az) * Math.cos(hz);
 	var ray_e = -Math.sin(az) * Math.cos(hz);
 	var ray_u = Math.sin(hz);
@@ -265,9 +265,16 @@ function cameraBearing(RAd,DEd,cameraRays)
 function projectToCamera(RAd,DEd,cameraRays,in_fov=true)
 {
 	var deg2rad = Math.PI / 180;
-	var fov_td = global_fov / 2 * deg2rad;
 	var ratio = canvas.width / canvas.height;
-	var fov_lr = fov_td * ratio;
+	var fov_td,fov_lr;
+	if(ratio < 1) {
+		fov_td = global_fov / 2 * deg2rad;
+		fov_lr = fov_td * ratio;
+	}
+	else {
+		fov_lr = global_fov / 2 * deg2rad;
+		fov_td = fov_lr / ratio;
+	}
 	var xyz = cameraBearing(RAd,DEd,cameraRays)
 	var x=xyz.x; var y=xyz.y;  var z=xyz.z;
 	if(z<=0)
@@ -285,6 +292,11 @@ function projectToCamera(RAd,DEd,cameraRays,in_fov=true)
 
 function plotStar(star,camRays,highlight)
 {
+	if(canvas.width != document.body.clientWidth || canvas.height != document.body.clientHeight) {
+		canvas.width = document.body.clientWidth;
+		canvas.height = document.body.clientHeight;
+	}
+	
 	var pos = projectToCamera(star.RA,star.DE,camRays);
 	if(!pos)
 		return null;
@@ -389,13 +401,11 @@ function plotStars()
 {
 	global_targets_list=[];
 	gdata.time = Date.now();
-	//console.log(JSON.stringify(rayFromPos(0,90)))
 	var camRays = getCameraRays();
 	context.fillStyle = "black";
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	context.fillStyle = 'white';
 
-	//console.log('Sirius ' + allstars[0].AM + ' ' + JSON.stringify(rayFromPos(allstars[0].RA,allstars[0].DE)))
 
 	for(var i=0;i<allstars.length;i++) {
 		if(allstars[i].AM > global_mag)
@@ -470,8 +480,6 @@ function showpos(position)
 	var latlon = position.coords.latitude + "," + position.coords.longitude;
 	gdata.lat = position.coords.latitude;
 	gdata.lon = position.coords.longitude;
-
-	//console.log(latlon)
 }
 
 function getLocation() {
