@@ -6,26 +6,28 @@
 <style>
 body { font-size: 300% ; color:red }
 button { width: 15% ; height:80px; font-size:30px }
+.incdec_but { width: 80px ; height:80px; font-size:30px }
 </style>
 <body>
 <canvas style="position:absolute; left:0; top:0; z-index:-1"  id="myCanvas" width="640" height="480"> </canvas>
 <p>
-		<button class="ui_but" onclick="global_fov=90;">FOV 90&deg;</button>
-		<button class="ui_but" onclick="global_fov=60;">FOV 60&deg;</button>
-		<button class="ui_but" onclick="global_fov=30;">FOV 30&deg;</button>
-		<button class="ui_but" onclick="global_mag=3;">MAG 3</button>
-		<button class="ui_but" onclick="global_mag=4;">MAG 4</button>
-		<button class="ui_but" onclick="global_mag=5;">MAG 5</button>
+		<button class="incdec_but" onclick="decFOV();">-</button>
+		<button class="incdec_but" onclick="incFOV();">+</button>
+		&angle;<span id="fov_val">60&deg;</span><span style="font-size:16px" id="rtime"></span>
+		<button class="ui_but" style="float:right" onclick="resetAll();">Reset</button>
+</p>
+<p>
+		<button class="incdec_but" onclick="decMAG();">-</button>
+		<button class="incdec_but" onclick="incMAG();">+</button>
+		<i>m&leq;</i><span id="mag_val">4</span>
 </p>
 <p>
 	<button class="ui_but" onclick="align();">Align</button>
-	<!-- <button class="ui_but" onclick="global_expecting_select=selectTaret;" >Target</button> -->
 	<span id="alignment"></span>
-	<button class="ui_but" style="float:right" onclick="resetAll();">Reset</button>
 </p>
 <p>
-<button class="ui_but" style="float:left" onclick="gdata.alpha_user_offset -= global_fov / 10;" >&lt;&lt;</button>
-<button class="ui_but" style="float:right" onclick="gdata.alpha_user_offset += global_fov / 10;" >&gt;&gt;</button>
+<button class="incdec_but" style="float:left" onclick="gdata.alpha_user_offset -= global_fov / 10;" >&lt;&lt;</button>
+<button class="incdec_but" style="float:right" onclick="gdata.alpha_user_offset += global_fov / 10;" >&gt;&gt;</button>
 </p>
 <p id="orient"></p>
 <p id="orientN"></p>
@@ -36,24 +38,59 @@ var global_targets_list = [];
 var global_target_index = -1;
 var global_align_index = -1;
 var global_expecting_select = null;
+var global_camera_projection = true;
+var global_expected_frame_rate_ms = 66;
 
 var global_fov = 60;
 var global_mag = 4;
 var gdata = {
 	"lat" : 31.8804575,
 	"lon" : 34.8046192,
-	"alpha" : 24.900000000000002,
+	"alpha" : 0,
 	"alpha_user_offset" : 0,
 	"alpha_gyro" : 0,
 	"alpha_diff" : 0,
-	"beta" : 177.9,
-	"gamma" : 68,
+	"beta" : 0,
+	"gamma" : 0,
 	"time" : Date.now(), //1614716453109
 }
 
 var align_matrix = [1,0,0,0,1,0,0,0,1];
 var use_gyro = false;
 
+function incMAG()
+{
+	if(global_mag < 6)
+		global_mag += 1;
+	updateMAG()
+}
+function decMAG()
+{
+	if(global_mag > 1)
+		global_mag -=1;
+	updateMAG();
+}
+function updateMAG()
+{
+	document.getElementById("mag_val").innerHTML = global_mag + "";
+}
+
+function incFOV()
+{
+	if(global_fov < 150)
+		global_fov += 30;
+	updateFOV()
+}
+function decFOV()
+{
+	if(global_fov > 30)
+		global_fov -=30;
+	updateFOV();
+}
+function updateFOV()
+{
+	document.getElementById("fov_val").innerHTML = global_fov + "&deg;";
+}
 
 function resetAll()
 {
@@ -279,8 +316,17 @@ function projectToCamera(RAd,DEd,cameraRays,in_fov=true)
 	var x=xyz.x; var y=xyz.y;  var z=xyz.z;
 	if(z<=0)
 		return null;
-	var lim_x = Math.tan(fov_lr);
-	var lim_y = Math.tan(fov_td);
+	if(global_camera_projection) {
+		var lim_x = Math.sin(fov_lr);
+		var lim_y = Math.sin(fov_td);
+	}
+	else {
+		x = Math.asin(x);
+		y = Math.asin(y)
+		var lim_x = fov_lr;
+		var lim_y = fov_td;
+
+	}
 	if(in_fov) {
 		if(x < -lim_x || x > lim_x)
 			return null;
@@ -414,6 +460,7 @@ function plotBearing(xyz)
 
 function plotStars()
 {
+	var start=Date.now();
 	global_targets_list=[];
 	gdata.time = Date.now();
 	var camRays = getCameraRays();
@@ -447,7 +494,14 @@ function plotStars()
 	}
 	plotLines(camRays);
 	plotAltAz(camRays[2]);
-	setTimeout(plotStars,200)
+	var passed = Date.now() - start;
+	if(passed > global_expected_frame_rate_ms / 2) {
+		setTimeout(plotStars,global_expected_frame_rate_ms);
+	}
+	else {
+		setTimeout(plotStars,global_expected_frame_rate_ms-passed);
+	}
+	document.getElementById("rtime").innerHTML = " " + passed;
 }
 
 function plotAltAz(fwd)
@@ -578,7 +632,7 @@ var context = canvas.getContext('2d');
 setTimeout(getLocation,500)
 setTimeout(plotStars,1000)
 document.body.addEventListener('mousedown',selectionEvent);
-dontPropMouseDown(["ui_but"]);
+dontPropMouseDown(["ui_but","incdec_but"]);
 
 </script>
 
