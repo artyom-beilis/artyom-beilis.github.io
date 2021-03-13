@@ -2,11 +2,12 @@
 <html>
 <head>
 <!-- <meta HTTP-EQUIV="REFRESH" content="0; url=/uploader"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 <style>
-body { font-size: 300% ; color:red }
-button { width: 15% ; height:80px; font-size:30px }
-.incdec_but { width: 80px ; height:80px; font-size:30px }
+body { font-size: 5mm ; color:red ; font-family: sans }
+button { height:10mm; font-size:5mm }
+.incdec_but { width: 10mm ; height:10mm; font-size:5mm }
 </style>
 <body>
 <canvas style="position:absolute; left:0; top:0; z-index:-1"  id="myCanvas" width="640" height="480"> </canvas>
@@ -20,6 +21,7 @@ button { width: 15% ; height:80px; font-size:30px }
 		<button class="incdec_but" onclick="decMAG();">-</button>
 		<button class="incdec_but" onclick="incMAG();">+</button>
 		<i>m&leq;</i><span id="mag_val">4</span>
+		<button class="ui_but" style="float:right" onclick="document.documentElement.requestFullscreen({navigationUI:'hide'});">Full</button>
 </p>
 <p>
 	<button class="ui_but" onclick="align();">Align</button>
@@ -28,6 +30,8 @@ button { width: 15% ; height:80px; font-size:30px }
 <p>
 <button class="incdec_but" style="float:left" onclick="gdata.alpha_user_offset -= global_fov / 10;" >&lt;&lt;</button>
 <button class="incdec_but" style="float:right" onclick="gdata.alpha_user_offset += global_fov / 10;" >&gt;&gt;</button>
+</p>
+<p>
 </p>
 <p id="orient"></p>
 <p id="orientN"></p>
@@ -40,12 +44,13 @@ var global_align_index = -1;
 var global_expecting_select = null;
 var global_camera_projection = true;
 var global_expected_frame_rate_ms = 66;
+var global_use_compass = false;
 
 var global_fov = 60;
 var global_mag = 4;
 var gdata = {
-	"lat" : 31.8804575,
-	"lon" : 34.8046192,
+	"lat" : 31.9,
+	"lon" : 34.8,
 	"alpha" : 0,
 	"alpha_user_offset" : 0,
 	"alpha_gyro" : 0,
@@ -55,8 +60,8 @@ var gdata = {
 	"time" : Date.now(), //1614716453109
 }
 
-var align_matrix = [1,0,0,0,1,0,0,0,1];
-var use_gyro = false;
+var global_align_matrix = [1,0,0,0,1,0,0,0,1];
+var global_use_gyro = false;
 
 function incMAG()
 {
@@ -92,18 +97,25 @@ function updateFOV()
 	document.getElementById("fov_val").innerHTML = global_fov + "&deg;";
 }
 
+function setUseGyro(val)
+{
+	global_use_gyro = val;
+	var status=global_use_gyro ? "Aligned" : "Not Aligned";
+	document.getElementById("alignment").innerHTML = status
+}
+
 function resetAll()
 {
 	global_expecting_select = null;
 	global_target_index = -1;
 	global_align_index = -1;
 	gdata.alpha_user_offset = 0;
-	use_gyro=false;
+	setUseGyro(false);
 }
 
 function align()
 {
-	use_gyro = false;
+	setUseGyro(false);
 	global_align_index = -1;
 	global_expecting_select = selectAlign;
 }
@@ -159,10 +171,10 @@ function selectAlign(index)
 	var dalt_mat = matAdd(matEye(),1,W,Math.sin(-dAlt));
 	dalt_mat = matAdd(dalt_mat,1,matMul(W,W),2*Math.sin(-dAlt/2)*Math.sin(-dAlt/2));
 	
-	//align_matrix = daz_mat;
-	align_matrix = matMul(daz_mat,dalt_mat); 
+	//global_align_matrix = daz_mat;
+	global_align_matrix = matMul(daz_mat,dalt_mat); 
 	
-	use_gyro = true;
+	setUseGyro(true);
 	gdata.alpha_diff = (gdata.alpha + gdata.alpha_user_offset) - gdata.alpha_gyro;
 	global_align_index = index;
 	global_expecting_select = selectTaret;
@@ -229,7 +241,7 @@ function getCameraRays()
 {
 	// zxy
 	// after Mul comonents are [S,E,D]
-	var alpha = use_gyro ? gdata.alpha_gyro + gdata.alpha_diff : gdata.alpha + gdata.alpha_user_offset;
+	var alpha = global_use_gyro ? gdata.alpha_gyro + gdata.alpha_diff : gdata.alpha + gdata.alpha_user_offset;
 	var M = getRotationMatrix(alpha,gdata.beta,gdata.gamma);
 	//var top = mvec(M,[1,0,0]);
 	//var lft = mvec(M,[0,1,0]);
@@ -247,11 +259,11 @@ function getCameraRays()
 	var lft = [-fwd_hor[1],fwd_hor[0],0.0]
 	var top = crossProd(fwd,lft);
 
-	if(use_gyro) {
+	if(global_use_gyro) {
 		return [
-			mvec(align_matrix,top),
-			mvec(align_matrix,lft),
-			mvec(align_matrix,fwd)
+			mvec(global_align_matrix,top),
+			mvec(global_align_matrix,lft),
+			mvec(global_align_matrix,fwd)
 		];
 	}
 	else {
@@ -378,13 +390,13 @@ function plotStar(star,camRays,highlight)
 		context.strokeStyle = color;
 		context.fillStyle = color;
 		if(star.t == 'Ca') {
-			context.font = "30px Sans"
+			context.font = "6mm Sans"
 			context.textBaseline = 'middle';
 			context.textAlign = 'center';
 			context.fillText(star.name,pix_x,pix_y)
 		}
 		else {
-			context.font = "20px Sans";
+			context.font = "5mm Sans";
 			context.textBaseline = 'bottom';
 			context.textAlign = 'start';
 			context.fillText(star.name,pix_x + size + 1,pix_y - size - 1)
@@ -444,7 +456,7 @@ function plotBearing(xyz)
 	var left = (dx > 0 ? 'Right' : 'Left' ) + ' ' + Math.abs(Math.round(Math.atan2(xyz.x,xyz.z) / Math.PI * 180)).toFixed(1) + '\u00b0';
 	context.stroke();
 	context.lineWidth = 0;
-	context.font = "50px Serif";
+	context.font = "6mm Serif";
 	context.strokeStyle = "green";
 	context.fillStyle = "green";
 	context.textBaseline = 'middle';
@@ -474,11 +486,13 @@ function plotStars()
 			break;
 		var highlight = null;
 		if(i == global_target_index)
-			highlight = 'yellow';
+			highlight = 'cyan';
 		else if(i == global_align_index)
 			highlight = 'magenta';
 		var  pos = plotStar(allstars[i],camRays,highlight);
-		if(pos && allstars[i].t!='Ca') {
+		// select only stars if not aligned
+		// if aligned select all but constellations
+		if(pos && allstars[i].t!='Ca' && (allstars[i].t == 'S' || global_use_gyro)) {
 			pos.index = i;
 			global_targets_list.push(pos);
 		}
@@ -489,7 +503,7 @@ function plotStars()
 		plotBearing(xyz);
 
 	}
-	else if(use_gyro) {
+	else if(global_use_gyro) {
 		plotCross();
 	}
 	plotLines(camRays);
@@ -501,7 +515,6 @@ function plotStars()
 	else {
 		setTimeout(plotStars,global_expected_frame_rate_ms-passed);
 	}
-	document.getElementById("rtime").innerHTML = " " + passed;
 }
 
 function plotAltAz(fwd)
@@ -512,7 +525,7 @@ function plotAltAz(fwd)
 	if(az < 0)
 		az = 360 + az;
 	az  = 'Az:' + az.toFixed(1);
-	context.font = "30px Sans"
+	context.font = "5mm Sans"
 	context.textBaseline = 'bottom';
 	context.textAlign = 'end';
 	context.fillStyle = 'red';
@@ -565,24 +578,14 @@ function gyroListener(event)
 	gdata.alpha_gyro = event.alpha;
 }
 
-function deviceOrientationListenerWK(event)
-{
-	var e = {
-		alpha : event.webkitCompassHeading,
-		beta : event.beta,
-		gamma : event.gamma
-	}
-	deviceOrientationListener(e);
-}
 
 function deviceOrientationListener(event) {
 	if(!(event.alpha === null)) {
-		gdata.alpha = event.alpha;
+		if(global_use_compass)
+			gdata.alpha = event.alpha;
 		gdata.beta = event.beta;
 		gdata.gamma = event.gamma;
 	}
-	var status=use_gyro ? "Aligned" : "Not Aligned";
-	document.getElementById("alignment").innerHTML = status
 }
 
 
@@ -609,9 +612,11 @@ function setupOrientationEvents()
 		if(('ondeviceorientationabsolute' in window)) {
 			window.addEventListener("deviceorientationabsolute", deviceOrientationListener);
 			window.addEventListener("deviceorientation",gyroListener);
+			global_use_compass = true;
 		}
-		else if(window.DeviceOrientationEvent.webkitCompassHeading) {
-			window.addEventListener("deviceorientation", deviceOrientationListenerWK);
+		else if(('ondeviceorientation' in window)) {
+			global_use_compass = false;
+			window.addEventListener("deviceorientation", deviceOrientationListener);
 			window.addEventListener("deviceorientation",gyroListener);
 		}
 		else {
@@ -620,6 +625,7 @@ function setupOrientationEvents()
 	} else {
 		noCompass();
 	}
+	setUseGyro(false);
 }
 
 
@@ -633,7 +639,6 @@ setTimeout(getLocation,500)
 setTimeout(plotStars,1000)
 document.body.addEventListener('mousedown',selectionEvent);
 dontPropMouseDown(["ui_but","incdec_but"]);
-
 </script>
 
 
