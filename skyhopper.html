@@ -1,13 +1,13 @@
 <!DOCTYPE>
 <html>
 <head>
-<!-- <meta HTTP-EQUIV="REFRESH" content="0; url=/uploader"> -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 <style>
 body { font-size: 5mm ; color:red ; font-family: sans }
-button { height:10mm; font-size:5mm }
-.incdec_but { width: 10mm ; height:10mm; font-size:5mm }
+button { height:10mm; font-size:5mm ; text-align:center; background-color:black; color:red; border: 2px solid red }
+.comp_but, .incdec_but { width: 10mm ; height:10mm; font-size:5mm }
+.comp_but { float:right }
 </style>
 <body>
 <canvas style="position:absolute; left:0; top:0; z-index:-1"  id="myCanvas" width="640" height="480"> </canvas>
@@ -15,21 +15,467 @@ button { height:10mm; font-size:5mm }
 		<button class="incdec_but" onclick="decFOV();">-</button>
 		<button class="incdec_but" onclick="incFOV();">+</button>
 		&angle;<span id="fov_val">60&deg;</span><span style="font-size:16px" id="rtime"></span>
-		<button class="ui_but" style="float:right" onclick="resetAll();">Reset</button>
+		<span style="float:right">
+			<button class="incdec_but" id="night_mode" onclick="switchMode();">N</button>
+			<button class="incdec_but" onclick="resetAll();">&#x21bb;</button>
+		</span>
 </p>
 <p>
 		<button class="incdec_but" onclick="decMAG();">-</button>
 		<button class="incdec_but" onclick="incMAG();">+</button>
 		<i>m&leq;</i><span id="mag_val">4</span>
-		<button class="ui_but" style="float:right" onclick="document.documentElement.requestFullscreen({navigationUI:'hide'});">Full</button>
+		<button class="incdec_but" style="float:right" onclick="document.documentElement.requestFullscreen({navigationUI:'hide'});">&#x2725;</button>
 </p>
 <p>
 	<button class="ui_but" onclick="align();">Align</button>
 	<span id="alignment"></span>
-</p>
-<p>
-<button class="incdec_but" style="float:left" onclick="gdata.alpha_user_offset -= global_fov / 10;" >&lt;&lt;</button>
-<button class="incdec_but" style="float:right" onclick="gdata.alpha_user_offset += global_fov / 10;" >&gt;&gt;</button>
+<button class="comp_but" id="nocompass_button" style="display:none">
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   sodipodi:docname="No-Compass.svg"
+   viewBox="0 0 150 150"
+   version="1.1"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <defs
+     id="defs9" />
+  <sodipodi:namedview
+     id="base"
+     bordercolor="#666666"
+     inkscape:pageshadow="2"
+     inkscape:window-y="86"
+     pagecolor="#ffffff"
+     fill-opacity="0.0"
+     inkscape:window-height="853"
+     inkscape:window-maximized="0"
+     inkscape:zoom="2.8545365"
+     inkscape:window-x="206"
+     showgrid="false"
+     borderopacity="1.0"
+     inkscape:current-layer="layer1"
+     inkscape:cx="40.413198"
+     inkscape:cy="70.987688"
+     inkscape:window-width="1416"
+     inkscape:pageopacity="0.0"
+     inkscape:document-units="px">
+    <inkscape:grid
+       id="grid3013"
+       enabled="true"
+       visible="true"
+       snapvisiblegridlinesonly="true"
+       type="xygrid"
+       empspacing="5" />
+  </sodipodi:namedview>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     transform="translate(0 -902.36)">
+    <path
+       id="path3017"
+       style="fill-rule:evenodd;fill:#910000;fill-opacity:1"
+       inkscape:connector-curvature="0"
+       d="m80.444 988.84c-4.3279-4.3279-8.6557-8.6558-12.984-12.984-4.3355 8.6634-8.671 17.327-13.006 25.99 8.6633-4.3355 17.327-8.671 25.99-13.006zm6.9529 0.54512 20.456-40.911-40.911 20.456-20.456 40.911zm-15.534-65.559c-33.539 1.1165-59.499 40.305-46.152 71.406 9.3654 26.012 41.403 42.226 67.374 31.818 24.477-8.378 41.216-36.218 34.408-61.752-5.2645-24.298-28.876-43.488-54.07-41.502l-0.94171 0.0178-0.61828 0.0117zm71.9 52.998c0 37.626-30.502 68.129-68.129 68.129-37.626 0-68.129-30.502-68.129-68.129 0-37.626 30.502-68.129 68.129-68.129 37.626 0 68.129 30.502 68.129 68.129z" />
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:15;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 7.0063914,915.03473 137.67559,1043.9523"
+       id="path819"
+       inkscape:connector-curvature="0" />
+  </g>
+  <metadata
+     id="metadata6">
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/publicdomain/" />
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Compass Symbol</dc:title>
+        <dc:date>2010-09-28T02:04:15</dc:date>
+        <dc:description>Compass Symbol for Cricut</dc:description>
+        <dc:source>https://openclipart.org/detail/87583/compass-symbol-by-jhnri4</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>jhnri4</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>black &amp; white</rdf:li>
+            <rdf:li>compass</rdf:li>
+            <rdf:li>navigation</rdf:li>
+            <rdf:li>symbol</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg></button>
+<button class="comp_but" id="hand_button" style="display:none" onclick="manualMode();">
+<svg
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:cc="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    xmlns:ns1="http://sozi.baierouge.fr"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 256 256"
+  >
+  <g
+      id="imagebot_2"
+      label="Layer 1"
+    >
+    <g
+        id="imagebot_7"
+        transform="matrix(1.2311 0 0 1.2311 66.255 -1090.7)"
+        label="Layer 1"
+      >
+      <path
+          id="imagebot_14"
+          stroke-linejoin="round"
+          d="m89.471 1065.9c3.727 6.1-0.484 10-6.16 12.9-8.03 4.1-27.898 2.1-34.7-2-6.243-3.8-9.013-9.3-6.041-14.2"
+          stroke="#000000"
+          stroke-linecap="round"
+          stroke-width="4.0614"
+          fill="#ff0000"
+      />
+      <path
+          id="imagebot_13"
+          stroke-linejoin="round"
+          d="m-3.2128 1024.9c-5.6068 10.6 16.858 15.2 23.302 16 7.743 1 19.2 22.2 32.629 26.2 9.102 2.7 29.326 3.8 36.494-1.5 12.278-9 18.478-20.7 21.288-35.1 0.99-5.1 1.7-10.9 0.95-15.7-3.18-20.02-14.946-20.01-19.509-20.72-2.727-8.72-12.699-15.04-26.068-12.39-0.103-10.74 0.226-17.36 1.112-27.53 1.484-17.02-28.071-12.05-27.471 15.26 0.302 13.71 6.251 36.78-1.611 54.88-15.641-13.2-30.952-18.7-41.116 0.6z"
+          stroke="#000000"
+          stroke-linecap="round"
+          stroke-width="4.0614"
+          fill="#ff0000"
+      />
+      <path
+          id="imagebot_12"
+          stroke-width="5.781"
+          d="m63.838 981.04c0.03 10.26 1.214 18.23 7.226 26.06-2.51-6.5-3.37-19.62-3.177-27.89l-4.049 1.83z"
+          fill="#000000"
+      />
+      <path
+          id="imagebot_11"
+          stroke-width="5.781"
+          d="m93.471 992.23l-3.809 1.49c1.929 5.57 4.051 11.88 7.114 15.18-1.081-2.6-2.077-11.98-3.305-16.67z"
+          fill="#000000"
+      />
+      <path
+          id="imagebot_10"
+          stroke-linejoin="round"
+          d="m83.386 1059c4.939-9.3 5.143-12 6.826-16.8"
+          stroke="#000000"
+          stroke-linecap="round"
+          stroke-width="4.0614"
+          fill="none"
+      />
+      <path
+          id="imagebot_9"
+          stroke-linejoin="round"
+          d="m73.981 1058.8c2.776-11.3 3.048-16.9 4.214-24.6"
+          stroke="#000000"
+          stroke-linecap="round"
+          stroke-width="4.0614"
+          fill="none"
+      />
+      <path
+          id="imagebot_8"
+          stroke-linejoin="round"
+          d="m62.763 1058.3c0.855-8 0.521-11.8 0.555-16.9"
+          stroke="#000000"
+          stroke-linecap="round"
+          stroke-width="4.0614"
+          fill="none"
+      />
+    </g
+    >
+    <title
+      >Layer 1</title
+    >
+  </g
+  >
+  <metadata
+    >
+    <rdf:RDF
+      >
+      <cc:Work
+        >
+        <dc:format
+          >image/svg+xml</dc:format
+        >
+        <dc:type
+            rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+        />
+        <cc:license
+            rdf:resource="http://creativecommons.org/licenses/publicdomain/"
+        />
+        <dc:publisher
+          >
+          <cc:Agent
+              rdf:about="http://openclipart.org/"
+            >
+            <dc:title
+              >Openclipart</dc:title
+            >
+          </cc:Agent
+          >
+        </dc:publisher
+        >
+        <dc:title
+          >Finger Point nog</dc:title
+        >
+        <dc:date
+          >2012-02-07T01:54:00</dc:date
+        >
+        <dc:description
+        />
+        <dc:source
+          >https://openclipart.org/detail/167880/finger-point-nog-by-rduris</dc:source
+        >
+        <dc:creator
+          >
+          <cc:Agent
+            >
+            <dc:title
+              >rduris</dc:title
+            >
+          </cc:Agent
+          >
+        </dc:creator
+        >
+        <dc:subject
+          >
+          <rdf:Bag
+            >
+            <rdf:li
+              >gun</rdf:li
+            >
+            <rdf:li
+              >shape</rdf:li
+            >
+            <rdf:li
+              >hand</rdf:li
+            >
+            <rdf:li
+              >finger</rdf:li
+            >
+            <rdf:li
+              >point</rdf:li
+            >
+            <rdf:li
+              >glove</rdf:li
+            >
+            <rdf:li
+              >thumb</rdf:li
+            >
+            <rdf:li
+              >pointer</rdf:li
+            >
+          </rdf:Bag
+          >
+        </dc:subject
+        >
+      </cc:Work
+      >
+      <cc:License
+          rdf:about="http://creativecommons.org/licenses/publicdomain/"
+        >
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#Reproduction"
+        />
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#Distribution"
+        />
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#DerivativeWorks"
+        />
+      </cc:License
+      >
+    </rdf:RDF
+    >
+  </metadata
+  >
+</svg
+></button>
+<button class="comp_but" id="compass_button" style="display:none" onclick="compassMode();">
+<svg
+    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:ns1="http://sozi.baierouge.fr"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    id="svg2"
+    sodipodi:docname="New document 1"
+    viewBox="0 0 150 150"
+    version="1.1"
+    inkscape:version="0.48.0 r9654"
+  >
+  <sodipodi:namedview
+      id="base"
+      bordercolor="#666666"
+      inkscape:pageshadow="2"
+      inkscape:window-y="-4"
+      pagecolor="#ffffff"
+      fill-opacity="0.0"
+      inkscape:window-height="968"
+      inkscape:window-maximized="1"
+      inkscape:zoom="2.8545365"
+      inkscape:window-x="-4"
+      showgrid="false"
+      borderopacity="1.0"
+      inkscape:current-layer="layer1"
+      inkscape:cx="32.005022"
+      inkscape:cy="28.94934"
+      inkscape:window-width="1280"
+      inkscape:pageopacity="0.0"
+      inkscape:document-units="px"
+    >
+    <inkscape:grid
+        id="grid3013"
+        enabled="true"
+        visible="true"
+        snapvisiblegridlinesonly="true"
+        type="xygrid"
+        empspacing="5"
+    />
+  </sodipodi:namedview
+  >
+  <g
+      id="layer1"
+      inkscape:label="Layer 1"
+      inkscape:groupmode="layer"
+      transform="translate(0 -902.36)"
+    >
+    <path
+        id="path3017"
+        style="fill-rule:evenodd;fill:#FF0000"
+        inkscape:connector-curvature="0"
+        d="m80.444 988.84c-4.3279-4.3279-8.6557-8.6558-12.984-12.984-4.3355 8.6634-8.671 17.327-13.006 25.99 8.6633-4.3355 17.327-8.671 25.99-13.006zm6.9529 0.54512 20.456-40.911-40.911 20.456-20.456 40.911zm-15.534-65.559c-33.539 1.1165-59.499 40.305-46.152 71.406 9.3654 26.012 41.403 42.226 67.374 31.818 24.477-8.378 41.216-36.218 34.408-61.752-5.2645-24.298-28.876-43.488-54.07-41.502l-0.94171 0.0178-0.61828 0.0117zm71.9 52.998c0 37.626-30.502 68.129-68.129 68.129-37.626 0-68.129-30.502-68.129-68.129 0-37.626 30.502-68.129 68.129-68.129 37.626 0 68.129 30.502 68.129 68.129z"
+    />
+  </g
+  >
+  <metadata
+    >
+    <rdf:RDF
+      >
+      <cc:Work
+        >
+        <dc:format
+          >image/svg+xml</dc:format
+        >
+        <dc:type
+            rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+        />
+        <cc:license
+            rdf:resource="http://creativecommons.org/licenses/publicdomain/"
+        />
+        <dc:publisher
+          >
+          <cc:Agent
+              rdf:about="http://openclipart.org/"
+            >
+            <dc:title
+              >Openclipart</dc:title
+            >
+          </cc:Agent
+          >
+        </dc:publisher
+        >
+        <dc:title
+          >Compass Symbol</dc:title
+        >
+        <dc:date
+          >2010-09-28T02:04:15</dc:date
+        >
+        <dc:description
+          >Compass Symbol for Cricut</dc:description
+        >
+        <dc:source
+          >https://openclipart.org/detail/87583/compass-symbol-by-jhnri4</dc:source
+        >
+        <dc:creator
+          >
+          <cc:Agent
+            >
+            <dc:title
+              >jhnri4</dc:title
+            >
+          </cc:Agent
+          >
+        </dc:creator
+        >
+        <dc:subject
+          >
+          <rdf:Bag
+            >
+            <rdf:li
+              >black &amp; white</rdf:li
+            >
+            <rdf:li
+              >compass</rdf:li
+            >
+            <rdf:li
+              >navigation</rdf:li
+            >
+            <rdf:li
+              >symbol</rdf:li
+            >
+          </rdf:Bag
+          >
+        </dc:subject
+        >
+      </cc:Work
+      >
+      <cc:License
+          rdf:about="http://creativecommons.org/licenses/publicdomain/"
+        >
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#Reproduction"
+        />
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#Distribution"
+        />
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#DerivativeWorks"
+        />
+      </cc:License
+      >
+    </rdf:RDF
+    >
+  </metadata
+  >
+</svg
+>
+</button>
 </p>
 <p>
 </p>
@@ -38,7 +484,32 @@ button { height:10mm; font-size:5mm }
 <script src='jsdb.js' ></script>
 <script>
 
+var global_day_style = {
+	cross 		: 'blue',
+	constelations 	: 'yellow',
+	bearing 	: 'green',
+	star		: 'white',
+	altaz		: 'red',
+	target		: 'cyan',
+	align		: 'magenta'
+};
+
+var global_night_style = {
+	cross 		: 'red',
+	constelations 	: '#440000',
+	bearing 	: 'red',
+	star		: 'red',
+	altaz		: 'red',
+	target		: '#880000',
+	align		: '#880000'
+};
+
+
+
+var global_style = global_day_style;
+
 var global_targets_list = [];
+var global_prev_xy=null;
 var global_target_index = -1;
 var global_align_index = -1;
 var global_expecting_select = null;
@@ -51,6 +522,7 @@ var global_mag = 4;
 var gdata = {
 	"lat" : 31.9,
 	"lon" : 34.8,
+	"compass_alpha" : 0,
 	"alpha" : 0,
 	"alpha_user_offset" : 0,
 	"alpha_gyro" : 0,
@@ -97,10 +569,13 @@ function updateFOV()
 	document.getElementById("fov_val").innerHTML = global_fov + "&deg;";
 }
 
-function setUseGyro(val)
+function setUseGyro(val,message=null)
 {
 	global_use_gyro = val;
-	var status=global_use_gyro ? "Aligned" : "Not Aligned";
+	if(message)
+		var status = message;
+	else
+		var status= global_use_gyro ? "Aligned" : "Not Aligned";
 	document.getElementById("alignment").innerHTML = status
 }
 
@@ -109,13 +584,12 @@ function resetAll()
 	global_expecting_select = null;
 	global_target_index = -1;
 	global_align_index = -1;
-	gdata.alpha_user_offset = 0;
 	setUseGyro(false);
 }
 
 function align()
 {
-	setUseGyro(false);
+	setUseGyro(false,"Select Star");
 	global_align_index = -1;
 	global_expecting_select = selectAlign;
 }
@@ -311,19 +785,27 @@ function cameraBearing(RAd,DEd,cameraRays)
 	return {"x":x,"y":y,"z":z};
 }
 
-function projectToCamera(RAd,DEd,cameraRays,in_fov=true)
+function getFOV()
 {
-	var deg2rad = Math.PI / 180;
 	var ratio = canvas.width / canvas.height;
 	var fov_td,fov_lr;
 	if(ratio < 1) {
-		fov_td = global_fov / 2 * deg2rad;
+		fov_td = global_fov;
 		fov_lr = fov_td * ratio;
 	}
 	else {
-		fov_lr = global_fov / 2 * deg2rad;
+		fov_lr = global_fov;
 		fov_td = fov_lr / ratio;
 	}
+	return {"lr":fov_lr,"td":fov_td};
+}
+
+function projectToCamera(RAd,DEd,cameraRays,in_fov=true)
+{
+	var deg2rad = Math.PI / 180;
+	var fov = getFOV();
+	var fov_td = fov.td * deg2rad / 2;
+	var fov_lr = fov.lr * deg2rad / 2;
 	var xyz = cameraBearing(RAd,DEd,cameraRays)
 	var x=xyz.x; var y=xyz.y;  var z=xyz.z;
 	if(z<=0)
@@ -368,7 +850,7 @@ function plotStar(star,camRays,highlight)
 		size = 10;
 	}
 	else {
-		color = 'white';
+		color = global_style.star;
 	}
 	if(star.t == 'S')
 		context.fillStyle = color;
@@ -385,7 +867,7 @@ function plotStar(star,camRays,highlight)
 	}
 	if(star.name) {
 		if(star.t == 'Ca') {
-			color = 'yellow';
+			color = global_style.constelations;
 		}
 		context.strokeStyle = color;
 		context.fillStyle = color;
@@ -414,7 +896,7 @@ function plotLines(camRays)
 		if(!p1 || !p2)
 			continue;
 		context.beginPath();	
-		context.strokeStyle = 'yellow';
+		context.strokeStyle = global_style.constelations;
 		context.lineWidth = 1;
 		context.moveTo(p1.x*canvas.width,p1.y*canvas.height);
 		context.lineTo(p2.x*canvas.width,p2.y*canvas.height);
@@ -425,8 +907,8 @@ function plotLines(camRays)
 
 function plotCross()
 {
-	context.strokeStyle = "blue";
-	context.fillStyle = "blue";
+	context.strokeStyle = global_style.cross;
+	context.fillStyle = global_style.cross;
 	context.lineWidth = 3;
 	var dirs = [[1,0],[0,1],[-1,0],[0,-1]];
 	var length = 50;
@@ -441,8 +923,8 @@ function plotCross()
 function plotBearing(xyz)
 {
 	context.beginPath();
-	context.strokeStyle = "green";
-	context.fillStyle = "green";
+	context.strokeStyle = global_style.bearing;
+	context.fillStyle = global_style.bearing;
 	context.lineWidth = 5;
 	context.arc(canvas.width/2,canvas.height/2,10,0,2*Math.PI,false);
 	context.moveTo(canvas.width/2,canvas.height/2);
@@ -453,18 +935,18 @@ function plotBearing(xyz)
 	dy = dy*r;
 	context.lineTo(canvas.width/2 + dx * 100,canvas.height/2 + dy * 100);
 	var updn = (dy > 0 ? 'Down' : 'Up' ) + ' ' + Math.abs(Math.atan2(-xyz.y,xyz.z) / Math.PI * 180).toFixed(1) + '\u00b0';
-	var left = (dx > 0 ? 'Right' : 'Left' ) + ' ' + Math.abs(Math.round(Math.atan2(xyz.x,xyz.z) / Math.PI * 180)).toFixed(1) + '\u00b0';
+	var left = (dx > 0 ? 'Right' : 'Left' ) + ' ' + Math.abs(Math.atan2(xyz.x,xyz.z) / Math.PI * 180).toFixed(1) + '\u00b0';
 	context.stroke();
 	context.lineWidth = 0;
 	context.font = "6mm Serif";
-	context.strokeStyle = "green";
-	context.fillStyle = "green";
+	context.strokeStyle = global_style.bearing;
+	context.fillStyle = global_style.bearing;
 	context.textBaseline = 'middle';
 	context.textAlign = 'end';
-	context.fillText(updn,canvas.width - 50,canvas.height / 2)
+	context.fillText(updn,canvas.width - 5,canvas.height / 2)
 	context.textAlign = 'center';
 	context.textBaseline = 'bottom';
-	context.fillText(left,canvas.width/2,canvas.height - 50)
+	context.fillText(left,canvas.width/2,canvas.height - 5)
 }			
 
 
@@ -478,7 +960,7 @@ function plotStars()
 	var camRays = getCameraRays();
 	context.fillStyle = "black";
 	context.fillRect(0, 0, canvas.width, canvas.height);
-	context.fillStyle = 'white';
+	context.fillStyle = global_style.star;
 
 
 	for(var i=0;i<allstars.length;i++) {
@@ -486,9 +968,9 @@ function plotStars()
 			break;
 		var highlight = null;
 		if(i == global_target_index)
-			highlight = 'cyan';
+			highlight = global_style.target;
 		else if(i == global_align_index)
-			highlight = 'magenta';
+			highlight = global_style.align;
 		var  pos = plotStar(allstars[i],camRays,highlight);
 		// select only stars if not aligned
 		// if aligned select all but constellations
@@ -528,7 +1010,7 @@ function plotAltAz(fwd)
 	context.font = "5mm Sans"
 	context.textBaseline = 'bottom';
 	context.textAlign = 'end';
-	context.fillStyle = 'red';
+	context.fillStyle = global_style.altaz;
 	context.fillText(alt,canvas.width - 5,canvas.height - 5)
 	context.textAlign = 'start';
 	context.fillText(az,5,canvas.height - 5)
@@ -583,6 +1065,7 @@ function deviceOrientationListener(event) {
 	if(!(event.alpha === null)) {
 		if(global_use_compass)
 			gdata.alpha = event.alpha;
+		gdata.compass_alpha = event.alpha;
 		gdata.beta = event.beta;
 		gdata.gamma = event.gamma;
 	}
@@ -591,7 +1074,60 @@ function deviceOrientationListener(event) {
 
 function noCompass()
 {
-	document.getElementById("alignment").innerHTML = 'No Compass!!!';
+	document.getElementById("nocompass_button").style.display="inline";
+	document.getElementById("compass_button").style.display="none";
+	document.getElementById("hand_button").style.display="none";
+}
+
+function manualMode()
+{
+	global_use_compass = false;
+	gdata.alpha_user_offset = gdata.alpha;
+	gdata.alpha = 0;
+	document.getElementById("compass_button").style.display="inline";
+	document.getElementById("hand_button").style.display="none";
+}
+
+function compassMode()
+{
+	global_use_compass = true;
+	gdata.alpha_user_offset = 0;
+	gdata.alpha = gdata.compass_alpha;
+	document.getElementById("compass_button").style.display="none";
+	document.getElementById("hand_button").style.display="inline";
+}
+
+function manualDown(e)
+{
+	global_prev_xy = {"x":e.touches[0].clientX,"y":e.touches[0].clientY };
+}
+
+function manualMove(e)
+{
+	if(!global_prev_xy)
+		return;
+	
+	var xy = {"x":e.touches[0].clientX,"y":e.touches[0].clientY };
+	moveSky(global_prev_xy,xy);
+	global_prev_xy = xy;
+}
+function manualUp(e)
+{
+	if(!global_prev_xy)
+		return;
+	var xy = {"x":e.touches[0].clientX,"y":e.touches[0].clientY };
+	moveSky(global_prev_xy,xy);
+	global_prev_xy = null;
+}
+function moveSky(prev,cur)
+{
+	if(global_use_compass)
+		return;
+	if(!prev || !cur)
+		return;
+	var fov =  getFOV().lr;
+	var da = (cur.x - prev.x) / canvas.width * fov;;
+	gdata.alpha_user_offset += da;
 }
 
 function dontPropMouseDown(lst)
@@ -612,22 +1148,34 @@ function setupOrientationEvents()
 		if(('ondeviceorientationabsolute' in window)) {
 			window.addEventListener("deviceorientationabsolute", deviceOrientationListener);
 			window.addEventListener("deviceorientation",gyroListener);
-			global_use_compass = true;
+			compassMode();
 		}
 		else if(('ondeviceorientation' in window)) {
 			global_use_compass = false;
 			window.addEventListener("deviceorientation", deviceOrientationListener);
 			window.addEventListener("deviceorientation",gyroListener);
-		}
-		else {
 			noCompass();
 		}
+		else {
+			unsupported();
+		}
 	} else {
-		noCompass();
+		unsupported();
 	}
 	setUseGyro(false);
 }
-
+function switchMode()
+{
+	var el = document.getElementById('night_mode');
+	if(global_style == global_day_style) {
+		global_style = global_night_style;
+		el.innerHTML = 'D';
+	}
+	else {
+		global_style = global_day_style;
+		el.innerHTML = 'N';
+	}
+}
 
 setupOrientationEvents();
 // global drawing stuff
@@ -638,6 +1186,10 @@ var context = canvas.getContext('2d');
 setTimeout(getLocation,500)
 setTimeout(plotStars,1000)
 document.body.addEventListener('mousedown',selectionEvent);
+document.body.addEventListener('touchstart',manualDown);
+document.body.addEventListener('touchend',manualUp);
+document.body.addEventListener('touchcancel',manualUp);
+document.body.addEventListener('touchmove',manualMove);
 dontPropMouseDown(["ui_but","incdec_but"]);
 </script>
 
