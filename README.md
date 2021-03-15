@@ -69,6 +69,15 @@ viewing direction.
     - `✥` - switch to full screen mode
     - "pointing hand" - switch to manual mode,  "compass" switch to compass mode, "compass crossed with line" - no compass available use manual mode only
 
+## TODO
+
+0. Validate the program on multiple devices
+1. Improve DSO database: many messier objects are missing
+2. Add user's object list: so user can add any object by RA, DE
+3. Use different icons for different DSO: galaxy, open cluster, globular cluster, nebula etc.
+4. Add DSO filter by types and by magnitude
+5. Implement planets and moon 
+
 ## Notes
 
 It is experimental open source web application that would work only with well working sensors. No guarantee so. It is released under GPL license.
