@@ -66,8 +66,8 @@ viewing direction.
 - Right side, from top to bottom
 
     - `N` or `D` button switch to night/day mode. `↻` button - reset alignment
-    - `✥` - switch to full screen mode
-    - "pointing hand" - switch to manual mode,  "compass" switch to compass mode, "compass crossed with line" - no compass available use manual mode only
+    - `✥` - switch to full screen mode and `↓` to switch back 
+    - `✋` - switch to manual mode,  `⎋` switch to compass mode, ~~`⎋`~~ - no compass available use manual mode only
 
 ## TODO
 
