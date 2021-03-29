@@ -50,7 +50,7 @@ button { height:10mm; font-size:5mm ; text-align:center; vertical-align: middle;
 DSO Magnitude &leq;<span id="dso_level_val">5</span><br/>
 <input style="width:100%" type="range" id="dso_level" name="dso_level" min="3" max="16" value="5" step="1" onchange="setDSOMag(this.value)" />
 </p>
-<p><input class="dso_selector" id="P_checked"  type="checkbox" checked="checked" onchange="global_show_obj.P  = this.checked;" /><label for="P_checked" >Planets</label></p>
+<!-- <p><input class="dso_selector" id="P_checked"  type="checkbox" checked="checked" onchange="global_show_obj.P  = this.checked;" /><label for="P_checked" >Planets</label></p> -->
 <p><input class="dso_selector" id="Oc_checked" type="checkbox" checked="checked" onchange="global_show_obj.Oc = this.checked;" /><label for="Oc_checked">Clusters and Clouds</label></p>
 <p><input class="dso_selector" id="Gc_checked" type="checkbox" checked="checked" onchange="global_show_obj.Gc = this.checked;" /><label for="Gc_checked">Globular Clusters</label></p>
 <p><input class="dso_selector" id="Ga_checked" type="checkbox" checked="checked" onchange="global_show_obj.Ga = this.checked;" /><label for="Ga_checked">Galaxies</label></p>
@@ -58,6 +58,7 @@ DSO Magnitude &leq;<span id="dso_level_val">5</span><br/>
 <p><input class="dso_selector" id="Ca_checked" type="checkbox" checked="checked" onchange="global_show_obj.Ca = this.checked;" /><label for="Ca_checked">Constellations</label></p>
 <hr>
 <p><span id="lat"></span>, <span id="lon"></span></p>
+<p>&#x03B1;=<span id="ang_a"></span> &#x03B2;=<span id="ang_b"></span> &#x03B3;=<span id="ang_g"></span> C=<span id="ang_c"></span></p>
 </div>
 <script>
 //Generated from https://github.com/eleanorlutz/western_constellations_atlas_of_space
@@ -234,7 +235,7 @@ var global_show_obj = {
 	'Ca': true,
 	'Ga':true,
 	'Ne':true,
-    'P': true
+    	'P': false
 };
 
 var global_night_style = {
@@ -938,17 +939,30 @@ function getLocation() {
 
 function gyroListener(event)
 {
-	gdata.alpha_gyro = event.alpha;
+	if(!(event.alpha === null)) {
+		gdata.alpha_gyro = event.alpha;
+		gdata.beta = event.beta;
+		gdata.gamma = event.gamma;
+		document.getElementById("orient").innerHTML = '';
+	}
+	else {
+		document.getElementById("orient").innerHTML = 'No Gyro';
+	}
+	formatValue("ang_a",event.alpha);
+	formatValue("ang_b",event.beta);
+	formatValue("ang_g",event.gamma);
 }
 
 function deviceOrientationListenerIOS(event) {
-	if(!(event.alpha === null)) {
+	if(!(event.webkitCompassHeading === null)) {
 		if(global_use_compass)
 			gdata.alpha = event.webkitCompassHeading;
 		gdata.compass_alpha = event.webkitCompassHeading;
-		gdata.beta = event.beta;
-		gdata.gamma = event.gamma;
 	}
+	else {
+		noCompass();
+	}
+	formatValue("ang_c",event.webkitCompassHeading);
 }
 
 function deviceOrientationListener(event) {
@@ -956,14 +970,17 @@ function deviceOrientationListener(event) {
 		if(global_use_compass)
 			gdata.alpha = event.alpha;
 		gdata.compass_alpha = event.alpha;
-		gdata.beta = event.beta;
-		gdata.gamma = event.gamma;
 	}
+	else {
+		noCompass();
+	}
+	formatValue("ang_c",event.alpha);
 }
 
 
 function noCompass()
 {
+	global_use_compass = false;
 	document.getElementById("nocompass_button").style.display="inline";
 	document.getElementById("compass_button").style.display="none";
 	document.getElementById("hand_button").style.display="none";
@@ -1061,8 +1078,6 @@ function setupOrientationEvents()
 			compassMode();
 		}
 		else if(('ondeviceorientation' in window)) {
-			global_use_compass = false;
-			window.addEventListener("deviceorientation", deviceOrientationListener);
 			window.addEventListener("deviceorientation",gyroListener);
 			noCompass();
 		}
@@ -1074,6 +1089,19 @@ function setupOrientationEvents()
 	}
 	setUseGyro(false);
 }
+
+function formatValue(uid,v)
+{
+	var msg='';
+	if(v === undefined || v==null) {
+		msg = 'No';
+	}
+	else {
+		msg = v.toFixed(1);
+	}
+	document.getElementById(uid).innerHTML=msg;
+}
+
 
 function iOSOrientation()
 {
