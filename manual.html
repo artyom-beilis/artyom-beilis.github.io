@@ -1,0 +1,148 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>Sky Hopper - Web Application for Sky Navigation Manual</title>
+<meta charset="UTF-8">
+</head>
+<body>
+<h1 id="skyhopper">SkyHopper</h1>
+<div class="toc">
+<ul>
+<li><a href="#skyhopper">SkyHopper</a><ul>
+<li><a href="#operation">Operation</a></li>
+<li><a href="#notes-for-ios-users">Notes for iOS Users</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#controls">Controls</a></li>
+<li><a href="#constrols-in-small-screen-mode">Constrols in Small Screen Mode</a></li>
+<li><a href="#equatorial-mount-users">Equatorial Mount Users</a></li>
+<li><a href="#todo">TODO</a></li>
+<li><a href="#notes">Notes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><a href="https://artyom-beilis.github.io/skyhopper.html">SkyHopper</a> is a web application that helps
+to find objects across the night sky by hopping from a well know and easily identifiable 
+star to other fainter stars or DSO by measuring changes in angles of the cell phone
+using built in gyroscope and gravity sensors. It is similar to Digital Setting Circles 
+implemented in a smart phone.</p>
+<p>The smart phone has to have gyro, gravity sensors and preferably compass.</p>
+<p>It is a web based application that contains a single HTML page and JavaScript objects 
+database that will continue working even offline as long as it is cached by a browser.</p>
+<h2 id="operation">Operation</h2>
+<p>You attach the cellphone to the telescope such that the physical <strong>top</strong> part of the phone 
+points towards viewing direction. Note it is different from typical sky observing apps
+that simulate camera view of the sky. For this application the screen is parallel to the
+viewing direction.</p>
+<p>Before you attach the smartphone, open the application and calibrate the compass using "8" like movements. The calibration will significantly improve compass direction accuracy.</p>
+<ol>
+<li>Align your telescope with an easily identifiable star near the object you want to observe</li>
+<li>Click <code>Align</code> button on</li>
+<li>Click the star you selected. 3s timer is started to make sure there is no shaping. After 3 seconds the application is aligned on the selected star. "Aligned" message is shown and a cross that represents the direction your telescope is looking to is shown in the center of the screen.</li>
+<li>Click on an object you want to observe and you get a line showing a direction you need to move the telescope to and the changes in altitude and azimuth are shown at the right and bottom part of the screen</li>
+<li>Move the telescope till these numbers are close to zero - at this point your telescope should point to the requested object</li>
+<li>In order to move to next object - repeat the alignment process from the step 1 since the builtin cellphone gyros don't keep the accuracy for a long time/multiple movements</li>
+</ol>
+<p>Here you can find a demonstration video: <a href="https://youtu.be/3VXCSMidhe0">https://youtu.be/3VXCSMidhe0</a></p>
+<h2 id="notes-for-ios-users">Notes for iOS Users</h2>
+<ul>
+<li>For iOS 13.0 and above you need to allow access to device orientation information by pressing <code>Enable Device Orientation</code> button once application loads</li>
+<li>For iOS 12.2 and before 13 you need to allow access via: <em>Settings &gt; Safari &gt; Motion and Orientation access</em></li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<ul>
+<li>
+<p><em>The sky in application look different from what I expect?</em></p>
+<p>Make sure your browser provided location information. If it is not "No Geolocation" message will be shown. Check the geographica coordinates in settings menu to make sure they match your location</p>
+</li>
+<li>
+<p><em>I move the phone but nothing moves?</em></p>
+<p>Make sure your cellphone has working sensors. Does SkyMap like applications work for you?</p>
+</li>
+<li>
+<p><em>I move the application but only Altitude is changing. Azimuth is poining to Polaris/North?</em></p>
+<p>Your browser may not support compass heading (for example Firefox) or you don't have such a sensor in the phone.
+You can adjust azimuth manually by swipping the screen till you get required azimuth and then align.</p>
+</li>
+<li>
+<p><em>I pointed my telescope to a star but the cell phone seems to point to a different direction?</em></p>
+<p>The compass of the cell phone may be significantly misaligned you may to do following:</p>
+<ol>
+<li>Move your cell phone in compass calibration/waving pattern to increase compass accuracy</li>
+<li>Increase application's field of view by pressing <code>+</code> at the top left corner near value <code>∠60°</code> - default FOV.</li>
+<li>You may switch to manual azimuth mode by pressing <code>✋</code> icon at the right side and adjust the azimuth manually</li>
+</ol>
+</li>
+<li>
+<p><em>The screen becomes dim very fast and I don't have time to align/point the telescope?</em></p>
+<p>Modify the "sleeping" settings for the cell phone. It is under "Settings -&gt; Display" in Android</p>
+</li>
+<li>
+<p><em>I start moving the telescope to modify azimuth direction but according to the application it stopped moving, or going back - behaves strangly?</em></p>
+<p>It seems that gyro lost accuracy. It happens. Try again. If it still happens all the time and you can't reach the target. Try one of following:</p>
+<ol>
+<li>Select a start that is closer on its azimuth to target object - altitude has much more accurate tracking.</li>
+<li>Correct altitude first and than search for the object on azimuth axis </li>
+</ol>
+</li>
+</ul>
+<h2 id="controls">Controls</h2>
+<ul>
+<li>
+<p>Left side, from top to bottom:</p>
+<ul>
+<li>Field of view - modify with <code>+</code>, <code>-</code> to adjust </li>
+<li>Maximal star magnitude to display/align on - adjust with <code>+</code>, <code>-</code> controls</li>
+<li>Align button and status - pressing on it starts alignment process - you need to select a star you aligning on to.</li>
+</ul>
+</li>
+<li>
+<p>Right side, from top to bottom</p>
+<ul>
+<li><code>⚙</code> - settings button</li>
+<li><code>↻</code> button - reset alignment</li>
+<li><code>✋</code> - switch to manual mode,  <code>⎋</code> switch to compass mode, <del><code>⎋</code></del> - no compass available use manual mode only</li>
+</ul>
+</li>
+<li>
+<p>Settings Menu:</p>
+<ul>
+<li>Small Screen Mode - optimize for small screen, move some controls to settings menu</li>
+<li>Night Mode - enable or disable red-night mode screen</li>
+<li>Full Screen - switch application to full screen</li>
+<li>Maximal apparent magnitude of DSO objects to be displayed</li>
+<li>Filtering of the Astronomical objects by type </li>
+</ul>
+</li>
+</ul>
+<h2 id="constrols-in-small-screen-mode">Constrols in Small Screen Mode</h2>
+<p>On screen controls:</p>
+<ul>
+<li>Left Top: <code>◎</code> - Align button</li>
+<li>
+<p>Right:</p>
+<ul>
+<li>Manual <code>✋</code> or Compass <code>⎋</code> mode</li>
+<li>Settings Menu: <code>⚙</code></li>
+</ul>
+</li>
+</ul>
+<p>Extra controls in settings menu:</p>
+<ul>
+<li><code>↻</code> button - reset alignment</li>
+<li><code>∠</code> with <code>-</code>/<code>+</code> buttons - change FOV</li>
+<li><code>★</code> with <code>-</code>/<code>+</code> - modify stars magnitude</li>
+</ul>
+<h2 id="equatorial-mount-users">Equatorial Mount Users</h2>
+<p>The application assumes you work with alt-azimuth mount. If you are using equatorial mount an additional error may be introduced due to misalignment between the cell phone major axis and the telescope axis.</p>
+<p>If the targets are close to poles and significant changes in right ascension are required for the hop any misalignment error between cell phone axis and telescope axis will affect the accuracy. Final error can be calculated as 2e⋅sin(Δα/2)⋅sin(δ), where e - misalignment error between cell phone and telescope, Δα - change in right ascension required for the hop and δ - declination of the target.</p>
+<p>So it may not work reliably for equatorial mounts. Alt-Az mounts are recommended.</p>
+<h2 id="todo">TODO</h2>
+<ol>
+<li>Add user's object list: so user can add any object by RA, DE</li>
+<li>Develop procedure for phone alignment for equatorial mounts.</li>
+<li>Improve multiple-hops prodecures in manual compass mode</li>
+</ol>
+<h2 id="notes">Notes</h2>
+<p>It is experimental open source web application that would work only with well working sensors. No guarantee so. It is released under GPL license.</p></body>
+</html>
