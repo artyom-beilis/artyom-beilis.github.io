@@ -119,11 +119,12 @@ If the targets are close to poles and significant changes in right ascension are
 
 So it may not work reliably for equatorial mounts. Alt-Az mounts are recommended.
 
-## TODO
+## Road Map
 
 1. Add user's object list: so user can add any object by RA, DE
 2. Develop procedure for phone alignment for equatorial mounts.
-3. Improve multiple-hops prodecures in manual compass mode
+3. Add search of objects by names
+4. Implement zoom-via-pinch.
 
 ## Notes
 
