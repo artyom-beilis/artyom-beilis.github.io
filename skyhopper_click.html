@@ -7,6 +7,7 @@
 </head>
 <style>
 body { font-size: 5mm ; color:red ; font-family: sans; background-color:black }
+body { cursor:crosshair }
 a:link {color: red;}
 a:visited { color: red; }
 a:active { color:red; }
@@ -17,7 +18,7 @@ button { height:10mm; font-size:5mm ; text-align:center; vertical-align: middle;
 .only_tiny { display : none }
 .only_full { display : inline }
 </style>
-<body>
+<body onclick="">
 <canvas style="position:absolute; left:0; top:0; z-index:-1"  id="myCanvas" width="640" height="480"> </canvas>
 <div class="only_full">
 <p>
@@ -65,7 +66,7 @@ button { height:10mm; font-size:5mm ; text-align:center; vertical-align: middle;
 <button class="incdec_but" onclick="showManual(true)">?</button>
 <button class="incdec_but" onclick="showConfig('none');">X</button>
 </span>
-<p><b>Settings (0.0.27-test-click)</b></p>
+<p><b>Settings (0.0.28-click-ios-v2)</b></p>
 <p><input class="dso_selector" id="small_screen" type="checkbox" onchange="smallScreen(this.checked)" /><label for="small_screen" >Small Screen Mode</label></p>
 <p class="only_tiny">
 <button class="incdec_but" onclick="resetAll();">&#x21bb;</button>
