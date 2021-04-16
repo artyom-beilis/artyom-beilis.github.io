@@ -16,6 +16,8 @@
 <li><a href="#constrols-in-small-screen-mode">Constrols in Small Screen Mode</a></li>
 <li><a href="#equatorial-mount-users">Equatorial Mount Users</a></li>
 <li><a href="#road-map">Road Map</a></li>
+<li><a href="#known-issues">Known Issues</a></li>
+<li><a href="#serving-skyhopper-of-remote-location">Serving SkyHopper of remote location</a></li>
 <li><a href="#notes">Notes</a></li>
 </ul>
 </li>
@@ -108,10 +110,13 @@ You can adjust azimuth manually by swipping the screen till you get required azi
 <p>Settings Menu:</p>
 <ul>
 <li>Small Screen Mode - optimize for small screen, move some controls to settings menu</li>
+<li>Search target by name field</li>
 <li>Night Mode - enable or disable red-night mode screen</li>
 <li>Full Screen - switch application to full screen</li>
 <li>Maximal apparent magnitude of DSO objects to be displayed</li>
 <li>Filtering of the Astronomical objects by type </li>
+<li>Status of geolocation and reload geolocation buttom</li>
+<li>Sensors information</li>
 </ul>
 </li>
 </ul>
@@ -141,9 +146,26 @@ You can adjust azimuth manually by swipping the screen till you get required azi
 <ol>
 <li>Add user's object list: so user can add any object by RA, DE</li>
 <li>Develop procedure for phone alignment for equatorial mounts.</li>
-<li>Add search of objects by names</li>
 <li>Implement zoom-via-pinch.</li>
 </ol>
+<h2 id="known-issues">Known Issues</h2>
+<ul>
+<li>On some iPad versions (iOS 12.5) the star/target selection does not work</li>
+</ul>
+<h2 id="serving-skyhopper-of-remote-location">Serving SkyHopper of remote location</h2>
+<p>In remote locations internet isn't always present. SkyHopper provides simple web server written in python3 to serve the SkyHopper over LAN. You can setup it on any device that can run python 3.</p>
+<p>This is how you can serve it from an Android phone:</p>
+<ul>
+<li>Install termux</li>
+<li>Install python withing termux <code>pkg install python</code></li>
+<li>Download a copy of <a href="https://raw.githubusercontent.com/artyom-beilis/artyom-beilis.github.io/master/skyhopper.py">skyhopper.py</a> to a location accessible by termux</li>
+<li>Create "hotspot", the typical gateway of android hotspot is <code>192.168.43.1</code></li>
+<li>Open termux and <code>cd</code> to the directory you downloaded<code>skyhopper.py</code> to.</li>
+<li>Run <code>python skyhopper.py</code></li>
+<li>Now you can go to <a href="https://192.168.43.1:8443/">https://192.168.43.1:8443/</a> from any device connected to the hotspot and open skyhopper there. Please note <code>https</code> protocol and <code>8443</code> port</li>
+<li>Note since it uses self-signed SSL sertificate you will have to give a security exception when accessing this site</li>
+<li>You can close the server by simply pressing <code>Ctrl+C</code></li>
+</ul>
 <h2 id="notes">Notes</h2>
 <p>It is experimental open source web application that would work only with well working sensors. No guarantee so. It is released under GPL license.</p></body>
 </html>

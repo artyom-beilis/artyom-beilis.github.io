@@ -1,4 +1,62 @@
-<!DOCTYPE>
+# coding=utf-8
+import ssl, socket
+import signal
+import sys
+import traceback
+import tempfile
+import os
+
+pem=r"""-----BEGIN PRIVATE KEY-----
+MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDDKMX+j2A1VT1o
+9CnqvRScQmnNBgmcQnotT8UID8yYULUfVMontx1m4rTvHEObPWKVQr6jQu7uzeNM
+dqR7IjPovFQgF2ofMeMCbe4ZfiK8tmeAbW/vROkopU4Nsx1N3UzICh96dwu2CREF
+Aor86vEfy06YNZgyS/Ehkx81lWYCH2TvmRxhgKIta3VcZzlBkQ+80lurgo8yeAMy
+so8WVbPGs2El7FQhZBX1EuOb8vcfGh7Y+mxU4D79O0kV1vR8ewr7bzqWzfiRoB2d
+Xoaw5zscHC0b3NdsXzoJO7UQUiCa8TKy31qoIe7S5u/yJsdttfK+/r0EYAl04Chm
+avk1wc0FAgMBAAECggEActc6c4qhPaEUSv9q7yQmzbDTG3+TBi2kQaewNQc/CN5t
+RquZbfd2SMXdXNtP+TkNGvI0xlOr0EC9oZArR/4fd7Pi+SNuIj8z64kO1FeCT3Qy
+wcMkXDM71Nw5axxcgSZZeVljnqgQ7yS0rDML4LrL+z6i2DSpg+dmVLCDa/+nEFWr
+OoXJu69rNgBrG/CzBMhi/1YqXsFxBANrU7GwOFLSvsPP3YetpwERdyQUF5iVZb4e
+4ALUoZPtP+FOhTcmt/D+DITqqGPd2yJd2jWbfA7+YkBoSRAABqXQsRvzOR6J/Mhq
+mrkTWdAPKPedYd2RUlXlufBmCK7YQLDbqfAUvvMm3QKBgQDxEN4MiChkkDjCyN+j
+xiDhlh99mC8YXGAsn6BGVWqQEYk6ayP7OwyAgGb+n/YR/mIBTwtsOepMfT7Zy2R+
+Cq2F4z+yci/rhK/GbEilVm2r2kHXsPfvnNvLMWoR5p7/fT1hTDZC516egeBWSzgw
+aCaoU6qhVjqcmzgMCtr/ww/GAwKBgQDPP9wjWUYjn3iCm0+QnPwUos+c0rR4CprF
+9xF8+czsFTA24MF9JWm5BYMbsQFsGwv6Q0kpfBszoMgM7F+fwn3KCp4WwvJoKLfN
+uamHJK0YX4NzOD5Eggpq2O4KLgXR67wDdVU7jaBpGmicLZLjrfzmOWVGSIfBpiF0
+JE7lafXWVwKBgBXjwTYEGx7elbjiQqR9djjlx+BAtG4S3UzQBd69HNsOLJbYacED
+YKQ+hJu0bMS/g6i4w8HFFIhziwR92pczYwRYWU1b3wwU1V1AMeyJh5XmULpEQI9K
+gA7YYthTR7bNaYhvQjIbDlV4V6WeWPDUVEZOqpzR1qqn0ZQOXEqDLOh/AoGAVdNY
+UrsxtKbhvRScSoL4UYNq/sKzQdMCbWD3uQ2ps0rDALbq6eyIb7q8pMcUk7RPrYAX
+2Dow+ZxnvBJXN03P0c+70ClDQac7FtMARZsGo8VKJnjwMGa58a2MRmLwvhIldjks
+5tCr0VrCX4rv/aGbzauPKR/4OFWYHQS8N3099VkCgYAF9YKLV1YiKt4KxWVrA5rq
+gZtbPOdueaDOHMR7SzD08QwOzM7ystNUm8PFm6ttv2rd81gui2bFIBxDhuxs23yn
+LqIHYV8YJTsbgfrn5ZFbxwlwT9aAdJaRsFhQ/W1NtLPqcOFj8Rkq+fqsz4xuId79
+8cNIEVB2P+meBLgnJZhdlA==
+-----END PRIVATE KEY-----
+-----BEGIN CERTIFICATE-----
+MIIDazCCAlOgAwIBAgIUKe3RLo0Nbo3sBGOG/cw5B6g3vW0wDQYJKoZIhvcNAQEL
+BQAwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoM
+GEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDAeFw0yMTAzMDEyMDI0MzhaFw0yMjAz
+MDEyMDI0MzhaMEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEw
+HwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwggEiMA0GCSqGSIb3DQEB
+AQUAA4IBDwAwggEKAoIBAQDDKMX+j2A1VT1o9CnqvRScQmnNBgmcQnotT8UID8yY
+ULUfVMontx1m4rTvHEObPWKVQr6jQu7uzeNMdqR7IjPovFQgF2ofMeMCbe4ZfiK8
+tmeAbW/vROkopU4Nsx1N3UzICh96dwu2CREFAor86vEfy06YNZgyS/Ehkx81lWYC
+H2TvmRxhgKIta3VcZzlBkQ+80lurgo8yeAMyso8WVbPGs2El7FQhZBX1EuOb8vcf
+Gh7Y+mxU4D79O0kV1vR8ewr7bzqWzfiRoB2dXoaw5zscHC0b3NdsXzoJO7UQUiCa
+8TKy31qoIe7S5u/yJsdttfK+/r0EYAl04Chmavk1wc0FAgMBAAGjUzBRMB0GA1Ud
+DgQWBBSZwLJIQXqHULrDbqE6+jNfEaaFpTAfBgNVHSMEGDAWgBSZwLJIQXqHULrD
+bqE6+jNfEaaFpTAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQB5
+B0pm6IYPym5J+FqmKaVQ164UhiZ90dASOZveXgER4bg3y48aB2d2/hc4FSymrGI4
+X+DJ8YrNRrq0oaETV2DLNqUmkMkRG2MVHww0FJWarHx/Ji5gJkv0f6u9f0inUnFW
+7vHlcb0sJrle8OFRtPJSu6QI59u+RqAcQr3ZEy56EIrYu/teO5r2n3aWQIQCtc1+
+17Qhf41K74kTmyhiM1esckbMBb5Z91sD6CZLdHMScTlXNfeOd0z3Htb64181nqXe
+/rW7yEvhEZyWjNP2Qw+EQg9jjaZnMrwG/PTCvjU/rsgfyD0BjL6fgmiKbK9oQ4ib
+hzrgde7L+kHuIbiwiipw
+-----END CERTIFICATE-----
+"""
+hopper=r"""<!DOCTYPE>
 <html>
 <head>
 <title>Sky Hopper - Web Application for Sky Navigation</title>
@@ -6346,3 +6404,47 @@ dontPropMouseDown(["ui_but","incdec_but","config_div","comp_but"]);
 
 </body>
 </html>
+"""
+
+cert_path = tempfile.gettempdir()+ '/cert.pem'
+
+print("Saving sertificate to temporary ",cert_path)
+
+try:
+    hopper = hopper.encode('utf-8')
+    with open(cert_path,"w") as f:
+        f.write(pem)
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    context.load_cert_chain(cert_path)
+finally:
+    os.remove(cert_path)
+
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0) as sock:
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    sock.bind(('0.0.0.0', 8443))
+    sock.listen(5)
+    with context.wrap_socket(sock, server_side=True) as ssock:
+        while True:
+            try:
+                conn, addr = ssock.accept()
+                inp = conn.read().decode()
+                if inp[:6]=='GET / ':
+                    conn.write(b'HTTP/1.0 200 Ok\r\n'
+                               b'Connection: close\r\n'
+                               b'Content-Type: text/html\r\n'
+                               b'Content-Length: %d\r\n'
+                               b'\r\n%s' % (len(hopper),hopper))
+                    print("Served one SkyHopper page")
+                else:
+                    conn.write(b'HTTP/1.0 404 Not Found\r\n'
+                               b'Connection: close\r\n'
+                               b'Content-Length: 0\r\n'
+                               b'\r\n')
+                conn.shutdown(socket.SHUT_RDWR)
+                conn.close()
+            except KeyboardInterrupt:
+                print("Done")
+                break
+            except:
+                pass
+
