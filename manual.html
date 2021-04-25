@@ -42,7 +42,7 @@ viewing direction.</p>
 <ol>
 <li>Align your telescope with an easily identifiable star near the object you want to observe</li>
 <li>Click <code>Align</code> button on</li>
-<li>Click the star you selected. 3s timer is started to make sure there is no shaping. After 3 seconds the application is aligned on the selected star. "Aligned" message is shown and a cross that represents the direction your telescope is looking to is shown in the center of the screen.</li>
+<li>Click the star you selected. 3s timer is started to make sure there is no shaking. After 3 seconds the application is aligned on the selected star. "Aligned" message is shown and a cross that represents the direction your telescope is looking to is shown in the center of the screen.</li>
 <li>Click on an object you want to observe and you get a line showing a direction you need to move the telescope to and the changes in altitude and azimuth are shown at the right and bottom part of the screen</li>
 <li>Move the telescope till these numbers are close to zero - at this point your telescope should point to the requested object</li>
 <li>In order to move to next object - repeat the alignment process from the step 1 since the builtin cellphone gyros don't keep the accuracy for a long time/multiple movements</li>
@@ -95,9 +95,8 @@ You can adjust azimuth manually by swipping the screen till you get required azi
 <li>
 <p>Left side, from top to bottom:</p>
 <ul>
-<li>Field of view - modify with <code>+</code>, <code>-</code> to adjust </li>
-<li>Maximal star magnitude to display/align on - adjust with <code>+</code>, <code>-</code> controls</li>
 <li>Align button and status - pressing on it starts alignment process - you need to select a star you aligning on to.</li>
+<li>Field of view - modify with <code>+</code>, <code>-</code> to adjust </li>
 <li>If watch list is selected <code>&lt;</code>,<code>&gt;</code> controls for browsing watch list object. Selected object name is shown below</li>
 </ul>
 </li>
@@ -105,17 +104,19 @@ You can adjust azimuth manually by swipping the screen till you get required azi
 <p>Right side, from top to bottom</p>
 <ul>
 <li><code>⚙</code> - settings button</li>
-<li><code>↻</code> button - reset alignment</li>
 <li><code>✋</code> - switch to manual mode,  <code>⎋</code> switch to compass mode, <del><code>⎋</code></del> - no compass available use manual mode only</li>
 </ul>
 </li>
 <li>
 <p>Settings Menu:</p>
 <ul>
+<li><code>↻</code> button - reset alignment and target</li>
 <li>Small Screen Mode - optimize for small screen, move some controls to settings menu</li>
 <li>Full Screen - switch application to full screen</li>
 <li>Night Mode - enable or disable red-night mode screen</li>
-<li>Maximal apparent magnitude of DSO objects to be displayed</li>
+<li>In "Small Screen Mode" only: Field of view - modify with <code>+</code>, <code>-</code> to adjust </li>
+<li>Maximal star magnitude to display/align on - adjust with <code>+</code>, <code>-</code> controls</li>
+<li>Maximal apparent magnitude of DSO objects to be displayed - modify with <code>+</code>, <code>-</code> controls</li>
 <li>Watch List selection and editing </li>
 <li>Search target by name field</li>
 <li>Filtering of the Astronomical objects by type </li>
@@ -138,12 +139,6 @@ You can adjust azimuth manually by swipping the screen till you get required azi
 </ul>
 </li>
 </ul>
-<p>Extra controls in settings menu:</p>
-<ul>
-<li><code>↻</code> button - reset alignment</li>
-<li><code>∠</code> with <code>-</code>/<code>+</code> buttons - change FOV</li>
-<li><code>★</code> with <code>-</code>/<code>+</code> - modify stars magnitude</li>
-</ul>
 <h2 id="watch-list">Watch List</h2>
 <p>A user can create custom watch list in advance to browse them easily during the night.
 There is <code>List</code> option in "Settings" menu.  It has  <code>[edit]</code> control to open watch list editing tool/</p>
@@ -156,7 +151,7 @@ For example below the "default" list:</p>
  M50 M44 M45
 dbstars: Polaris, "Cor Caroli"
 </code></pre>
-<p>Lists can be selected by pressing <code>&lt;</code> and <code>&gt;' buttons in "Lists" control. When the list is selected two buttons</code>&lt;<code>and</code>&gt;` are shown in main screen under "Align" button. They allow browsing the objects forward and backward. The current selected object's name is shown under the conrols.</p>
+<p>Lists can be selected by pressing <code>&lt;</code> and <code>&gt;</code> buttons in "Lists" control. When the list is selected two buttons <code>&lt;</code> and <code>&gt;</code> are shown in main screen under "Align" button. They allow browsing the objects forward and backward. The current selected object's name is shown under the conrols.</p>
 <p>The watch lists are stored at your phone on per domain basis. They are kept even when you reopen the app. </p>
 <p><em>Note:</em> if you accessing the app from different location (for example from local server) than it is stored saparetly, so prepare the list in advance.</p>
 <h2 id="user-objects">User Objects</h2>
@@ -179,7 +174,6 @@ Pluto,19:55:16,-22:13:42
 <p>So it may not work reliably for equatorial mounts. Alt-Az mounts are recommended.</p>
 <h2 id="road-map">Road Map</h2>
 <ol>
-<li>Add user's object list: so user can add any object by RA, DE</li>
 <li>Develop procedure for phone alignment for equatorial mounts.</li>
 <li>Implement zoom-via-pinch.</li>
 </ol>
@@ -203,5 +197,5 @@ Pluto,19:55:16,-22:13:42
 </ul>
 <p>If you want to use the server only locally for your own phone, no need to create hotspot and you can access the web application via <a href="https://127.0.0.1:8443/">https://127.0.0.1:8443/</a> address. </p>
 <h2 id="notes">Notes</h2>
-<p>It is experimental open source web application that would work only with well working sensors. No guarantee so. It is released under GPL license.</p></body>
+<p>It is an open source web application licensed under GPL license. It may work only with well working sensors. No warranty of any kind is given.</p></body>
 </html>
