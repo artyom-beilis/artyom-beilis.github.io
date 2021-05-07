@@ -75,12 +75,19 @@ button { height:10mm; font-size:5mm ; text-align:center; vertical-align: middle;
 .only_tiny { display : none }
 .only_tiny_tr { display : none }
 .only_full { display : inline }
-input[type=text], input[type=text]:focus, textarea{
-	border: 1px solid red;
+input[type=text], input[type=text]:focus, textarea, input[type=submit]{
+	border: 2px solid red;
 	color:red;
 	background:black;
-
 }
+
+input[type=text], input[type=text]:focus, input[type=submit] {
+	height:10mm;
+	font-size:5mm;
+        padding: 0;
+	vertical-align: middle; background-color:black; 
+}
+input[type=submit] { width:10mm;}
 </style>
 <body>
 <canvas style="position:absolute; left:0; top:0; z-index:-1"  id="myCanvas" width="640" height="480"> </canvas>
@@ -123,7 +130,7 @@ input[type=text], input[type=text]:focus, textarea{
 <button class="incdec_but" onclick="showManual(true)">?</button>
 <button class="incdec_but" onclick="showConfig('none');">X</button>
 </span>
-<p><b>Settings (0.0.30)</b></p>
+<p><b>Settings (0.99.1)</b></p>
 <p>
 <button class="ui_but" onclick="resetAll();">&#x21bb;</button>
 <input class="dso_selector" id="small_screen" type="checkbox" onchange="smallScreen(this.checked)"   /><label for="small_screen" >Small UI</label> 
@@ -181,7 +188,9 @@ input[type=text], input[type=text]:focus, textarea{
 	<p><button class="ui_but" onclick="saveWL();" >Save</button> <button class="ui_but" onclick="discardWL();" >Discard</button></p>
 	<p id="wl_errors"></p>
 </div>
-<p>&#x2315; <input type="text" oninput="findTargetByName(this.value)" onfocus="findTargetByName(this.value)" style="width:30%" /> <b><span style="float:right" id="find_status"><span></b></p>
+<form onsubmit="return hideSettingIfSelectionOk()" >
+<p> <input id="search_field" type="text" oninput="findTargetByName(this.value)" onclick="this.value='';" onfocus="findTargetByName(this.value)" style="width:30%" /> <input type="submit" value="&#x2315;"/> <b><span style="float:right" id="find_status"><span></b></p>
+</form>
 <p><input class="dso_selector" id="P_checked"  type="checkbox" checked="checked" onchange="global_show_obj.P  = this.checked;" /><label for="P_checked" >Planets</label></p>
 <p><input class="dso_selector" id="Oc_checked" type="checkbox" checked="checked" onchange="global_show_obj.Oc = this.checked;" /><label for="Oc_checked">Clusters and Clouds</label></p>
 <p><input class="dso_selector" id="Gc_checked" type="checkbox" checked="checked" onchange="global_show_obj.Gc = this.checked;" /><label for="Gc_checked">Globular Clusters</label></p>
@@ -199,7 +208,7 @@ input[type=text], input[type=text]:focus, textarea{
 </div>
 <hr>
 <p><button class="incdec_but" onclick="requestGeolocation();">&#x21bb;</button> GPS: <span id="lat">Unknown</span>, <span id="lon">Unknown</span></p>
-<p>&#x03B1;=<span id="ang_a"></span> &#x03B2;=<span id="ang_b"></span> &#x03B3;=<span id="ang_g"></span> C=<span id="ang_c"></span></p>
+<p>&#x03B1;=<span id="ang_a"></span> &#x03B2;=<span id="ang_b"></span> &#x03B3;=<span id="ang_g"></span> C=<span id="ang_c"></span> UTC=<span id="utc_time"></span></p>
 </div>
 
 <div style="position:absolute; left:0; top:0; z-index:5; width:100%; background:black; display:none;" id="manual">
@@ -242,9 +251,9 @@ viewing direction.</p>
 <p>Before you attach the smartphone, open the application and calibrate the compass using "8" like movements. The calibration will significantly improve compass direction accuracy.</p>
 <ol>
 <li>Align your telescope with an easily identifiable star near the object you want to observe</li>
-<li>Click <code>Align</code> button on</li>
-<li>Click the star you selected. 3s timer is started to make sure there is no shaking. After 3 seconds the application is aligned on the selected star. "Aligned" message is shown and a cross that represents the direction your telescope is looking to is shown in the center of the screen.</li>
-<li>Click on an object you want to observe and you get a line showing a direction you need to move the telescope to and the changes in altitude and azimuth are shown at the right and bottom part of the screen</li>
+<li>Tap on <code>Align</code> button </li>
+<li>Tap on the star you selected. 3s timer is started to make sure there is no shaking. After 3 seconds the application is aligned on the selected star. "Aligned" message is shown and a cross that represents the direction your telescope is looking to is shown in the center of the screen.</li>
+<li>Tap on an object you want to observe and you get a line showing a direction you need to move the telescope to and the changes in altitude and azimuth are shown at the right and bottom part of the screen</li>
 <li>Move the telescope till these numbers are close to zero - at this point your telescope should point to the requested object</li>
 <li>In order to move to next object - repeat the alignment process from the step 1 since the builtin cellphone gyros don't keep the accuracy for a long time/multiple movements</li>
 </ol>
@@ -341,7 +350,7 @@ You can adjust azimuth manually by swipping the screen till you get required azi
 </li>
 </ul>
 <h2 id="watch-list">Watch List</h2>
-<p>A user can create custom watch list in advance to browse them easily during the night.
+<p>A user can create a custom watch list in advance to browse them easily during the night.
 There is <code>List</code> option in "Settings" menu.  It has  <code>[edit]</code> control to open watch list editing tool/</p>
 <p>A watch list is defined by a simple list of object names separated by space, new lines or commas. 
 For example below the "default" list:</p>
@@ -367,7 +376,7 @@ Both RA and DEC can be given as decimal degrees (0-360 for RA and -90 +90 for DE
 <pre><code>V1405,23h 24m 48s, +61° 11′ 15″
 Pluto,19:55:16,-22:13:42
 </code></pre>
-<p>The user objects are stored at your phone on per domain basis. They are kept even when you reopen the app. </p>
+<p>The user objects are stored on your phone on per domain basis. They are kept even when you reopen the app. </p>
 <p><em>Note:</em> if you accessing the app from different location (for example from local server) than it is stored separetly, so prepare the list in advance.</p>
 <h2 id="equatorial-mount-users">Equatorial Mount Users</h2>
 <p>The application assumes you work with alt-azimuth mount. If you are using equatorial mount an additional error may be introduced due to misalignment between the cell phone major axis and the telescope axis.</p>
@@ -383,7 +392,7 @@ Pluto,19:55:16,-22:13:42
 <li>On some iPad versions (iOS 12.5) the star/target selection does not work</li>
 </ul>
 <h2 id="serving-skyhopper-of-remote-location">Serving SkyHopper of remote location</h2>
-<p>In remote locations internet isn't always present. SkyHopper provides simple web server written in python3 to serve the SkyHopper over LAN. You can setup it on any device that can run python 3.</p>
+<p>At remote locations internet isn't always present. SkyHopper provides simple web server written in python3 to serve the SkyHopper over LAN. You can setup it on any device that can run python 3.</p>
 <p>This is how you can serve it from an Android phone:</p>
 <ul>
 <li>Install termux</li>
@@ -5533,6 +5542,15 @@ function toggleFS(fs)
 }
 
 
+function hideSettingIfSelectionOk()
+{
+	var value = document.getElementById("search_field").value;
+	if(findTargetByName(value)) {
+		showConfig('none')
+	}
+	return false;
+}
+
 function findTargetByName(name ='')
 {
 	var found = document.getElementById('find_status')
@@ -6031,7 +6049,7 @@ function plotStar(star,camRays,highlight)
 			context.stroke();
 		}
 	}
-	if(star.name) {
+	if(star.name || highlight >= 2) {
 		if(star.t == 'Ca') {
 			color = global_style.constelations;
 		}
@@ -6044,7 +6062,7 @@ function plotStar(star,camRays,highlight)
 			context.fillText(star.name,pix_x,pix_y)
 		}
 		else {
-			let text = star.name;
+			let text = star.name ? star.name : '';
 			let text_extra = []
 			if(highlight > 1) {
 				context.font = "6mm Sans";
@@ -6183,6 +6201,14 @@ function getSolarSystemObject(p)
 }
 
 
+function updateDebugTime(v)
+{
+    var mins=Math.floor(v / 60000);
+    var h = Math.floor(mins / 60) % 24
+    var m = mins % 60;
+    document.getElementById('utc_time').innerHTML = ('' + h).padStart(2,'0') + ':' + (m+'').padStart(2,'0')
+
+}
 
 function plotStars()
 {
@@ -6195,6 +6221,7 @@ function plotStars()
 	
 	global_targets_list=[];
 	gdata.time = Date.now();
+    updateDebugTime(gdata.time);
 	var camRays = getCameraRays();
 	context.fillStyle = "black";
 	context.fillRect(0, 0, canvas.width, canvas.height);

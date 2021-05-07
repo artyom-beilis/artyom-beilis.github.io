@@ -25,9 +25,9 @@ Before you attach the smartphone, open the application and calibrate the compass
 
 
 1. Align your telescope with an easily identifiable star near the object you want to observe
-2. Click `Align` button on
-3. Click the star you selected. 3s timer is started to make sure there is no shaking. After 3 seconds the application is aligned on the selected star. "Aligned" message is shown and a cross that represents the direction your telescope is looking to is shown in the center of the screen.
-4. Click on an object you want to observe and you get a line showing a direction you need to move the telescope to and the changes in altitude and azimuth are shown at the right and bottom part of the screen
+2. Tap on `Align` button 
+3. Tap on the star you selected. 3s timer is started to make sure there is no shaking. After 3 seconds the application is aligned on the selected star. "Aligned" message is shown and a cross that represents the direction your telescope is looking to is shown in the center of the screen.
+4. Tap on an object you want to observe and you get a line showing a direction you need to move the telescope to and the changes in altitude and azimuth are shown at the right and bottom part of the screen
 5. Move the telescope till these numbers are close to zero - at this point your telescope should point to the requested object
 6. In order to move to next object - repeat the alignment process from the step 1 since the builtin cellphone gyros don't keep the accuracy for a long time/multiple movements
 
@@ -116,7 +116,7 @@ On screen controls:
 
 ## Watch List
 
-A user can create custom watch list in advance to browse them easily during the night.
+A user can create a custom watch list in advance to browse them easily during the night.
 There is `List` option in "Settings" menu.  It has  `[edit]` control to open watch list editing tool/
 
 A watch list is defined by a simple list of object names separated by space, new lines or commas. 
@@ -151,7 +151,7 @@ This is an example of such a list:
     V1405,23h 24m 48s, +61° 11′ 15″
     Pluto,19:55:16,-22:13:42
 
-The user objects are stored at your phone on per domain basis. They are kept even when you reopen the app. 
+The user objects are stored on your phone on per domain basis. They are kept even when you reopen the app. 
 
 _Note:_ if you accessing the app from different location (for example from local server) than it is stored separetly, so prepare the list in advance.
 
@@ -175,7 +175,7 @@ So it may not work reliably for equatorial mounts. Alt-Az mounts are recommended
 
 ## Serving SkyHopper of remote location
 
-In remote locations internet isn't always present. SkyHopper provides simple web server written in python3 to serve the SkyHopper over LAN. You can setup it on any device that can run python 3.
+At remote locations internet isn't always present. SkyHopper provides simple web server written in python3 to serve the SkyHopper over LAN. You can setup it on any device that can run python 3.
 
 This is how you can serve it from an Android phone:
 
