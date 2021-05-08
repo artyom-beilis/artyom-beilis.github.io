@@ -185,17 +185,37 @@ Pluto,19:55:16,-22:13:42
 <p>At remote locations internet isn't always present. SkyHopper provides simple web server written in python3 to serve the SkyHopper over LAN. You can setup it on any device that can run python 3.</p>
 <p>This is how you can serve it from an Android phone:</p>
 <ul>
-<li>Install termux</li>
-<li>Install python withing termux <code>pkg install python</code></li>
-<li>Download a copy of <a href="https://raw.githubusercontent.com/artyom-beilis/artyom-beilis.github.io/master/skyhopper.py">skyhopper.py</a> to a location accessible by termux</li>
-<li>Create "hotspot", the typical gateway of android hotspot is <code>192.168.43.1</code></li>
-<li>Open termux and <code>cd</code> to the directory you downloaded<code>skyhopper.py</code> to.</li>
-<li>Run <code>python skyhopper.py</code></li>
-<li>Now you can go to <a href="https://192.168.43.1:8443/">https://192.168.43.1:8443/</a> from any device connected to the hotspot and open skyhopper there. Please note <code>https</code> protocol and <code>8443</code> port</li>
-<li>Note since it uses self-signed SSL certificate you will have to give a security exception when accessing this site</li>
-<li>You can close the server by simply pressing <code>Ctrl+C</code></li>
+<li>Install termux, you need to use F-Droid package manager: <a href="https://www.f-droid.org/">https://www.f-droid.org/</a>, the version avalible from Google Store is not getting updates and at this point it is impossible to install python there:</li>
+<li>
+<p>Install python withing termux:</p>
+<pre><code>apt update
+pkg install python
+</code></pre>
+</li>
+<li>
+<p>Provide termux access to storage by running:</p>
+<pre><code>termux-setup-storage
+</code></pre>
+</li>
+<li>
+<p>Download a copy of <a href="https://raw.githubusercontent.com/artyom-beilis/artyom-beilis.github.io/master/skyhopper.py">skyhopper.py</a> to a location accessible by termux, for this manual it will be <code>Downloads</code></p>
+</li>
+<li>Run python script from there:<pre><code>cd /storage/emulated/0/Downloads
+python skyhopper.py
+</code></pre>
+</li>
 </ul>
-<p>If you want to use the server only locally for your own phone, no need to create hotspot and you can access the web application via <a href="https://127.0.0.1:8443/">https://127.0.0.1:8443/</a> address. </p>
+<p>You can close the server by simply pressing <code>Ctrl+C</code></p>
+<ul>
+<li>Now you can go to <a href="https://127.0.0.1:8443/">https://127.0.0.1:8443/</a> address in the browser and use it.  Please note <code>https</code> protocol and <code>8443</code> port</li>
+<li>Note since it uses self-signed SSL certificate you will have to give a security exception when accessing this site</li>
+<li>If you want to serve the skyhopper to other users at your pysical location:<ul>
+<li>Create "hotspot", the typical gateway of android hotspot is <code>192.168.43.1</code></li>
+<li>Run skyhopper as described before <em>after</em> you created hotspot</li>
+<li>Now you can go to <a href="https://192.168.43.1:8443/">https://192.168.43.1:8443/</a> from any device connected to the hotspot and open skyhopper there.</li>
+</ul>
+</li>
+</ul>
 <h2 id="notes">Notes</h2>
 <p>It is an open source web application licensed under GPL license. It may work only with well working sensors. No warranty of any kind is given.</p></body>
 </html>
