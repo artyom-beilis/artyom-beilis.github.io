@@ -24,9 +24,9 @@ viewing direction.
 Before you attach the smartphone, open the application and calibrate the compass using "8" like movements. The calibration will significantly improve compass direction accuracy.
 
 
-1. Align your telescope with an easily identifiable star near the object you want to observe
+1. Align your telescope with an easily identifiable star or a planet near the object you want to observe
 2. Tap on `Align` button 
-3. Tap on the star you selected. 3s timer is started to make sure there is no shaking. After 3 seconds the application is aligned on the selected star. "Aligned" message is shown and a cross that represents the direction your telescope is looking to is shown in the center of the screen.
+3. Tap on the star or the planet you selected. 3s timer is started to make sure there is no shaking. After 3 seconds the application is aligned on the selected object. "Aligned" message is shown and a cross that represents the direction your telescope is looking to is shown in the center of the screen.
 4. Tap on an object you want to observe and you get a line showing a direction you need to move the telescope to and the changes in altitude and azimuth are shown at the right and bottom part of the screen
 5. Move the telescope till these numbers are close to zero - at this point your telescope should point to the requested object
 6. In order to move to next object - repeat the alignment process from the step 1 since the builtin cellphone gyros don't keep the accuracy for a long time/multiple movements
@@ -60,7 +60,7 @@ Here you can find a demonstration video: <https://youtu.be/3VXCSMidhe0>
 
     1. Move your cell phone in compass calibration/waving pattern to increase compass accuracy
     2. Increase application's field of view by pressing `+` at the top left corner near value `∠60°` - default FOV.
-    3. You may switch to manual azimuth mode by pressing `✋` icon at the right side and adjust the azimuth manually
+    3. You may switch to manual azimuth mode by pressing "hand" `✋` icon at the right side and adjust the azimuth manually
 
 -   _The screen becomes dim very fast and I don't have time to align/point the telescope?_
 
@@ -77,14 +77,14 @@ Here you can find a demonstration video: <https://youtu.be/3VXCSMidhe0>
 
 - Left side, from top to bottom:
 
-    - Align button and status - pressing on it starts alignment process - you need to select a star you aligning on to.
+    - Align button and status - pressing on it starts alignment process - you need to select a star or planet you aligning on to.
     - Field of view - modify with `+`, `-` to adjust 
     - If watch list is selected `<`,`>` controls for browsing watch list object. Selected object name is shown below
 
 - Right side, from top to bottom
 
     - `⚙` - settings button
-    - `✋` - switch to manual mode,  `⎋` switch to compass mode, <del>`⎋`</del> - no compass available use manual mode only
+    - `✋` - switch to manual mode, "_compass_" switch to compass mode, "_compass crossed_" - no compass available use manual mode only
 
 - Settings Menu:
 
@@ -97,6 +97,7 @@ Here you can find a demonstration video: <https://youtu.be/3VXCSMidhe0>
     - Maximal apparent magnitude of DSO objects to be displayed - modify with `+`, `-` controls
     - Watch List selection and editing 
     - Search target by name field
+    - Allow alignment using any DSO object. Use with care since it is hard to define a center of big DSO object like open cluster.
     - Filtering of the Astronomical objects by type 
     - User Added Objects List
     - Status of geolocation and reload geolocation button
@@ -110,7 +111,7 @@ On screen controls:
 - If watch list is selected, on the left `<`,`>` controls for browsing watch list object. Selected object name is shown below
 - Right:
 
-    - Manual `✋` or Compass `⎋` mode
+    - Manual `✋` or "_compass_" mode
     - Settings Menu: `⚙`
 
 
@@ -180,17 +181,31 @@ At remote locations internet isn't always present. SkyHopper provides simple web
 This is how you can serve it from an Android phone:
 
 
-- Install termux
-- Install python withing termux `pkg install python`
-- Download a copy of [skyhopper.py](https://raw.githubusercontent.com/artyom-beilis/artyom-beilis.github.io/master/skyhopper.py) to a location accessible by termux
-- Create "hotspot", the typical gateway of android hotspot is `192.168.43.1`
-- Open termux and `cd` to the directory you downloaded`skyhopper.py` to.
-- Run `python skyhopper.py`
-- Now you can go to <https://192.168.43.1:8443/> from any device connected to the hotspot and open skyhopper there. Please note `https` protocol and `8443` port
-- Note since it uses self-signed SSL certificate you will have to give a security exception when accessing this site
-- You can close the server by simply pressing `Ctrl+C`
+- Install termux, you need to use F-Droid package manager: <https://www.f-droid.org/>, the version avalible from Google Store is not getting updates and at this point it is impossible to install python there:
+- Install python withing termux:
 
-If you want to use the server only locally for your own phone, no need to create hotspot and you can access the web application via <https://127.0.0.1:8443/> address. 
+        apt update
+        pkg install python
+
+- Provide termux access to storage by running:
+
+        termux-setup-storage
+
+- Download a copy of [skyhopper.py](https://raw.githubusercontent.com/artyom-beilis/artyom-beilis.github.io/master/skyhopper.py) to a location accessible by termux, for this manual it will be `Downloads`
+- Run python script from there:
+
+        cd /storage/emulated/0/Downloads
+        python skyhopper.py
+  
+  You can close the server by simply pressing `Ctrl+C`
+
+- Now you can go to <https://127.0.0.1:8443/> address in the browser and use it.  Please note `https` protocol and `8443` port
+- Note since it uses self-signed SSL certificate you will have to give a security exception when accessing this site
+- If you want to serve the skyhopper to other users at your pysical location:
+    - Create "hotspot", the typical gateway of android hotspot is `192.168.43.1`
+    - Run skyhopper as described before _after_ you created hotspot
+    - Now you can go to <https://192.168.43.1:8443/> from any device connected to the hotspot and open skyhopper there.
+
 
 ## Notes
 
