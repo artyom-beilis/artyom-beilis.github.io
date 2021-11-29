@@ -1,65 +1,7 @@
-# coding=utf-8
-import ssl, socket
-import signal
-import sys
-import traceback
-import tempfile
-import os
-
-pem=r"""-----BEGIN PRIVATE KEY-----
-MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDDKMX+j2A1VT1o
-9CnqvRScQmnNBgmcQnotT8UID8yYULUfVMontx1m4rTvHEObPWKVQr6jQu7uzeNM
-dqR7IjPovFQgF2ofMeMCbe4ZfiK8tmeAbW/vROkopU4Nsx1N3UzICh96dwu2CREF
-Aor86vEfy06YNZgyS/Ehkx81lWYCH2TvmRxhgKIta3VcZzlBkQ+80lurgo8yeAMy
-so8WVbPGs2El7FQhZBX1EuOb8vcfGh7Y+mxU4D79O0kV1vR8ewr7bzqWzfiRoB2d
-Xoaw5zscHC0b3NdsXzoJO7UQUiCa8TKy31qoIe7S5u/yJsdttfK+/r0EYAl04Chm
-avk1wc0FAgMBAAECggEActc6c4qhPaEUSv9q7yQmzbDTG3+TBi2kQaewNQc/CN5t
-RquZbfd2SMXdXNtP+TkNGvI0xlOr0EC9oZArR/4fd7Pi+SNuIj8z64kO1FeCT3Qy
-wcMkXDM71Nw5axxcgSZZeVljnqgQ7yS0rDML4LrL+z6i2DSpg+dmVLCDa/+nEFWr
-OoXJu69rNgBrG/CzBMhi/1YqXsFxBANrU7GwOFLSvsPP3YetpwERdyQUF5iVZb4e
-4ALUoZPtP+FOhTcmt/D+DITqqGPd2yJd2jWbfA7+YkBoSRAABqXQsRvzOR6J/Mhq
-mrkTWdAPKPedYd2RUlXlufBmCK7YQLDbqfAUvvMm3QKBgQDxEN4MiChkkDjCyN+j
-xiDhlh99mC8YXGAsn6BGVWqQEYk6ayP7OwyAgGb+n/YR/mIBTwtsOepMfT7Zy2R+
-Cq2F4z+yci/rhK/GbEilVm2r2kHXsPfvnNvLMWoR5p7/fT1hTDZC516egeBWSzgw
-aCaoU6qhVjqcmzgMCtr/ww/GAwKBgQDPP9wjWUYjn3iCm0+QnPwUos+c0rR4CprF
-9xF8+czsFTA24MF9JWm5BYMbsQFsGwv6Q0kpfBszoMgM7F+fwn3KCp4WwvJoKLfN
-uamHJK0YX4NzOD5Eggpq2O4KLgXR67wDdVU7jaBpGmicLZLjrfzmOWVGSIfBpiF0
-JE7lafXWVwKBgBXjwTYEGx7elbjiQqR9djjlx+BAtG4S3UzQBd69HNsOLJbYacED
-YKQ+hJu0bMS/g6i4w8HFFIhziwR92pczYwRYWU1b3wwU1V1AMeyJh5XmULpEQI9K
-gA7YYthTR7bNaYhvQjIbDlV4V6WeWPDUVEZOqpzR1qqn0ZQOXEqDLOh/AoGAVdNY
-UrsxtKbhvRScSoL4UYNq/sKzQdMCbWD3uQ2ps0rDALbq6eyIb7q8pMcUk7RPrYAX
-2Dow+ZxnvBJXN03P0c+70ClDQac7FtMARZsGo8VKJnjwMGa58a2MRmLwvhIldjks
-5tCr0VrCX4rv/aGbzauPKR/4OFWYHQS8N3099VkCgYAF9YKLV1YiKt4KxWVrA5rq
-gZtbPOdueaDOHMR7SzD08QwOzM7ystNUm8PFm6ttv2rd81gui2bFIBxDhuxs23yn
-LqIHYV8YJTsbgfrn5ZFbxwlwT9aAdJaRsFhQ/W1NtLPqcOFj8Rkq+fqsz4xuId79
-8cNIEVB2P+meBLgnJZhdlA==
------END PRIVATE KEY-----
------BEGIN CERTIFICATE-----
-MIIDazCCAlOgAwIBAgIUKe3RLo0Nbo3sBGOG/cw5B6g3vW0wDQYJKoZIhvcNAQEL
-BQAwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoM
-GEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDAeFw0yMTAzMDEyMDI0MzhaFw0yMjAz
-MDEyMDI0MzhaMEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEw
-HwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwggEiMA0GCSqGSIb3DQEB
-AQUAA4IBDwAwggEKAoIBAQDDKMX+j2A1VT1o9CnqvRScQmnNBgmcQnotT8UID8yY
-ULUfVMontx1m4rTvHEObPWKVQr6jQu7uzeNMdqR7IjPovFQgF2ofMeMCbe4ZfiK8
-tmeAbW/vROkopU4Nsx1N3UzICh96dwu2CREFAor86vEfy06YNZgyS/Ehkx81lWYC
-H2TvmRxhgKIta3VcZzlBkQ+80lurgo8yeAMyso8WVbPGs2El7FQhZBX1EuOb8vcf
-Gh7Y+mxU4D79O0kV1vR8ewr7bzqWzfiRoB2dXoaw5zscHC0b3NdsXzoJO7UQUiCa
-8TKy31qoIe7S5u/yJsdttfK+/r0EYAl04Chmavk1wc0FAgMBAAGjUzBRMB0GA1Ud
-DgQWBBSZwLJIQXqHULrDbqE6+jNfEaaFpTAfBgNVHSMEGDAWgBSZwLJIQXqHULrD
-bqE6+jNfEaaFpTAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQB5
-B0pm6IYPym5J+FqmKaVQ164UhiZ90dASOZveXgER4bg3y48aB2d2/hc4FSymrGI4
-X+DJ8YrNRrq0oaETV2DLNqUmkMkRG2MVHww0FJWarHx/Ji5gJkv0f6u9f0inUnFW
-7vHlcb0sJrle8OFRtPJSu6QI59u+RqAcQr3ZEy56EIrYu/teO5r2n3aWQIQCtc1+
-17Qhf41K74kTmyhiM1esckbMBb5Z91sD6CZLdHMScTlXNfeOd0z3Htb64181nqXe
-/rW7yEvhEZyWjNP2Qw+EQg9jjaZnMrwG/PTCvjU/rsgfyD0BjL6fgmiKbK9oQ4ib
-hzrgde7L+kHuIbiwiipw
------END CERTIFICATE-----
-"""
-hopper=r"""<!DOCTYPE>
+<!DOCTYPE>
 <html>
 <head>
-<title>Sky Hopper - Web Application for Sky Navigation</title>
+<title>AstroHopper - Web Application for Sky Navigation</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
@@ -152,7 +94,7 @@ input[type=submit] { width:10mm;}
 <button class="incdec_but" onclick="showManual(true)">?</button>
 <button class="incdec_but" onclick="showConfig('none');">X</button>
 </span>
-<p><b>Settings (0.99.3)</b></p>
+<p><b>Settings (0.99.4)</b></p>
 <p>
 <button class="ui_but" onclick="resetAll();">&#x21bb;</button>
 <input class="dso_selector" id="small_screen" type="checkbox" onchange="smallScreen(this.checked)"   /><label for="small_screen" >Small UI</label> 
@@ -248,10 +190,10 @@ input[type=submit] { width:10mm;}
 <span style="float:right; margin-right: 2mm; margin-top:2mm">
 <button class="incdec_but" onclick="showManual(false);">X</button>
 </span>
-<h1 id="skyhopper">SkyHopper</h1>
+<h1 id="astrohopper-fka-skyhopper">AstroHopper - (f.k.a. SkyHopper)</h1>
 <div class="toc">
 <ul>
-<li><a href="#skyhopper">SkyHopper</a><ul>
+<li><a href="#astrohopper-fka-skyhopper">AstroHopper - (f.k.a. SkyHopper)</a><ul>
 <li><a href="#operation">Operation</a></li>
 <li><a href="#notes-for-ios-users">Notes for iOS Users</a></li>
 <li><a href="#troubleshooting">Troubleshooting</a></li>
@@ -262,13 +204,13 @@ input[type=submit] { width:10mm;}
 <li><a href="#equatorial-mount-users">Equatorial Mount Users</a></li>
 <li><a href="#road-map">Road Map</a></li>
 <li><a href="#known-issues">Known Issues</a></li>
-<li><a href="#serving-skyhopper-of-remote-location">Serving SkyHopper of remote location</a></li>
+<li><a href="#serving-astrohopper-of-remote-location">Serving AstroHopper of remote location</a></li>
 <li><a href="#notes">Notes</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<p><a href="https://artyom-beilis.github.io/skyhopper.html">SkyHopper</a> is a web application that helps
+<p><a href="https://artyom-beilis.github.io/astrohopper.html">AstroHopper</a> (formely known as skyhopper) is a web application that helps
 to find objects across the night sky by hopping from a well know and easily identifiable 
 star to other fainter stars or DSO by measuring changes in angles of the cell phone
 using built in gyroscope and gravity sensors. It is similar to Digital Setting Circles 
@@ -421,13 +363,14 @@ Pluto,19:55:16,-22:13:42
 <ol>
 <li>Develop procedure for phone alignment for equatorial mounts.</li>
 <li>Implement zoom-via-pinch.</li>
+<li>Implement installable web application</li>
 </ol>
 <h2 id="known-issues">Known Issues</h2>
 <ul>
 <li>On some iPad versions (iOS 12.5) the star/target selection does not work</li>
 </ul>
-<h2 id="serving-skyhopper-of-remote-location">Serving SkyHopper of remote location</h2>
-<p>At remote locations internet isn't always present. SkyHopper provides simple web server written in python3 to serve the SkyHopper over LAN. You can setup it on any device that can run python 3.</p>
+<h2 id="serving-astrohopper-of-remote-location">Serving AstroHopper of remote location</h2>
+<p>At remote locations internet isn't always present. AstroHopper provides simple web server written in python3 to serve the AstroHopper over LAN. You can setup it on any device that can run python 3.</p>
 <p>This is how you can serve it from an Android phone:</p>
 <ul>
 <li>Install termux, you need to use F-Droid package manager: <a href="https://www.f-droid.org/">https://www.f-droid.org/</a>, the version avalible from Google Store is not getting updates and at this point it is impossible to install python there:</li>
@@ -443,10 +386,10 @@ pkg install python
 </code></pre>
 </li>
 <li>
-<p>Download a copy of <a href="https://raw.githubusercontent.com/artyom-beilis/artyom-beilis.github.io/master/skyhopper.py">skyhopper.py</a> to a location accessible by termux, for this manual it will be <code>Downloads</code></p>
+<p>Download a copy of <a href="https://raw.githubusercontent.com/artyom-beilis/artyom-beilis.github.io/master/astrohopper.py">astrohopper.py</a> to a location accessible by termux, for this manual it will be <code>Downloads</code></p>
 </li>
 <li>Run python script from there:<pre><code>cd /storage/emulated/0/Downloads
-python skyhopper.py
+python astrohopper.py
 </code></pre>
 </li>
 </ul>
@@ -454,10 +397,10 @@ python skyhopper.py
 <ul>
 <li>Now you can go to <a href="https://127.0.0.1:8443/">https://127.0.0.1:8443/</a> address in the browser and use it.  Please note <code>https</code> protocol and <code>8443</code> port</li>
 <li>Note since it uses self-signed SSL certificate you will have to give a security exception when accessing this site</li>
-<li>If you want to serve the skyhopper to other users at your pysical location:<ul>
+<li>If you want to serve the astrohopper to other users at your pysical location:<ul>
 <li>Create "hotspot", the typical gateway of android hotspot is <code>192.168.43.1</code></li>
-<li>Run skyhopper as described before <em>after</em> you created hotspot</li>
-<li>Now you can go to <a href="https://192.168.43.1:8443/">https://192.168.43.1:8443/</a> from any device connected to the hotspot and open skyhopper there.</li>
+<li>Run astrohopper as described before <em>after</em> you created hotspot</li>
+<li>Now you can go to <a href="https://192.168.43.1:8443/">https://192.168.43.1:8443/</a> from any device connected to the hotspot and open astrohopper there.</li>
 </ul>
 </li>
 </ul>
@@ -7063,47 +7006,3 @@ global_expecting_select = selectTaret;
 
 </body>
 </html>
-"""
-
-cert_path = tempfile.gettempdir()+ '/cert.pem'
-
-print("Saving sertificate to temporary ",cert_path)
-
-try:
-    hopper = hopper.encode('utf-8')
-    with open(cert_path,"w") as f:
-        f.write(pem)
-    context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-    context.load_cert_chain(cert_path)
-finally:
-    os.remove(cert_path)
-
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0) as sock:
-    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    sock.bind(('0.0.0.0', 8443))
-    sock.listen(5)
-    with context.wrap_socket(sock, server_side=True) as ssock:
-        while True:
-            try:
-                conn, addr = ssock.accept()
-                inp = conn.read().decode()
-                if inp[:6]=='GET / ':
-                    conn.write(b'HTTP/1.0 200 Ok\r\n'
-                               b'Connection: close\r\n'
-                               b'Content-Type: text/html\r\n'
-                               b'Content-Length: %d\r\n'
-                               b'\r\n%s' % (len(hopper),hopper))
-                    print("Served one SkyHopper page")
-                else:
-                    conn.write(b'HTTP/1.0 404 Not Found\r\n'
-                               b'Connection: close\r\n'
-                               b'Content-Length: 0\r\n'
-                               b'\r\n')
-                conn.shutdown(socket.SHUT_RDWR)
-                conn.close()
-            except KeyboardInterrupt:
-                print("Done")
-                break
-            except:
-                pass
-
