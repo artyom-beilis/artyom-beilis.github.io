@@ -17,7 +17,7 @@
  *
  */
 
-const version = "0.99.4";
+const version = "0.99.4-2";
 const cacheName = `astrohopper-${version}`;
 self.addEventListener('install', e => {
   e.waitUntil(
