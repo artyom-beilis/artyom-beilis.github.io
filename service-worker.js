@@ -17,7 +17,7 @@
  *
  */
 
-const version = "0.99.4-3";
+const version = "0.99.4-4";
 const cacheName = `astrohopper-${version}`;
 self.addEventListener('install', e => {
   e.waitUntil(
@@ -38,8 +38,11 @@ self.addEventListener('activate', function(event) {
   event.waitUntil(caches.keys().then(function(names) {
       return Promise.all(
             names.filter(function(name) {
-                console.log("name in cache " + name)
-                return name.startsWith('astrohopper') && name != cacheName;
+                let delName =  name.startsWith('astrohopper') && name != cacheName;
+                if(delName) {
+                    console.log("delete from cache " + name)
+                }
+                return delName;
             }).map(function(name) {
                 return caches.delete(name);
             })
