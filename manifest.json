@@ -1,7 +1,7 @@
 {
     "name": "AstroHopper",
     "short_name": "AstroHopper",
-    "start_url": "/astrohopper_pwa.html",
+    "start_url": "/astrohopper.html",
     "display": "standalone",
     "background_color": "#000",
     "description": "AstroHopper - Astronomical Navigation Application",

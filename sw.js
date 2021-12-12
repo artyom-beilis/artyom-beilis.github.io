@@ -1,6 +1,9 @@
 /*
  *
- *  Air Horner
+ *  AstroHopper Copyright 2021 Artyom Beilis
+ *
+ *  Adopted from AirHorner
+ * 
  *  Copyright 2015 Google Inc. All rights reserved.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,13 +20,13 @@
  *
  */
 
-const version = "0.99.4-4";
+const version = "0.99.5";
 const cacheName = `astrohopper-${version}`;
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(cacheName).then(cache => {
       return cache.addAll([
-        `/astrohopper_pwa.html`
+        `/astrohopper.html`
       ])
       .then(() => self.skipWaiting());
     })
