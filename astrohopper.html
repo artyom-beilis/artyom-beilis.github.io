@@ -143,7 +143,7 @@ input[type=submit] { width:10mm;}
 <button class="incdec_but" onclick="showManual(true)">?</button>
 <button class="incdec_but" onclick="showConfig('none');">X</button>
 </span>
-<p><b>Settings (1.0.4)</b></p>
+<p><b>Settings (1.0.5)</b></p>
 <p>
 <button class="ui_but" onclick="resetAll();">&#x21bb;</button>
 <input class="dso_selector" id="small_screen" type="checkbox" onchange="smallScreen(this.checked)"   /><label for="small_screen" >Small UI</label> 
@@ -6949,13 +6949,12 @@ function parseWatchList(text)
 			i+=1;
 			continue;
 		}
-		else if(i+1 < items.length && items[i+1] == '(') {
-                    i += 2;
+		if(item == '(') {
+                    i ++;
                     var start = i;
                     while(i < items.length && items[i] != ')')
                         i++;
                     var end = i;
-                    i+=1;
                     if(end > start) {
                         var comment = items[start];
                         start ++;
