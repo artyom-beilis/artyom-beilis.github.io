@@ -143,7 +143,7 @@ input[type=submit] { width:10mm;}
 <button class="incdec_but" onclick="showManual(true)">?</button>
 <button class="incdec_but" onclick="showConfig('none');">X</button>
 </span>
-<p><b>Settings (1.0.5.2)</b></p>
+<p><b>Settings (1.0.5.3)</b></p>
 <p>
 <button class="ui_but" onclick="resetAll();">&#x21bb;</button>
 <input class="dso_selector" id="small_screen" type="checkbox" onchange="smallScreen(this.checked)"   /><label for="small_screen" >Small UI</label> 
@@ -6572,6 +6572,9 @@ function manualDown(e)
 
 function manualMove(e)
 {
+    if(e.scale !== 1) {
+        e.preventDefault();
+    }
 	if(!global_prev_xy)
 		return;
 	
@@ -6583,9 +6586,7 @@ function manualMove(e)
         let scale = new_size / Math.max(global_start_zoom_size,0);
         let max_fov = global_fov_values[global_fov_values.length-1];
         let min_fov = global_fov_values[0];
-        //showStatus(scale + " " + Math.round(new_size) + " " + Math.round(global_start_zoom_size));
         let fov = 2 * 180 * Math.atan(Math.tan(global_fov / 180.0 * Math.PI / 2) / scale) / Math.PI;
-        let fpv = global_fov / scale;
         let new_global_fov = Math.max(min_fov,Math.min(max_fov,Math.round(fov)));
         if(new_global_fov != global_fov) {
             global_fov = new_global_fov;
@@ -7193,6 +7194,11 @@ document.body.addEventListener('touchmove',manualMove);
 dontPropMouseDown(["ui_but","incdec_but","config_div","comp_but"],["click","touchstart","touchend","touchmove","touchcancel"]);
 global_expecting_select = selectTarget;
 
+window.addEventListener("load", () => {
+/*        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("sw.js?" + Date.now());
+        }*/
+});
 
 </script>
 
