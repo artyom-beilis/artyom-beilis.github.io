@@ -153,7 +153,7 @@ input[type=submit] { width:10mm;}
 <button class="incdec_but" onclick="showManual(true)">?</button>
 <button class="incdec_but" onclick="showConfig('none');">X</button>
 </span>
-<p><b>Settings (1.0.8)</b></p>
+<p><b>Settings (1.0.9)</b></p>
 <p>
 <button class="ui_but" onclick="resetAll();">&#x21bb;</button>
 <input class="dso_selector" id="small_screen" type="checkbox" /><label for="small_screen" >Small UI</label> 
@@ -6570,14 +6570,16 @@ function gyroListener(event)
 
 function deviceOrientationListenerIOS(event) {
 	if(!(event.webkitCompassHeading === null)) {
+        var abs_alpha = 360 - event.webkitCompassHeading;
 		if(global_use_compass)
-			gdata.alpha = event.webkitCompassHeading;
-		gdata.compass_alpha = event.webkitCompassHeading;
+			gdata.alpha = abs_alpha;
+		gdata.compass_alpha = abs_alpha
+	    formatValue("ang_c",abs_alpha);
 	}
 	else {
 		noCompass();
+	    formatValue("ang_c",null);
 	}
-	formatValue("ang_c",event.webkitCompassHeading);
 }
 
 function deviceOrientationListener(event) {
