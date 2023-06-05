@@ -15,6 +15,7 @@
 <li><a href="#troubleshooting">Troubleshooting</a></li>
 <li><a href="#controls">Controls</a></li>
 <li><a href="#controls-in-small-screen-mode">Controls in Small Screen Mode</a></li>
+<li><a href="#wikipedia-page-info">Wikipedia Page Info</a></li>
 <li><a href="#watch-list">Watch List</a></li>
 <li><a href="#user-objects">User Objects</a></li>
 <li><a href="#equatorial-mount-users">Equatorial Mount Users</a></li>
@@ -52,7 +53,11 @@ But if your compass fails to work properly, press the hand button <code>✋</cod
 <li>Move the telescope till these numbers are close to zero - at this point your telescope should point to the requested object</li>
 <li>In order to move to next object - repeat the alignment process from the step 1 since the built-in cellphone gyros don't keep the accuracy for a long time or multiple movements</li>
 </ol>
-<p>Here you can find a demonstration and tutorial video created by Nir Zonshine: <a href="https://youtu.be/AtArqBLWWJ8">https://youtu.be/AtArqBLWWJ8</a></p>
+<p>Tutorial and Introduction Videos:</p>
+<ul>
+<li>Here you can find a demonstration and tutorial video created by Nir Zonshine: <a href="https://youtu.be/AtArqBLWWJ8">https://youtu.be/AtArqBLWWJ8</a></li>
+<li>Another very good review created by John Dreese (a.k.a. Reflactor) can be found here: <a href="https://youtu.be/6-_58mSGz1Q">https://youtu.be/6-_58mSGz1Q</a></li>
+</ul>
 <h2 id="notes-for-ios-users">Notes for iOS Users</h2>
 <p>You need to provide some permissions to Safari in order to run AstroHopper.</p>
 <p>Device Orientation Sensors:</p>
@@ -144,10 +149,12 @@ You can adjust azimuth manually by swiping the screen till you get required azim
 </ul>
 </li>
 <li>
-<p>Right side, from top to bottom</p>
+<p>Right side, from top to bottom, right to left</p>
 <ul>
 <li><code>⚙</code> - settings button</li>
+<li>Object search box, allows to enter object name or code. Once found press Enter on keyboard. Note if you want to do same search once again, press on the "Magnifing Glass" and it would return to the selected object.</li>
 <li><code>✋</code> - switch to manual mode, "<em>compass</em>" switch to compass mode, "<em>compass crossed</em>" - no compass available use manual mode only</li>
+<li><code>W</code> - appears when a named object selected - pressing on it opens Wikipedia page about the object, requires network.</li>
 </ul>
 </li>
 <li>
@@ -166,6 +173,7 @@ You can adjust azimuth manually by swiping the screen till you get required azim
 <li>Allow alignment using any DSO object. Use with care since it is hard to define a center of big DSO object like open cluster.</li>
 <li>Filtering of the Astronomical objects by type</li>
 <li>Enable/Disable pinch zoom</li>
+<li>Wiki information configuration</li>
 <li>Show quick-start tutorial on startup </li>
 <li>User Added Objects List</li>
 <li>Status of geolocation and reload geolocation button</li>
@@ -185,7 +193,14 @@ You can adjust azimuth manually by swiping the screen till you get required azim
 <li>Settings Menu: <code>⚙</code></li>
 </ul>
 </li>
+<li>
+<p>Left <code>W</code> - appears when a named object selected - pressing on it opens Wikipedia page about the object, requires network</p>
+</li>
 </ul>
+<h2 id="wikipedia-page-info">Wikipedia Page Info</h2>
+<p>When <code>W</code> button appears you can tap on it and open a frame with Wikipedia page about the selected object.</p>
+<p><em>Note:</em> But be careful - the app has no control over style of the page and by default it would be black text over white page. It is something not desirable for night vision.</p>
+<p>Thus by default the Wiki page info support is disabled in Night mode. You can change behavior in settings menu "Wiki".</p>
 <h2 id="watch-list">Watch List</h2>
 <p>A user can create a custom watch list in advance to browse them easily during the night.
 There is <code>List</code> option in "Settings" menu.  It has  <code>[edit]</code> control to open watch list editing tool.</p>
@@ -201,6 +216,7 @@ doublestars: Polaris, "Cor Caroli"
 <p>It is possible to add user comment between <code>(</code> and <code>)</code> to explain the object id. It would be shown in UI upon object selection, for example:</p>
 <pre><code>Galaxies: M31 (Andromeda), M64 (Black Eye)
 </code></pre>
+<p><em>Note:</em> if you adding a comment or use a name that contains spaces you need to add a comma <code>,</code> as a separator</p>
 <p>Lists can be selected by pressing <code>&lt;</code> and <code>&gt;</code> buttons in "Lists" control. When the list is selected two buttons <code>&lt;</code> and <code>&gt;</code> are shown in main screen under "Align" button. They allow browsing the objects forward and backward. The current selected object's name is shown under the controls.</p>
 <p>The watch lists are stored at your phone on per domain basis. They are kept even when you reopen the app. </p>
 <p><em>Note:</em> if you accessing the app from different location (for example from local server) than it is stored separately, so prepare the list in advance.</p>
@@ -232,7 +248,6 @@ Pluto,19:55:16,-22:13:42
 <li>Pinch zoom does not work properly on iOS - no way to disable browser zoom</li>
 <li>Pinch zoom or double tap on iOS devices zooms the screen when not supposed to</li>
 <li>On some iPad versions (iOS 12.5) the star/target selection does not work</li>
-<li>On some older iPhones, such as the 6s switch east and west (i.e. W is shown as 90 instead of 270).</li>
 </ul>
 <h2 id="reporting-bugs-and-getting-support">Reporting Bugs and Getting Support</h2>
 <ul>
@@ -240,7 +255,7 @@ Pluto,19:55:16,-22:13:42
 <li>Also the author of the program (Artyom Beilis) is frequent visitor of <a href="https://www.cloudynights.com/index/">Cloudy Nights</a> forum so you can get help there. Make mention the application name correctly "AstroHopper".</li>
 </ul>
 <h2 id="copyrights">Copyrights</h2>
-<p>(C) 2021-2022 Artyom Beilis.</p>
+<p>(C) 2021-2023 Artyom Beilis.</p>
 <p>It is an open source web application licensed under GPL license. It may work only with well working sensors. No warranty of any kind is given. For detailed copyrights
 of different parts of the project refer to <a href="https://github.com/artyom-beilis/skyhopper/blob/main/COPYING.md">https://github.com/artyom-beilis/skyhopper/blob/main/COPYING.md</a></p></body>
 </html>
