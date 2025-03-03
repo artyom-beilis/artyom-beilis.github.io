@@ -226,12 +226,14 @@ input[type=submit] { width:10mm;}
 <button class="incdec_but" onclick="showManual(true)">?</button>
 <button class="incdec_but" onclick="showConfig('none');">X</button>
 </span>
-<p><b>Settings (1.0.12)</b></p>
+<p><b>Settings (1.0.13)</b></p>
 <p>
 <button class="ui_but" onclick="resetAll();">&#x21bb;</button>
 <input class="dso_selector" id="small_screen" type="checkbox" /><label for="small_screen" >Small UI</label> 
 <input class="dso_selector" id="NM_checked" type="checkbox"  /><label for="NM_checked" >Night</label>
 <input class="dso_selector" id="FS_checked" type="checkbox" onchange="toggleFS(this.checked)"        /><label for="FS_checked" >Full S.</label>
+</p><p>
+<input class="dso_selector" id="SWL_checked" type="checkbox" onchange="toggleSWL(this.checked)" /><label for="SWL_checked" >Keep Screen On</label>
 </p>
 <table>
 <tr class="only_tiny_tr">
@@ -7837,6 +7839,21 @@ function toggleFS(fs)
 	}
 }
 
+let wakeLock = null;
+
+async function toggleSWL(swl) {
+  try {
+    if (swl) {
+      wakeLock = await navigator.wakeLock.request('screen');
+    } else if (wakeLock) {
+      await wakeLock.release();
+      wakeLock = null;
+    }
+  } catch (err) {
+    console.error(`${err.name}, ${err.message}`);
+  }
+}
+
 
 function hideSettingIfSelectionOk()
 {
@@ -9610,6 +9627,7 @@ function setupConfigurableElements()
 {
     configureCheckboxOption('small_screen',false,smallScreen);
     configureCheckboxOption('NM_checked',false,switchNightMode);
+    configureCheckboxOption('SWL_checked',false,toggleSWL)
     configureCheckboxOption('align_dso_checked',false,(v) => { global_align_on_dso = v; });
     configureCheckboxOption('show_star_names_checked',true,(v) => { global_show_star_names = v; });
     configureCheckboxOption('P_checked',true,(v) => { global_show_obj.P = v; });
