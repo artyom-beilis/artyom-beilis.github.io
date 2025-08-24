@@ -5,243 +5,249 @@
 <meta charset="UTF-8">
 </head>
 <body>
-<h1 id="-">אסטרוהופר - (הידוע בעבר כסקייהופר)</h1>
+<h1 id="astrohopper-fka-skyhopper">AstroHopper - (f.k.a. SkyHopper)</h1>
 <div class="toc">
 <ul>
-<li><a href="#-">אסטרוהופר - (הידוע בעבר כסקייהופר)</a><ul>
-<li><a href="#_1">פעולה</a></li>
-<li><a href="#ios">הערות למשתמשי iOS</a></li>
-<li><a href="#_2">התקנת אסטרוהופר</a></li>
-<li><a href="#_3">פתרון בעיות</a></li>
-<li><a href="#_4">שליטה</a></li>
-<li><a href="#_5">שליטה במצב מסך קטן</a></li>
-<li><a href="#_6">מידע מויקיפדיה</a></li>
-<li><a href="#_7">רשימת צפייה</a></li>
-<li><a href="#_8">אובייקטים של משתמש</a></li>
-<li><a href="#_9">משתמשי חצובה משוונית</a></li>
-<li><a href="#_10">בעיות ידועות</a></li>
-<li><a href="#_11">דיווח על באגים וקבלת תמיכה</a></li>
-<li><a href="#_12">זכויות יוצרים</a></li>
+<li><a href="#astrohopper-fka-skyhopper">AstroHopper - (f.k.a. SkyHopper)</a><ul>
+<li><a href="#operation">Operation</a></li>
+<li><a href="#notes-for-ios-users">Notes for iOS Users</a></li>
+<li><a href="#installing-astrohopper">Installing AstroHopper</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#controls">Controls</a></li>
+<li><a href="#controls-in-small-screen-mode">Controls in Small Screen Mode</a></li>
+<li><a href="#wikipedia-page-info">Wikipedia Page Info</a></li>
+<li><a href="#watch-list">Watch List</a></li>
+<li><a href="#user-objects">User Objects</a></li>
+<li><a href="#equatorial-mount-users">Equatorial Mount Users</a></li>
+<li><a href="#known-issues">Known Issues</a></li>
+<li><a href="#reporting-bugs-and-getting-support">Reporting Bugs and Getting Support</a></li>
+<li><a href="#copyrights">Copyrights</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<p><a href="https://artyom-beilis.github.io/astrohopper.html">אסטרוהופר</a> (לשעבר SkyHopper) היא אפליקציית אינטרנט חופשית ובקוד פתוח שפותחה על ידי <a href="https://github.com/artyom-beilis/skyhopper">ארתיום בייליס</a> המסייעת למצוא עצמים בשמי הלילה.
-האפליקציה עושה זאת על ידי מתן אפשרות לקפיצה מדויקת מכוכב ידוע וניתן לזיהוי בקלות לכוכבים חלשים יותר או גרמי שמיים עמוקים (DSO) על ידי מדידת שינויים בזוויות הכיוון של הטלפון הסלולרי באמצעות גירוסקופ וחיישני כבידה מובנים. היא דומה ל-Digital Setting Circles המיושמת בטלפון חכם.</p>
-<p>הטלפון החכם חייב להיות מצויד בחיישני ג'ירוסקופ וכוח הכבידה, ועדיף מצפן.</p>
-<p>אסטרוהופר היא אפליקציה מבוססת דפדפן המכילה דף HTML יחיד עם מסד נתונים מובנה שתמשיך לפעול גם במצב לא מקוון כל עוד הוא מאוחסן במטמון על ידי הדפדפן.</p>
-<h2 id="_1">פעולה</h2>
-<p>אתם מחברים את הטלפון הסלולרי לטלסקופ כך שהחלק הפיזי <strong>העליון</strong> של הטלפון
-מצביע לכיוון הצפייה. שימו לב, זה שונה מאפליקציות פלנטריום טיפוסיות
-שמדמות את תצוגת השמיים באמצעות מצלמה. מסך צריך להיות מקביל לכיוון
-הצפייה בשימוש באסטרוהופר.</p>
-<p>לפני חיבור הסמארטפון, פתחו את אפליקצייה וכיילו את המצפן באמצעות תנועות דומות ל־"8".
-הכיול ישפר משמעותית את דיוק כיוון המצפן.
-אך אם המצפן שלכם אינו פועל כראוי, לחצו על כפתור ה"יד" <code>✋</code> כדי לעבור למצב ידני.</p>
-<p>כאשר אסטרוהופר עולה, מופיע המדריך לתחלה מהירה. ניתן גם לקבל עזרה על ידי לחיצה על כפתור גלגל השיניים <code>⚙</code> בפינה הימנית העליונה ולאחר מכן על כפתור <code>?</code>.</p>
+<p><a href="https://artyom-beilis.github.io/astrohopper.html">AstroHopper</a> (formerly known as SkyHopper) is a free and open-source
+web application developed by <a href="https://github.com/artyom-beilis/skyhopper">Artyom Beilis</a> that helps to find objects across the night sky.
+It does this by allowing an accurate hop from a well-known and easily identifiable 
+star to other fainter stars or DSO by measuring changes in pointing angles of the cell phone
+using built in gyroscope and gravity sensors. It is similar to Digital Setting Circles 
+implemented in a smart phone.</p>
+<p>The smart phone must have gyro and gravity sensors and preferably compass.</p>
+<p>AstroHopper is a web-based application that contains a single HTML page with a JavaScript objects 
+database that will continue working even offline as long as it is cached by the browser.</p>
+<h2 id="operation">Operation</h2>
+<p>You attach the cellphone to the telescope such that the physical <strong>top</strong> part of the phone 
+points towards viewing direction. Note this is different from typical sky observing apps
+that simulate camera view of the sky. For AstroHopper the screen is parallel to the
+viewing direction.</p>
+<p>Before you attach the smartphone, open AstroHopper application and calibrate the compass using "8" like movements.
+The calibration will significantly improve compass direction accuracy.
+But if your compass fails to work properly, press the hand button <code>✋</code> to use Manual Mode.</p>
+<p>When AstroHopper starts, a Quick Start Guide appears.  You can also get help by pressing the gear <code>⚙</code> button at upper right and then the <code>?</code> button. </p>
 <ol>
-<li>יישר את הטלסקופ שלך עם כוכב או כוכב לכת שניתן לזהות בקלות ליד העצם שברצונך לצפות בו.</li>
-<li>הקש על כפתור <code>[אפס]</code> בפינה השמאלית העליונה של המסך.</li>
-<li>הקש על הכוכב או כוכב הלכת שבחרת. השהיה של 3 שניות תופעל כדי לוודא שיכוך רעידות. לאחר 3 שניות האפליקציה מאופסת על האוביקט שנבחר. ההודעה "מאופס" תוצגת וצלב מופיע במרכז המסך המציג את כיוון הצפייה של הטלסקופ שלך על המפה.</li>
-<li>הקש על עצם שברצונך לצפות בו או הקלד את שמו בתיבת החיפוש. תראו קו המציג את הכיוון שאתם צריכים להזיז את הטלסקופ והשינויים בגובה ובאזימוט מוצגים בחלק הימני והתחתון של המסך.</li>
-<li>הזיזו את הטלסקופ עד שמספרים אלה יהיו קרובים לאפס - בנקודה זו הטלסקופ שלכם אמור להצביע על האובייקט המבוקש.</li>
-<li>כדי לעבור לאובייקט הבא מומלץ לחזור על תהליך האיפוס משלב 1 מכיוון שהחיישנים המובנים בטלפון הסלולרי אינם שומרים על דיוק לאורך זמן או תנועות מרובות.</li>
+<li>Align your telescope with an easily identifiable star or a planet near the object you want to observe</li>
+<li>Tap on <code>[Align]</code> button at top left of screen </li>
+<li>Tap on the star or the planet you selected. A 3 sec timer is started to make sure there is no shaking. After 3 seconds the application is aligned on the selected object. "Aligned" message is shown and a cross appears in the center of the screen showing the viewing direction your telescope on the map.</li>
+<li>Tap on an object you want to observe or type its name in the search box in the Settings Menu (accessed via the gear <code>⚙</code> button). You will see a line showing the direction you need to move the telescope and the changes in altitude and azimuth are shown at the right and bottom part of the screen</li>
+<li>Move the telescope till these numbers are close to zero - at this point your telescope should point to the requested object</li>
+<li>In order to move to next object - repeat the alignment process from the step 1 since the built-in cellphone gyros don't keep the accuracy for a long time or multiple movements</li>
 </ol>
-<p>סרטוני הדרכה והיכרות:</p>
+<p>Tutorial and Introduction Videos:</p>
 <ul>
-<li>כאן תוכלו למצוא סרטון הדגמה והדרכה שנוצר על ידי ניר זונשיין: <a href="https://youtu.be/AtArqBLWWJ8">https://youtu.be/AtArqBLWWJ8</a></li>
-<li>כאן ניתן למצוא עוד סקירה טובה מאוד שנוצרה על ידי ג'ון דריז (הידוע גם בשם Reflactor):‏ <a href="https://youtu.be/6-_58mSGz1Q">https://youtu.be/6-_58mSGz1Q</a></li>
+<li>Here you can find a demonstration and tutorial video created by Nir Zonshine: <a href="https://youtu.be/AtArqBLWWJ8">https://youtu.be/AtArqBLWWJ8</a></li>
+<li>Another very good review created by John Dreese (a.k.a. Reflactor) can be found here: <a href="https://youtu.be/6-_58mSGz1Q">https://youtu.be/6-_58mSGz1Q</a></li>
 </ul>
-<h2 id="ios">הערות למשתמשי iOS</h2>
-<p>עליכם לספק הרשאות מסוימות ל-Safari כדי להפעיל את אסטרוהופר.</p>
-<p>חיישני כיוון מכשיר:</p>
+<h2 id="notes-for-ios-users">Notes for iOS Users</h2>
+<p>You need to provide some permissions to Safari in order to run AstroHopper.</p>
+<p>Device Orientation Sensors:</p>
 <ul>
-<li>עבור iOS 13.0 ומעלה עליכם לאפשר גישה למידע כיוון המכשיר על ידי לחיצה על כפתור 'אפשר גישה למידע על כיוון המכשיר' לאחר טעינת האפליקציה.</li>
-<li>עבור iOS 12.2 ומעלה עליכם לאפשר גישה דרך: <em>הגדרות &gt; Safari &gt; גישה לתנועה וכיוון</em></li>
+<li>For iOS 13.0 and above you need to allow access to device orientation information by pressing <code>Enable Device Orientation</code> button once application loads</li>
+<li>For iOS 12.2 and before 13 you need to allow access via: <em>Settings &gt; Safari &gt; Motion and Orientation access</em></li>
 </ul>
-<p>מיקום גיאוגרפי (שימו לב להודעה "אין מיקום גיאוגרפי" על המסך):</p>
-<ul>
-<li>הגדרות &gt; פרטיות &gt; שירותי מיקום פעילים. לאחר מכן גלולו מטה אל "Safari Web..." וסמנו "בעת שימוש באפליקציה". עבור iOS 14.0 ומעלה, גם מיקום מדויק וגם מיקום משוער אמורים לעבוד.</li>
-</ul>
-<p>חלק מהמשתמשים דיווחו על צורך לאתחל את המכשיר כדי שהשינויים ייכנסו לתוקף.</p>
-<h2 id="_2">התקנת אסטרוהופר</h2>
-<p>אסטרוהופר מבוססת טכנולוגיית PWA. ניתן להתקין אותה כאפליקציה רגילה בטלפון החכם שלכם. לאחר ההתקנה, היא נגישה באופן מלא במצב לא מקוון. ניתן גם להפעיל את אסטרוהופר כהדגמה במחשב נייד.</p>
-<p>על מנת להתקין את האפליקציה, פתחו את כתובת האתר <a href="https://artyom-beilis.github.io/astrohopper.html">https://artyom-beilis.github.io/astrohopper.html</a> והתקינו אותה.</p>
+<p>Geolocation (watch for No Geolocation message on screen):</p>
 <ul>
 <li>
-<p>אנדרואיד/כרום - הקישו על "..." ליד כתובת האתר ובחרו "התקנת אפליקציה" או "הוספה למסך הבית".</p>
-</li>
-<li>
-<p>דפדפן סמסונג - הקישו על סמל <code>↓</code> ליד כתובת האתר.</p>
-</li>
-<li>
-<p>אנדרואיד/פיירפוקס - הקישו על "..." ליד כתובת האתר ובחרו "התקנה".</p>
-</li>
-<li>
-<p>אנדרואיד/אדג' - הקישו על "..." בתחתית ובחרו "הוספה לטלפון".</p>
-</li>
-<li>
-<p>אייפון/ספארי - הקישו על כפתור "שתף" (ריבוע עם חץ המצביע כלפי מעלה). גלולו למטה ובחרו "הוספה למסך הבית".</p>
+<p>Settings &gt; Privacy &gt; Location Services ON. Then scroll down to "Safari Web..." and check "While Using the app". For iOS 14.0 and above both precise and approximate location should work.</p>
+<p>Some users reported need for reboot of the device for these changes to take an effect.</p>
 </li>
 </ul>
-<p>האפליקציה תותקן במסך הבית או במסך האפליקציות - בהתאם לדפדפן.</p>
-<p>כדי לבדוק אם אסטרוהופר עובד במצב לא מקוון:</p>
+<h2 id="installing-astrohopper">Installing AstroHopper</h2>
+<p>AstroHopper is a Progressive Web Application. It can be installed as regular application on your smart phone. Once it is installed it is fully accessible offline. You can also run AstroHopper as a demo on a laptop computer.</p>
+<p>In order to install the application, open the URL <a href="https://artyom-beilis.github.io/astrohopper.html">https://artyom-beilis.github.io/astrohopper.html</a> and install it.</p>
+<ul>
+<li>Android/Chrome - tap on "..." near the URL, and select "Install App" or "Add to Home Screen" </li>
+<li>Samsung Browser - tap on <code>↓</code> symbol near URL</li>
+<li>Android/Firefox - tap on "..." near the URL, and select "Install"</li>
+<li>Android/Edge - tap on "..." at the bottom and select "Add to Phone"</li>
+<li>iPhone/Safari - tap the "Share" button (a square with an arrow pointing up) scroll down and select "Add to Home Screen"</li>
+</ul>
+<p>The application will be installed on home screen or in applications screen - depending on browser.</p>
+<p>To test if AstroHopper works offline:</p>
 <ol>
-<li>סגור את כל האפליקציות/דפדפנים</li>
-<li>העבר את הטלפון למצב "טיסה", ודא שה-WiFi סגור</li>
-<li>הקש על סמל האפליקציה וודא שהוא עובד.</li>
+<li>Close all applications/browsers</li>
+<li>Put your phone in "Flight/Airplane" mode, make sure WiFi is closed</li>
+<li>Tap on application icon and make sure it works.</li>
 </ol>
-<p>בדרך כלל ניתן לעדכן את הגרסה המותקנת של אסטרוהופר על ידי רענון הדף. אם זה לא עובד עבור הדפדפן שלך, הסר אותו והתקן אותו מחדש מאפס.</p>
-<h2 id="_3">פתרון בעיות</h2>
+<p>You can usually update the installed version of AstroHopper by refreshing the page. If this does not work for your browser, uninstall it and reinstall from scratch.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
 <ul>
 <li>
-<p><em>השמיים באפליקציה נראים שונים ממה שציפיתי?</em></p>
-<p>ודא שהדפדפן שלך מספק מידע מיקום נכון. אם לא, תוצג ההודעה "אין מיקום גיאוגרפי". בדוק את הקואורדינטות הגיאוגרפיות בתפריט ההגדרות כדי לוודא שהן תואמות למיקומך</p>
+<p><em>The sky in application looks different from what I expect?</em></p>
+<p>Make sure your browser provides correct location information. If not "No Geolocation" message will be shown. Check the geographical coordinates in settings menu to make sure they match your location</p>
 </li>
 <li>
-<p><em>אני מזיז את הטלפון אבל שום דבר לא זז?</em></p>
-<p>ודא שלטלפון הנייד שלך יש חיישנים תקינים. האם אפליקציות דומות ל-SkyMap עובדות בשבילך?</p>
+<p><em>I move the phone but nothing moves?</em></p>
+<p>Make sure your cellphone has working sensors. Do SkyMap like applications work for you?</p>
 </li>
 <li>
-<p><em>אני מזיז את הטלסקופ אבל רק הגובה משתנה. האזימוט מצביע לכיוון פולאריס/צפון?</em></p>
-<p>ייתכן שהדפדפן שלך אינו תומך בכיוון המצפן (לדוגמה, Firefox) או שאין לך חיישן כזה בטלפון. יוצג מצפן עם קו שחוצה אותו.
-ניתן לכוונן את האזימוט באופן ידני על ידי החלקה על המסך עד שתקבל את האזימוט הרצוי ולאחר מכן ליישר.</p>
+<p><em>I move the telescope but only Altitude is changing. Azimuth is pointing to Polaris/North?</em></p>
+<p>Your browser may not support compass heading (for example Firefox) or you don't have such a sensor in the phone. A compass with a line crossing it will be shown.
+You can adjust azimuth manually by swiping the screen till you get required azimuth and then align.</p>
 </li>
 <li>
-<p><em>כיוונתי את הטלסקופ שלי לכוכב אבל נראה שהטלפון הסלולרי מצביע לכיוון אחר?</em></p>
-<p>ייתכן שהמצפן של הטלפון הסלולרי אינו מיושר באופן משמעותי. ייתכן שתצטרך לבצע את הפעולות הבאות:</p>
+<p><em>I pointed my telescope to a star but the cell phone seems to point to a different direction?</em></p>
+<p>The compass of the cell phone may be significantly misaligned you may to do following:</p>
 <ol>
-<li>הזז את הטלפון הסלולרי שלך בתנועות "8" כדי לשפר את דיוק המצפן.</li>
-<li>הגדל את שדה הראייה של האפליקציה על ידי לחיצה על <code>+</code> בפינה השמאלית העליונה ליד הערך <code>∠60°</code> - שדה ראייה ברירת מחדל.</li>
-<li>ניתן לעבור למצב אזימוט ידני על ידי לחיצה על סמל "יד" <code>✋</code> בצד ימין ולגלול את האזימוט באופן ידני.</li>
+<li>Move your cell phone in compass calibration/waving pattern to increase compass accuracy</li>
+<li>Increase application's field of view by pressing <code>+</code> at the top left corner near value <code>∠60°</code> - default FOV.</li>
+<li>You may switch to manual azimuth mode by pressing "hand" <code>✋</code> icon at the right side and adjust the azimuth manually</li>
 </ol>
 </li>
 <li>
-<p><em>המסך מתעמעם מהר מאוד ואין לי זמן לכוון/לאפס את הטלסקופ?</em></p>
-<p>שנו את הגדרות "שינה" בטלפון הנייד. זה נמצא תחת "הגדרות -&gt; תצוגה" באנדרואיד ו"הגדרות -&gt; תצוגה ובהירות -&gt; נעילה אוטומטית" ב-IOS</p>
+<p><em>The screen becomes dim very fast and I don't have time to align/point the telescope?</em></p>
+<p>Modify the "sleep" settings for the cell phone. It is under "Settings -&gt; Display" in Android and "Settings -&gt; Display and Brightness -&gt; Auto-Lock” in IOS</p>
 </li>
 <li>
-<p><em>התחלתי להזיז את הטלסקופ כדי לשנות את כיוון האזימוט אבל לפי האפליקציה הוא הפסיק לזוז, או לחזור אחורה - מתנהג בצורה מוזרה?</em></p>
-<p>נראה שהג'ירו איבד דיוק. זה קורה. נסה שוב. אם זה עדיין קורה כל הזמן ואתה לא מצליח להגיע למטרה. נסה אחת מהפעולות הבאות:</p>
+<p><em>I start moving the telescope to modify azimuth direction but according to the application it stopped moving, or going back - behaves strangely?</em></p>
+<p>It seems that gyro lost accuracy. It happens. Try again. If it still happens all the time and you can't reach the target. Try one of following:</p>
 <ol>
-<li>בחר נקודת יישור הקרובה יותר באזימוט שלה לאובייקט המטרה - לגובה יש מעקב מדויק הרבה יותר.</li>
-<li>תקן את הגובה תחילה ולאחר מכן חפש את האובייקט על ציר האזימוט</li>
+<li>Select an alignment point that is closer on its azimuth to target object - altitude has much more accurate tracking.</li>
+<li>Correct altitude first and then search for the object on azimuth axis </li>
 </ol>
 </li>
 <li>
-<p><em>תנועת צביטה מגדילה את כל הדף במקום לשנות את שדה הראייה של מפת השמיים</em></p>
-<p>זה קשור להגדרות:</p>
+<p><em>Pinch gesture zooms the entire web page instead of changing the field of view of the sky map</em></p>
+<p>It related to configuration:</p>
 <ul>
-<li>כרום: הגדרות -&gt; נגישות -&gt; הפעל זום מאולץ -&gt; כבוי</li>
-<li>פיירפוקס: הגדרות -&gt; נגישות -&gt; הפעל זום תמיד -&gt; כבוי</li>
-<li>דפדפן סמסונג: הגדרות -&gt; מראה -&gt; זום ידני -&gt; כבוי</li>
-<li>אדג': הגדרות -&gt; גודל גופן -&gt; זום בכל האתרים -&gt; כבוי או הגדרות -&gt; נגישות -&gt; זום בכל האתרים -&gt; כבוי</li>
+<li>Chrome: settings -&gt;accessibility -&gt; enable force zoom -&gt; off</li>
+<li>Firefox:settings -&gt; accessibility -&gt; always enable zoom -&gt; off</li>
+<li>Samsung Browser: settings -&gt;appearance -&gt; manual zoom -&gt; off</li>
+<li>Edge: settings -&gt; font size -&gt; zoom on all sites -&gt; off or settings -&gt; Accessibility -&gt; zoom on all websites -&gt; off</li>
 </ul>
-<p>לצערנו, אין אפשרות להשבית זום מלא של דף אינטרנט ב-iOS.</p>
+<p>Unfortunately, there is no option to disable full web page zoom on iOS.</p>
 </li>
 </ul>
-<h2 id="_4">שליטה</h2>
+<h2 id="controls">Controls</h2>
 <ul>
-<li>צד שמאל, מלמעלה למטה:<ul>
-<li>כפתור איפוס וסטטוס - לחיצה עליו מתחילה תהליך איפוס - עליך לבחור כוכב או כוכב לכת שאליו אתה מתאפס.</li>
-<li>שדה ראייה - שינוי באמצעות <code>+</code>, <code>-</code> כדי להתאים</li>
-<li>אם רשימת המעקב נבחרה, כפתוריפ <code>&lt;</code>,<code>&gt;</code> למעבר ברשימת הצפייה. שם האובייקט שנבחר מוצג למטה</li>
+<li>
+<p>Left side, from top to bottom:</p>
+<ul>
+<li>Align button and status - pressing on it starts alignment process - you need to select a star or planet you aligning on to.</li>
+<li>Field of view - modify with <code>+</code>, <code>-</code> to adjust </li>
+<li>If watch list is selected <code>&lt;</code>,<code>&gt;</code> controls for browsing watch list object. Selected object name is shown below</li>
 </ul>
 </li>
 <li>
-<p>צד ימין, מלמעלה למטה, מימין לשמאל</p>
+<p>Right side, from top to bottom, right to left</p>
 <ul>
-<li><code>⚙</code> - כפתור הגדרות</li>
-<li>תיבת חיפוש אובייקטים, מאפשרת להזין שם או קוד של האובייקט. לאחר החיפוש לחץ על Enter במקלדת. שימו לב, אם ברצונכם לבצע את אותו החיפוש שוב, לחצו על "זכוכית המגדלת" והחיפוש יחזור לאובייקט שנבחר.</li>
-<li><code>✋</code> - מעבר למצב ידני, "<em>מצפן</em>" מעבר למצב מצפן, "מצפן חתוך_" - אין מצפן זמין, השתמשו במצב ידני בלבד</li>
-<li>‏<code>W</code> - מופיע כאשר אובייקט שיש לו שם נבחר - לחיצה עליו פותחת דף ויקיפדיה על האובייקט, דורש רשת.</li>
+<li><code>⚙</code> - settings button</li>
+<li>Object search box, allows to enter object name or code. Once found press Enter on keyboard. Note if you want to do same search once again, press on the "Magnifing Glass" and it would return to the selected object.</li>
+<li><code>✋</code> - switch to manual mode, "<em>compass</em>" switch to compass mode, "<em>compass crossed</em>" - no compass available use manual mode only</li>
+<li><code>W</code> - appears when a named object selected - pressing on it opens Wikipedia page about the object, requires network.</li>
 </ul>
 </li>
 <li>
-<p>תפריט הגדרות (גישה דרך סמל גלגל השיניים <code>⚙</code>):</p>
+<p>Settings Menu (accessed from gear <code>⚙</code> icon):</p>
 <ul>
-<li>כפתור <code>↻</code> - אתחול האיפוס ויעד</li>
-<li>מצב ממשק משתמש קטן - התאמה למסך קטן: הקטנת כפתורים, הזזת כפתורי שדה הראייה לתפריט ההגדרות</li>
-<li>מסך מלא - העברת אפליקציה למסך מלא</li>
-<li>מצב לילה - הפעלה או השבתה של מסך מצב לילה אדום</li>
-<li>ב"מצב מסך קטן" בלבד: שדה ראייה - שינוי באמצעות <code>+</code>, <code>-</code> להתאמה</li>
-<li>גודל כוכבים מקסימלי להצגה/איפוס - התאמה באמצעות לחיצה על <code>+</code>, <code>-</code></li>
-<li>בהירות מקסימית של אובייקטי DSO להצגה - התאמה באמצעות לחיצה על <code>+</code>, <code>-</code></li>
-<li>אפשרות הגדלת גודל גופן כדי לאפשר תצוגה גדולה יותר במפה במידת הצורך</li>
-<li>בחירה ועריכה של רשימת הצפייה</li>
-<li>חיפוש יעד לפי שם</li>
-<li>לאפשר איפוס גם על גרמי חלל עמוק (DSO). יש להשתמש בזהירות מכיוון שקשה להגדיר מרכז של אובייקט גדול כמו צביר פתוח.</li>
-<li>סינון גרמי שמיים לפי סוג</li>
-<li>הפעלה/ביטול של זום בצביטה</li>
-<li>הגדרות מידע בוויקי</li>
-<li>הצגת מדריך בעת ההפעלה</li>
-<li>רשימת אובייקטים שנוספו על ידי המשתמש</li>
-<li>סטטוס מיקום גיאוגרפי וכפתור טעינה מחדש של מיקום גיאוגרפי</li>
-<li>מידע על חיישני תנועה</li>
+<li><code>↻</code> button - reset alignment and target</li>
+<li>Small UI Mode - optimize for small screen: make buttons smaller, move field of view controls to settings menu</li>
+<li>Full Screen - switch application to full screen</li>
+<li>Night Mode - enable or disable red-night mode screen</li>
+<li>In "Small Screen Mode" only: Field of view - modify with <code>+</code>, <code>-</code> to adjust </li>
+<li>Maximum star magnitude to display/align on - adjust with <code>+</code>, <code>-</code> controls</li>
+<li>Maximum apparent magnitude of DSO objects to be displayed - modify with <code>+</code>, <code>-</code> controls</li>
+<li>Font size increase option to allow bigger fonts if needed</li>
+<li>Watch List selection and editing </li>
+<li>Search target by name field</li>
+<li>Allow alignment using any DSO object. Use with care since it is hard to define a center of big DSO object like open cluster.</li>
+<li>Filtering of the Astronomical objects by type</li>
+<li>Enable/Disable pinch zoom</li>
+<li>Wiki information configuration</li>
+<li>Show quick-start tutorial on startup </li>
+<li>User Added Objects List</li>
+<li>Status of geolocation and reload geolocation button</li>
+<li>Sensors information</li>
 </ul>
 </li>
 </ul>
-<h2 id="_5">שליטה במצב מסך קטן</h2>
-<p>על המסך:</p>
+<h2 id="controls-in-small-screen-mode">Controls in Small Screen Mode</h2>
+<p>On screen controls:</p>
 <ul>
-<li>שמאל למעלה: <code>◎</code> - כפתור איפוס עם סטטוס: <code>✓</code> - מאופס, <code>✗</code> - לא מאופס, <code>?</code> - בחירת כוכב איפוס</li>
-<li>אם רשימת הצפייה נבחרה, משמאל <code>&lt;</code>,<code>&gt;</code> כפתורים למעבר ברשימה. שם האובייקט שנבחר מוצג למטה</li>
-<li>בצד ימין:<ul>
-<li>מצב ידני <code>✋</code> או "<em>מצפן</em>"</li>
-<li>תפריט הגדרות: <code>⚙</code></li>
+<li>Left Top: <code>◎</code> - Align button with status: <code>✓</code> - aligned, <code>✗</code> - not aligned, <code>?</code> - select alignment star</li>
+<li>If watch list is selected, on the left <code>&lt;</code>,<code>&gt;</code> controls for browsing watch list object. Selected object name is shown below</li>
+<li>
+<p>Right:</p>
+<ul>
+<li>Manual <code>✋</code> or "<em>compass</em>" mode</li>
+<li>Settings Menu: <code>⚙</code></li>
 </ul>
 </li>
-<li>צד שמאל: <code>W</code> - מופיע כאשר אובייקט עם שם נבחר - לחיצה עליו פותחת דף ויקיפדיה על האובייקט, דורש רשת</li>
+<li>
+<p>Left <code>W</code> - appears when a named object selected - pressing on it opens Wikipedia page about the object, requires network</p>
+</li>
 </ul>
-<h2 id="_6">מידע מויקיפדיה</h2>
-<p>כאשר מופיע כפתור ה-<code>W</code>, ניתן ללחוץ עליו ולפתוח חלון עם דף ויקיפדיה על האובייקט שנבחר.</p>
-<p><em>הערה:</em> אך היזהרו - לאפליקציה אין שליטה על סגנון הדף וכברירת המחדל הוא יהיה יופיע שחור על גבי דף לבן. זה משהו שאינו רצוי לראיית לילה. כדי לשפר זאת, ניתן לשנות את הגדרות הדפדפן או להשתמש בתוסף דפדפן ספציפי כגון <a href="https://darkreader.org">Dark Reader</a>, אבל טקסט לבן או תמונות בהירות עדיין עלולים להפריע לראיית הלילה שלכם.</p>
-<p>לכן, כברירת מחדל, התמיכה במידע מוויקיפדיה מושבתת במצב לילה. ניתן לשנות את ההתנהגות בתפריט ההגדרות "ויקי".</p>
-<h2 id="_7">רשימת צפייה</h2>
-<p>משתמש יכול ליצור רשימת צפייה מותאמת אישית מראש כדי לעיין בה בקלות במהלך הלילה.
-יש 'רשימת צפיה' בתפריט "הגדרות". אפשר לערוך אותה עם לחיצה על <code>[ערוך]</code></p>
-<p>רשימת צפייה מוגדרת על ידי רשימה פשוטה של ​​שמות אובייקטים המופרדים ברווח, שורות חדשות או פסיקים.
-לדוגמה, מתחת לרשימה "ברירת המחדל":</p>
+<h2 id="wikipedia-page-info">Wikipedia Page Info</h2>
+<p>When <code>W</code> button appears you can tap on it and open a frame with Wikipedia page about the selected object.</p>
+<p><em>Note:</em> But be careful - the app has no control over style of the page and by default it would be black text over white page. It is something not desirable for night vision. To improve this, you can tweak your browser settings or use a specific browser extension such as <a href="https://darkreader.org">Dark Reader</a>, however white text or bright images may still disturb your night vision.</p>
+<p>Thus by default the Wiki page info support is disabled in Night mode. You can change behavior in settings menu "Wiki".</p>
+<h2 id="watch-list">Watch List</h2>
+<p>A user can create a custom watch list in advance to browse them easily during the night.
+There is <code>List</code> option in "Settings" menu.  It has  <code>[edit]</code> control to open watch list editing tool.</p>
+<p>A watch list is defined by a simple list of object names separated by space, new lines or commas. 
+For example below the "default" list:</p>
 <pre><code>M411, M47, M49, M50, M44, M45
 </code></pre>
-<p>ניתן להגדיר מספר רשימות צפייה עם שם ע"י כתיבת שם הרשימה (באנגלית) וסימן <code>:</code> אחריו, לדוגמה:</p>
+<p>Several named lists can be defined by giving watch list a name followed by <code>:</code>, for example:</p>
 <pre><code>clusters: M41 M47 M49
  M50 M44 M45
 doublestars: Polaris, "Cor Caroli"
 </code></pre>
-<p>יתן להוסיף הערת משתמש בין <code>(</code> ל-<code>)</code> כדי להסביר את קוד האובייקט. זה יוצג בממשק המשתמש לאחר בחירת האובייקט, לדוגמה:</p>
+<p>It is possible to add user comment between <code>(</code> and <code>)</code> to explain the object id. It would be shown in UI upon object selection, for example:</p>
 <pre><code>Galaxies: M31 (Andromeda), M64 (Black Eye)
 </code></pre>
-<p><em>הערה:</em> אם אתם מוסיפים הערה או משתמשים בשם המכיל רווחים, עליכם להשתמש בסימן <code>,</code> כמפריד.</p>
-<p>ניתן לבחור רשימות על ידי לחיצה על הכפתורים <code>&lt;</code> ו-<code>&gt;</code> בבקרת "רשימות". כאשר הרשימה נבחרת, מוצגים שני כפתורים <code>&lt;</code> ו-<code>&gt;</code> במסך הראשי תחת כפתור "אפס". הם מאפשרים לדפדף בין האובייקטים קדימה ואחורה. שם האובייקט שנבחר כעת יוצג תחת הלחצנים האלה.</p>
-<p>רשימות הצפייה נשמרות בטלפון שלכם על בסיס דומיין. הן נשמרות גם כשאתם פותחים מחדש את האפליקציה.</p>
-<h2 id="_8">אובייקטים של משתמש</h2>
-<p>אסטרוהופר זה אינו מכיל כל כוכב או DSO אפשרי. אם רוצים לגשת לאובייקטים שאינם מופיעים במסד הנתונים, אפשר להוסיף אותם בעזרת "אובייקטים של משתמש" בתפריט ההגדרות.</p>
-<p>אובייקטים של משתמש מוגדרים בפורמט CSV כאשר העמודה הראשונה מכילה את שם האובייקט, העמודה השנייה (RA) והשלישית את הנטייה (DEC).
-ניתן לציין גם את RA וגם את DEC כמעלות עשרוניות (0-360 עבור RA ו-90- +90 עבור DEC) או בשעה/מעלות עם דקות ושניות. ניתן להשמיט שניות. ניתן להפריד בין שדות באמצעות רווחים, באמצעות ":" או באמצעות סמלים מתאימים כמו "h", "m", "s", "d". לדוגמה</p>
+<p><em>Note:</em> if you adding a comment or use a name that contains spaces you need to add a comma <code>,</code> as a separator</p>
+<p>Lists can be selected by pressing <code>&lt;</code> and <code>&gt;</code> buttons in "Lists" control. When the list is selected two buttons <code>&lt;</code> and <code>&gt;</code> are shown in main screen under "Align" button. They allow browsing the objects forward and backward. The current selected object's name is shown under the controls.</p>
+<p>The watch lists are stored at your phone on per domain basis. They are kept even when you reopen the app. </p>
+<h2 id="user-objects">User Objects</h2>
+<p>This application does not contain every possible star or DSO. If you want to access objects that are not listed in the database you can add them via "User Objects" in settings menu.</p>
+<p>User object are defined in CSV format when first column contains object name, second right ascension (RA) and the third the declination (DEC).
+Both RA and DEC can be given as decimal degrees (0-360 for RA and -90 +90 for DEC) or in hour/degree with minutes and seconds. Seconds may be omitted. Fields can be separated by spaces, by ":" or by appropriate symbols like "h", "m", "s", "d". For example </p>
 <ul>
 <li>RA: <code>170.6358</code> or <code>11:22:32.6</code> or <code>11h 22m 32.6s</code> or <code>11h 22' 32.6''</code> or <code>11 22′ 32.6″</code> or  <code>11 22 32.6</code>, <code>11:32</code></li>
 <li>DEC: <code>-87.3757</code> or <code>-87:22:32.6</code> or <code>-87d 22m 32.6s</code> or <code>-87d 22' 32.6''</code> or <code>-87° 22′ 32.6″</code> or <code>-87 22 32.6</code>, <code>-87:22</code></li>
 </ul>
-<p>הנה דוגמה של רשימה כזו:</p>
+<p>This is an example of such a list:</p>
 <pre><code>V1405,23h 24m 48s, +61° 11′ 15″
 Pluto,19:55:16,-22:13:42
 </code></pre>
-<p>רשימת האובייקטים תישמר בטלפון שלכם.</p>
-<h2 id="_9">משתמשי חצובה משוונית</h2>
-<p>האפליקציה מניחה שאתם עובדים עם עם חצובת אלט־אזימוט. אם אתם משתמשים בחצובה משוונית, שגיאה נוספת עשויה להיווצר עקב חוסר יישור בין הציר הראשי של הטלפון הסלולרי לציר הטלסקופ. </p>
-<h2 id="_10">בעיות ידועות</h2>
+<p>The user objects are stored on your phone on per domain basis. They are kept even when you reopen the app. </p>
+<h2 id="equatorial-mount-users">Equatorial Mount Users</h2>
+<p>The application assumes you work with alt-azimuth mount. If you are using equatorial mount an additional error may be introduced due to misalignment between the cell phone major axis and the telescope axis.</p>
+<p>If the targets are close to poles and significant changes in right ascension are required for the hop any misalignment error between cell phone axis and telescope axis will affect the accuracy. Final error can be calculated as 2e⋅sin(Δα/2)⋅sin(δ), where e - misalignment error between cell phone and telescope, Δα - change in right ascension required for the hop and δ - declination of the target.</p>
+<p>So it may not work reliably for equatorial mounts. Alt-Az mounts are recommended.</p>
+<h2 id="known-issues">Known Issues</h2>
 <ul>
-<li>זום בצביטה אינו פועל כראוי ב-iOS - אין דרך להשבית את זום הדפדפן</li>
-<li>זום בצביטה או לחיצה כפולה במכשירי iOS מגדיל את המסך כאשר לא אמורים לעשות זאת</li>
-<li>בגרסאות מסוימות של iPad (iOS 12.5) בחירת כוכב/יעד אינה פועלת</li>
+<li>Pinch zoom does not work properly on iOS - no way to disable browser zoom</li>
+<li>Pinch zoom or double tap on iOS devices zooms the screen when not supposed to</li>
+<li>On some iPad versions (iOS 12.5) the star/target selection does not work</li>
 </ul>
-<h2 id="_11">דיווח על באגים וקבלת תמיכה</h2>
+<h2 id="reporting-bugs-and-getting-support">Reporting Bugs and Getting Support</h2>
 <ul>
-<li>הדרך הטובה ביותר לדווח על באגים היא בפרויקט github: <a href="https://github.com/artyom-beilis/skyhopper">https://github.com/artyom-beilis/skyhopper</a></li>
-<li>בנוסף, מפתח התוכנה (ארתיום בייליס) מבקר לעתים קרובות בפורום <a href="https://www.cloudynights.com/index/">Cloudy Nights</a> כך שתוכלו לקבל שם עזרה. ודאו שאתם מזכירים נכון את שם האפליקציה "AstroHopper".</li>
+<li>Best way to report bugs is on github project: <a href="https://github.com/artyom-beilis/skyhopper">https://github.com/artyom-beilis/skyhopper</a></li>
+<li>Also the author of the program (Artyom Beilis) is frequent visitor of <a href="https://www.cloudynights.com/index/">Cloudy Nights</a> forum so you can get help there. Make mention the application name correctly "AstroHopper".</li>
 </ul>
-<h2 id="_12">זכויות יוצרים</h2>
-<p>(C) 2021-2025 ארתיום בייליס.</p>
-<p>זוהי אפליקציית בקוד פתוח המופצת תחת רישיון GPL.  היא תעבוד רק עם חיישנים תקינים. לא ניתנת אחריות מכל סוג שהוא. למידע מפורט על זכויות יוצרים של חלקים שונים של הפרויקט, עיינו בכתובת <a href="https://github.com/artyom-beilis/skyhopper/blob/main/COPYING.md">https://github.com/artyom-beilis/skyhopper/blob/main/COPYING.md</a></p></body>
+<h2 id="copyrights">Copyrights</h2>
+<p>(C) 2021-2025 Artyom Beilis.</p>
+<p>It is an open source web application licensed under GPL license. It may work only with well working sensors. No warranty of any kind is given. For detailed copyrights
+of different parts of the project refer to <a href="https://github.com/artyom-beilis/skyhopper/blob/main/COPYING.md">https://github.com/artyom-beilis/skyhopper/blob/main/COPYING.md</a></p></body>
 </html>
