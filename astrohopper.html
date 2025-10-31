@@ -5,6 +5,8 @@
 <link rel="manifest" href="manifest.json">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5L31YEPT3E"></script>
 <script>
@@ -226,7 +228,7 @@ input[type=submit] { width:10mm;}
 <button class="incdec_but" onclick="showConfig('none');">X</button>
 </span>
 <div class="r2l">
-<p style="text-align:center"><b><span  class="tr">Settings</span> (1.0.19)</b></p>
+<p style="text-align:center"><b><span  class="tr">Settings</span> (1.0.20)</b></p>
 <p>
 <button class="ui_but" onclick="resetAll();">&#x21bb;</button>
 <input class="dso_selector" id="small_screen" type="checkbox" /><label for="small_screen" class="tr" >Small UI</label> 
@@ -881,40 +883,6 @@ Si consiglia l’uso con montature altazimutali (Alt-Az).</p>
 <h2 id="copyrights">Copyrights</h2>
 <p>(C) 2021-2025 Artyom Beilis.</p>
 <p>Questa è un’applicazione web open source, rilasciata sotto licenza GPL. Il suo corretto funzionamento dipende dalla presenza di sensori pienamente operativi sul dispositivo. Non viene fornita alcuna garanzia di alcun tipo. Per i dettagli sui diritti d’autore relativi alle diverse parti del progetto, consulta <a href="https://github.com/artyom-beilis/skyhopper/blob/main/COPYING.md">https://github.com/artyom-beilis/skyhopper/blob/main/COPYING.md</a></p>
-</div>
-
-<div id='manual_tr_translators' class='r2l manual_section'>
-<h1 id="i-want-to-translate-astrohopper-to-new-language-what-should-i-do">I want to translate AstroHopper to new language what should I do</h1>
-<p>First of all this is great. There are two levels of translation, lets
-say we want to translate it to French</p>
-<ul>
-<li>UI</li>
-<li>Manual</li>
-</ul>
-<h2 id="ui-translation">UI translation</h2>
-<p>Take astrohopper.pot and copy it to [LANGUAGECODE].po for example fr.po
-and edit is with specialized dictionary editor for example open source
-poedit that is available on Linux, Windows and Mac OS X.</p>
-<p>It is critical to use a tool and not just text editor as it keeps 
-the format correct and consistent and in generally way easier to use
-than plain text editor</p>
-<p>Special notes:</p>
-<ul>
-<li>"Align" is written on main button. If in your language it is long word use abbreviation, for example in Ukrainian "вирівнювання" is shortened as "вирів.",
-  note it appears in several places make sure it is consistent.</li>
-<li>If you translate a language written right to left like Hebrew, Arabic and Farsi translate "LTR" keyword as "RTL" for other languages written left to right translate it as LTR.
-  This would adjust layout of the application according to general writing direction where it is needed</li>
-<li>Make sure you keep HTML parts inside so they would be displayed correctly,</li>
-<li>"List" - refers to watch list - keep it short not to break UI,</li>
-<li>If you are not comfortable with some statements in the dictionary, I can understand, just leave them untranslated.</li>
-</ul>
-<h2 id="manual-translation">Manual Translation</h2>
-<p>It is optional but recommended part.</p>
-<p>To translate manual, copy README.md to <code>po/README_lang.md</code> for example <code>po/README_fr.md</code> similar to <code>po/README_he.md</code>
-It is markdown format. Translate it as you feed comfortable but keep it properly formatted Markdown.</p>
-<p>Keep <code>[TOC]</code> tag as is - it is placeholder for table of content</p>
-<h2 id="submitting">Submitting</h2>
-<p>Submit a PR with these files or just e-mail me them if you aren't familiar with github</p>
 </div>
 
 <div id='manual_tr_he' class='r2l manual_section'>
