@@ -225,7 +225,7 @@ input[type=submit] { width:10mm;}
 <button class="incdec_but" onclick="showConfig('none');">X</button>
 </span>
 <div class="r2l">
-<p style="text-align:center"><b><span  class="tr">Settings</span> (1.0.22)</b></p>
+<p style="text-align:center"><b><span  class="tr">Settings</span> (1.0.23)</b></p>
 <p>
 <button class="ui_but" onclick="resetAll();">&#x21bb;</button>
 <input class="dso_selector" id="small_screen" type="checkbox" /><label for="small_screen" class="tr" >Small UI</label> 
@@ -487,7 +487,7 @@ But if your compass fails to work properly, press the hand button <code>✋</cod
 </li>
 <li>
 <p><em>I move the telescope but only Altitude is changing. Azimuth is pointing to Polaris/North?</em></p>
-<p>Your browser may not support compass heading (for example Firefox) or you don't have such a sensor in the phone. A compass with a line crossing it will be shown.
+<p>Your browser may not support compass heading or you don't have such a sensor in the phone. A compass with a line crossing it will be shown.
 You can adjust azimuth manually by swiping the screen till you get required azimuth and then align.</p>
 </li>
 <li>
@@ -10348,10 +10348,16 @@ function iOSOrientation()
 	.catch(console.error)
 }
 
+function isiPhone()
+{
+    return /iPhone/.test(navigator.userAgent);
+
+}
+
 function setupGyros()
 {
 	//if (typeof window.Notification.requestPermission === 'function') {
-	if (typeof window.DeviceOrientationEvent.requestPermission === 'function') {
+	if (typeof window.DeviceOrientationEvent.requestPermission === 'function'  &&  isiPhone( )) {
 		document.getElementById("allow_orientation").style.display='inline';
 	}
 	else {
