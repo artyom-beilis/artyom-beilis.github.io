@@ -225,7 +225,7 @@ input[type=submit] { width:10mm;}
 <button class="incdec_but" onclick="showConfig('none');">X</button>
 </span>
 <div class="r2l">
-<p style="text-align:center"><b><span  class="tr">Settings</span> (1.0.25)</b></p>
+<p style="text-align:center"><b><span  class="tr">Settings</span> (1.0.26)</b></p>
 <p>
 <button class="ui_but" onclick="resetAll();">&#x21bb;</button>
 <input class="dso_selector" id="small_screen" type="checkbox" /><label for="small_screen" class="tr" >Small UI</label> 
@@ -237,6 +237,7 @@ input[type=submit] { width:10mm;}
 <p>
     <select id="lang_select">
         <option value="en">English</option>
+        <option value="es">Español</option>
         <option value="fr">Français</option>
         <option value="he">עברית</option>
         <option value="hu">Magyar</option>
@@ -1126,6 +1127,254 @@ Pluto,19:55:16,-22:13:42
 <h2 id="direitos-autorais">Direitos autorais</h2>
 <p>(C) 2021-2025 Artyom Beilis.</p>
 <p>Este aplicativo web de código aberto é distribuído sob a licença GPL. Seu funcionamento depende de sensores adequados. Não há qualquer garantia. Para informações detalhadas sobre os direitos autorais das diferentes partes do projeto, consulte <a href="https://github.com/artyom-beilis/skyhopper/blob/main/COPYING.md">https://github.com/artyom-beilis/skyhopper/blob/main/COPYING.md</a>.</p>
+</div>
+
+<div id='manual_tr_es' class='r2l manual_section'>
+<h1 id="astrohopper-antes-skyhopper">AstroHopper - (antes SkyHopper)</h1>
+<div class="toc">
+<ul>
+<li><a href="#astrohopper-antes-skyhopper">AstroHopper - (antes SkyHopper)</a><ul>
+<li><a href="#funcionamiento">Funcionamiento</a></li>
+<li><a href="#notas-para-usuarios-de-ios">Notas para usuarios de iOS</a></li>
+<li><a href="#instalar-astrohopper">Instalar AstroHopper</a></li>
+<li><a href="#solucion-de-problemas">Solución de problemas</a></li>
+<li><a href="#controles">Controles</a></li>
+<li><a href="#controles-en-modo-ui-reducida">Controles en modo UI reducida</a></li>
+<li><a href="#informacion-de-wikipedia">Información de Wikipedia</a></li>
+<li><a href="#lista-de-observacion">Lista de observación</a></li>
+<li><a href="#objetos-de-usuario">Objetos de usuario</a></li>
+<li><a href="#usuarios-de-montura-ecuatorial">Usuarios de montura ecuatorial</a></li>
+<li><a href="#problemas-conocidos">Problemas conocidos</a></li>
+<li><a href="#informar-de-errores-y-obtener-ayuda">Informar de errores y obtener ayuda</a></li>
+<li><a href="#copyrights">Copyrights</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><a href="https://artyom-beilis.github.io/astrohopper.html">AstroHopper</a> (antes conocida como SkyHopper) es una aplicación web gratuita y de código abierto
+desarrollada por <a href="https://github.com/artyom-beilis/skyhopper">Artyom Beilis</a> que ayuda a encontrar objetos en el cielo nocturno.
+Lo consigue permitiendo "saltar" con precisión desde una estrella conocida y fácil de identificar
+hasta otras estrellas más débiles u objetos de cielo profundo (DSO), midiendo los cambios en los ángulos de orientación del móvil
+mediante el giroscopio y los sensores de gravedad integrados. Es parecido a unos círculos graduados digitales (Digital Setting Circles)
+implementados en un smartphone.</p>
+<p>El móvil debe tener giroscopio y sensor de gravedad y, preferiblemente, brújula.</p>
+<p>AstroHopper es una aplicación web formada por una única página HTML con una base de datos de objetos en JavaScript
+que sigue funcionando sin conexión mientras esté guardada en la caché del navegador.</p>
+<h2 id="funcionamiento">Funcionamiento</h2>
+<p>Sujeta el móvil al telescopio de forma que la parte <strong>superior</strong> física del teléfono
+apunte en la dirección de observación. Ten en cuenta que esto es distinto de las apps de observación del cielo habituales,
+que simulan la vista de la cámara hacia el cielo. En AstroHopper la pantalla queda paralela a la
+dirección de observación.</p>
+<p>Antes de sujetar el móvil, abre AstroHopper y calibra la brújula haciendo movimientos en forma de "8".
+La calibración mejora mucho la precisión de la brújula.
+Si aun así la brújula no funciona bien, pulsa el botón de la mano <code>✋</code> para usar el modo manual.</p>
+<p>Al iniciar AstroHopper aparece una guía rápida. También puedes obtener ayuda pulsando el botón del engranaje <code>⚙</code> arriba a la derecha y luego el botón <code>?</code>.</p>
+<ol>
+<li>Apunta el telescopio a una estrella o un planeta fácil de identificar cerca del objeto que quieres observar</li>
+<li>Pulsa el botón <code>[Alinear]</code> arriba a la izquierda de la pantalla</li>
+<li>Toca la estrella o el planeta que has elegido. Se inicia una cuenta atrás de 3 segundos para asegurar que no haya vibraciones. Pasados los 3 segundos la aplicación queda alineada con el objeto seleccionado. Aparece el mensaje "Alineado" y una cruz en el centro de la pantalla que indica en el mapa hacia dónde apunta el telescopio.</li>
+<li>Toca el objeto que quieres observar o escribe su nombre en el cuadro de búsqueda del menú de ajustes (botón del engranaje <code>⚙</code>). Verás una línea que indica hacia dónde mover el telescopio, y los cambios de altitud y azimut aparecen a la derecha y en la parte inferior de la pantalla</li>
+<li>Mueve el telescopio hasta que esos números estén cerca de cero: en ese momento el telescopio debería apuntar al objeto buscado</li>
+<li>Para pasar al siguiente objeto, repite la alineación desde el paso 1, ya que los giroscopios del móvil no mantienen la precisión durante mucho tiempo ni tras muchos movimientos</li>
+</ol>
+<p>Vídeos de introducción y tutoriales (en inglés):</p>
+<ul>
+<li>Vídeo de demostración y tutorial creado por Nir Zonshine: <a href="https://youtu.be/AtArqBLWWJ8">https://youtu.be/AtArqBLWWJ8</a></li>
+<li>Otra reseña muy buena de John Dreese (alias Reflactor): <a href="https://youtu.be/6-_58mSGz1Q">https://youtu.be/6-_58mSGz1Q</a></li>
+</ul>
+<h2 id="notas-para-usuarios-de-ios">Notas para usuarios de iOS</h2>
+<p>Tienes que dar algunos permisos a Safari para usar AstroHopper.</p>
+<p>Sensores de orientación del dispositivo:</p>
+<ul>
+<li>En iOS 13.0 o superior debes permitir el acceso a la orientación del dispositivo pulsando el botón <code>Activar orientación del dispositivo</code> cuando cargue la aplicación</li>
+<li>En iOS 12.2 y anteriores a la 13 debes permitirlo en: <em>Ajustes &gt; Safari &gt; Acceso a movimiento y orientación</em></li>
+</ul>
+<p>Geolocalización (fíjate si aparece el mensaje "Sin geolocalización" en pantalla):</p>
+<ul>
+<li>
+<p>Ajustes &gt; Privacidad &gt; Localización activada. Después baja hasta "Safari Web..." y marca "Cuando se use la app". En iOS 14.0 y superior deberían funcionar tanto la ubicación exacta como la aproximada.</p>
+<p>Algunos usuarios han tenido que reiniciar el dispositivo para que estos cambios surtan efecto.</p>
+</li>
+</ul>
+<h2 id="instalar-astrohopper">Instalar AstroHopper</h2>
+<p>AstroHopper es una aplicación web progresiva (PWA). Se puede instalar en el móvil como una aplicación normal y, una vez instalada, funciona completamente sin conexión. También puedes probar AstroHopper como demostración en un portátil.</p>
+<p>Para instalar la aplicación, abre la dirección <a href="https://artyom-beilis.github.io/astrohopper.html">https://artyom-beilis.github.io/astrohopper.html</a> e instálala:</p>
+<ul>
+<li>Android/Chrome: pulsa "..." junto a la dirección y elige "Instalar aplicación" o "Añadir a pantalla de inicio"</li>
+<li>Samsung Internet: pulsa el símbolo <code>↓</code> junto a la dirección</li>
+<li>Android/Firefox: pulsa "..." junto a la dirección y elige "Instalar"</li>
+<li>Android/Edge: pulsa "..." abajo y elige "Añadir al teléfono"</li>
+<li>iPhone/Safari: pulsa el botón "Compartir" (un cuadrado con una flecha hacia arriba), baja y elige "Añadir a pantalla de inicio"</li>
+</ul>
+<p>La aplicación se instalará en la pantalla de inicio o en la lista de aplicaciones, según el navegador.</p>
+<p>Para comprobar que AstroHopper funciona sin conexión:</p>
+<ol>
+<li>Cierra todas las aplicaciones y navegadores</li>
+<li>Pon el móvil en modo avión y asegúrate de que el WiFi está desactivado</li>
+<li>Pulsa el icono de la aplicación y comprueba que funciona.</li>
+</ol>
+<p>Normalmente puedes actualizar la versión instalada de AstroHopper recargando la página. Si con tu navegador no funciona, desinstálala y vuelve a instalarla desde cero.</p>
+<h2 id="solucion-de-problemas">Solución de problemas</h2>
+<ul>
+<li>
+<p><em>¿El cielo de la aplicación no se parece a lo que esperaba?</em></p>
+<p>Comprueba que el navegador da la ubicación correcta. Si no, aparecerá el mensaje "Sin geolocalización". Revisa las coordenadas geográficas en el menú de ajustes para confirmar que coinciden con tu ubicación</p>
+</li>
+<li>
+<p><em>¿Muevo el móvil pero no se mueve nada?</em></p>
+<p>Comprueba que los sensores del móvil funcionan. ¿Te funcionan aplicaciones tipo SkyMap?</p>
+</li>
+<li>
+<p><em>¿Muevo el telescopio pero solo cambia la altitud y el azimut apunta a la Polar/Norte?</em></p>
+<p>Puede que tu navegador no admita la orientación de la brújula o que el móvil no tenga ese sensor. Se mostrará una brújula tachada.
+Puedes ajustar el azimut a mano deslizando la pantalla hasta llegar al azimut necesario y luego alinear.</p>
+</li>
+<li>
+<p><em>¿He apuntado el telescopio a una estrella pero el móvil parece apuntar a otra dirección?</em></p>
+<p>La brújula del móvil puede estar bastante desviada. Puedes hacer lo siguiente:</p>
+<ol>
+<li>Mueve el móvil con el patrón de calibración de la brújula para mejorar su precisión</li>
+<li>Aumenta el campo de visión de la aplicación pulsando <code>+</code> en la esquina superior izquierda, junto al valor <code>∠60°</code> (campo por defecto).</li>
+<li>Puedes pasar al modo de azimut manual pulsando el icono de la "mano" <code>✋</code> a la derecha y ajustar el azimut a mano</li>
+</ol>
+</li>
+<li>
+<p><em>¿La pantalla se oscurece muy rápido y no me da tiempo a alinear o apuntar el telescopio?</em></p>
+<p>Cambia el tiempo de suspensión del móvil. Está en "Ajustes -&gt; Pantalla" en Android y en "Ajustes -&gt; Pantalla y brillo -&gt; Bloqueo automático" en iOS</p>
+</li>
+<li>
+<p><em>¿Empiezo a mover el telescopio en azimut pero la aplicación dice que se ha parado o que vuelve atrás, se comporta de forma rara?</em></p>
+<p>Parece que el giroscopio ha perdido precisión. Pasa a veces. Inténtalo de nuevo. Si sigue pasando siempre y no llegas al objetivo, prueba una de estas opciones:</p>
+<ol>
+<li>Elige un punto de alineación más cercano en azimut al objeto buscado: la altitud se sigue con mucha más precisión.</li>
+<li>Corrige primero la altitud y luego busca el objeto en el eje de azimut</li>
+</ol>
+</li>
+<li>
+<p><em>El gesto de pellizcar amplía toda la página web en lugar de cambiar el campo de visión del mapa</em></p>
+<p>Depende de la configuración:</p>
+<ul>
+<li>Chrome: ajustes -&gt; accesibilidad -&gt; forzar zoom -&gt; desactivado</li>
+<li>Firefox: ajustes -&gt; accesibilidad -&gt; habilitar siempre el zoom -&gt; desactivado</li>
+<li>Samsung Internet: ajustes -&gt; apariencia -&gt; zoom manual -&gt; desactivado</li>
+<li>Edge: ajustes -&gt; tamaño de fuente -&gt; zoom en todos los sitios -&gt; desactivado, o ajustes -&gt; accesibilidad -&gt; zoom en todos los sitios web -&gt; desactivado</li>
+</ul>
+<p>Por desgracia, en iOS no hay forma de desactivar el zoom de la página completa.</p>
+</li>
+</ul>
+<h2 id="controles">Controles</h2>
+<ul>
+<li>
+<p>Lado izquierdo, de arriba abajo:</p>
+<ul>
+<li>Botón de alineación y estado: al pulsarlo empieza el proceso de alineación; tienes que elegir la estrella o el planeta con el que alineas.</li>
+<li>Campo de visión: ajústalo con <code>+</code> y <code>-</code></li>
+<li>Si hay una lista de observación seleccionada, controles <code>&lt;</code>,<code>&gt;</code> para recorrer sus objetos. Debajo se muestra el nombre del objeto seleccionado</li>
+</ul>
+</li>
+<li>
+<p>Lado derecho, de arriba abajo y de derecha a izquierda:</p>
+<ul>
+<li><code>⚙</code>: botón de ajustes</li>
+<li>Cuadro de búsqueda: permite escribir el nombre o código de un objeto. Cuando lo encuentres pulsa Intro en el teclado. Si quieres repetir la misma búsqueda, pulsa la "lupa" y volverá al objeto seleccionado.</li>
+<li><code>✋</code>: pasar al modo manual; "<em>brújula</em>": pasar al modo brújula; "<em>brújula tachada</em>": no hay brújula disponible, usa solo el modo manual</li>
+<li><code>W</code>: aparece al seleccionar un objeto con nombre; al pulsarlo se abre su página de Wikipedia (necesita conexión).</li>
+</ul>
+</li>
+<li>
+<p>Menú de ajustes (icono del engranaje <code>⚙</code>):</p>
+<ul>
+<li>Botón <code>↻</code>: reinicia la alineación y el objetivo</li>
+<li>UI reducida: optimiza para pantallas pequeñas, con botones más pequeños y los controles del campo de visión movidos al menú de ajustes</li>
+<li>Pantalla completa: pasa la aplicación a pantalla completa</li>
+<li>Modo noche: activa o desactiva la pantalla en rojo para visión nocturna</li>
+<li>Solo en "UI reducida": campo de visión, ajústalo con <code>+</code> y <code>-</code></li>
+<li>Magnitud máxima de las estrellas que se muestran y sirven para alinear: ajústala con <code>+</code> y <code>-</code></li>
+<li>Magnitud aparente máxima de los objetos DSO que se muestran: ajústala con <code>+</code> y <code>-</code></li>
+<li>Opción para aumentar el tamaño de letra si hace falta</li>
+<li>Selección y edición de la lista de observación</li>
+<li>Campo de búsqueda de objetivo por nombre</li>
+<li>Permitir alinear con cualquier objeto DSO. Úsalo con cuidado, porque es difícil definir el centro de un DSO grande como un cúmulo abierto.</li>
+<li>Filtro de objetos astronómicos por tipo</li>
+<li>Activar o desactivar el zoom con pellizco</li>
+<li>Configuración de la información de Wikipedia</li>
+<li>Mostrar el tutorial rápido al iniciar</li>
+<li>Lista de objetos añadidos por el usuario</li>
+<li>Estado de la geolocalización y botón para recargarla</li>
+<li>Información de los sensores</li>
+</ul>
+</li>
+</ul>
+<h2 id="controles-en-modo-ui-reducida">Controles en modo UI reducida</h2>
+<p>Controles en pantalla:</p>
+<ul>
+<li>Arriba a la izquierda: <code>◎</code>: botón de alineación con estado: <code>✓</code> alineado, <code>✗</code> no alineado, <code>?</code> elige la estrella de alineación</li>
+<li>Si hay una lista de observación seleccionada, a la izquierda aparecen los controles <code>&lt;</code>,<code>&gt;</code> para recorrer sus objetos. Debajo se muestra el nombre del objeto seleccionado</li>
+<li>
+<p>Derecha:</p>
+<ul>
+<li>Modo manual <code>✋</code> o modo "<em>brújula</em>"</li>
+<li>Menú de ajustes: <code>⚙</code></li>
+</ul>
+</li>
+<li>
+<p>Izquierda: <code>W</code>: aparece al seleccionar un objeto con nombre; al pulsarlo se abre su página de Wikipedia (necesita conexión)</p>
+</li>
+</ul>
+<h2 id="informacion-de-wikipedia">Información de Wikipedia</h2>
+<p>Cuando aparece el botón <code>W</code> puedes pulsarlo para abrir un recuadro con la página de Wikipedia del objeto seleccionado.</p>
+<p><em>Nota:</em> ten cuidado: la aplicación no controla el estilo de la página y por defecto será texto negro sobre fondo blanco, algo nada recomendable para la visión nocturna. Para mejorarlo puedes ajustar el navegador o usar una extensión como <a href="https://darkreader.org">Dark Reader</a>, aunque el texto blanco o las imágenes brillantes pueden seguir afectando a tu visión nocturna.</p>
+<p>Por eso, por defecto la información de Wikipedia está desactivada en modo noche. Puedes cambiarlo en la opción "Wiki" del menú de ajustes.</p>
+<h2 id="lista-de-observacion">Lista de observación</h2>
+<p>Puedes crear de antemano una lista de observación personalizada para recorrerla fácilmente durante la noche.
+En el menú de ajustes está la opción <code>Lista</code>, con el control <code>[editar]</code> para abrir el editor de listas.</p>
+<p>Una lista de observación es simplemente una lista de nombres de objetos separados por espacios, saltos de línea o comas.
+Por ejemplo, la lista "por defecto":</p>
+<pre><code>M411, M47, M49, M50, M44, M45
+</code></pre>
+<p>Puedes definir varias listas con nombre escribiendo el nombre de la lista seguido de <code>:</code>, por ejemplo:</p>
+<pre><code>clusters: M41 M47 M49
+ M50 M44 M45
+doublestars: Polaris, "Cor Caroli"
+</code></pre>
+<p>Puedes añadir un comentario entre <code>(</code> y <code>)</code> para explicar el identificador del objeto. Se mostrará en la interfaz al seleccionar el objeto, por ejemplo:</p>
+<pre><code>Galaxies: M31 (Andromeda), M64 (Black Eye)
+</code></pre>
+<p><em>Nota:</em> si añades un comentario o usas un nombre con espacios, tienes que usar una coma <code>,</code> como separador</p>
+<p>Las listas se eligen con los botones <code>&lt;</code> y <code>&gt;</code> del control "Lista". Con una lista seleccionada aparecen dos botones <code>&lt;</code> y <code>&gt;</code> en la pantalla principal, bajo el botón "Alinear", que permiten recorrer los objetos hacia delante y hacia atrás. Debajo de los controles se muestra el nombre del objeto seleccionado.</p>
+<p>Las listas de observación se guardan en tu móvil por dominio y se conservan aunque vuelvas a abrir la aplicación.</p>
+<h2 id="objetos-de-usuario">Objetos de usuario</h2>
+<p>La aplicación no incluye todas las estrellas ni todos los DSO posibles. Si quieres acceder a objetos que no están en la base de datos, puedes añadirlos en "Objetos de usuario" del menú de ajustes.</p>
+<p>Los objetos de usuario se definen en formato CSV: la primera columna es el nombre del objeto, la segunda la ascensión recta (RA) y la tercera la declinación (DEC).
+RA y DEC pueden indicarse en grados decimales (0-360 para RA y -90 a +90 para DEC) o en horas/grados con minutos y segundos. Los segundos se pueden omitir. Los campos pueden separarse con espacios, con ":" o con símbolos como "h", "m", "s", "d". Por ejemplo:</p>
+<ul>
+<li>RA: <code>170.6358</code> o <code>11:22:32.6</code> o <code>11h 22m 32.6s</code> o <code>11h 22' 32.6''</code> o <code>11 22′ 32.6″</code> o <code>11 22 32.6</code>, <code>11:32</code></li>
+<li>DEC: <code>-87.3757</code> o <code>-87:22:32.6</code> o <code>-87d 22m 32.6s</code> o <code>-87d 22' 32.6''</code> o <code>-87° 22′ 32.6″</code> o <code>-87 22 32.6</code>, <code>-87:22</code></li>
+</ul>
+<p>Un ejemplo de lista:</p>
+<pre><code>V1405,23h 24m 48s, +61° 11′ 15″
+Pluto,19:55:16,-22:13:42
+</code></pre>
+<p>Los objetos de usuario se guardan en tu móvil por dominio y se conservan aunque vuelvas a abrir la aplicación.</p>
+<h2 id="usuarios-de-montura-ecuatorial">Usuarios de montura ecuatorial</h2>
+<p>La aplicación supone que usas una montura altacimutal. Con una montura ecuatorial puede aparecer un error adicional por la desalineación entre el eje mayor del móvil y el eje del telescopio.</p>
+<p>Si los objetivos están cerca de los polos y el salto exige grandes cambios de ascensión recta, cualquier desalineación entre el eje del móvil y el del telescopio afectará a la precisión. El error final se puede calcular como 2e⋅sin(Δα/2)⋅sin(δ), donde e es la desalineación entre móvil y telescopio, Δα el cambio de ascensión recta necesario para el salto y δ la declinación del objetivo.</p>
+<p>Por eso puede no funcionar de forma fiable con monturas ecuatoriales. Se recomiendan monturas altacimutales (Alt-Az).</p>
+<h2 id="problemas-conocidos">Problemas conocidos</h2>
+<ul>
+<li>El zoom con pellizco no funciona bien en iOS: no hay forma de desactivar el zoom del navegador</li>
+<li>En iOS, el pellizco o el doble toque amplían la pantalla cuando no deberían</li>
+<li>En algunas versiones de iPad (iOS 12.5) no funciona la selección de estrella u objetivo</li>
+</ul>
+<h2 id="informar-de-errores-y-obtener-ayuda">Informar de errores y obtener ayuda</h2>
+<ul>
+<li>La mejor forma de informar de errores es en el proyecto de GitHub: <a href="https://github.com/artyom-beilis/skyhopper">https://github.com/artyom-beilis/skyhopper</a></li>
+<li>Además, el autor del programa (Artyom Beilis) visita a menudo el foro <a href="https://www.cloudynights.com/index/">Cloudy Nights</a>, donde también puedes pedir ayuda. Menciona correctamente el nombre de la aplicación: "AstroHopper".</li>
+</ul>
+<h2 id="copyrights">Copyrights</h2>
+<p>(C) 2021-2025 Artyom Beilis.</p>
+<p>Es una aplicación web de código abierto con licencia GPL. Solo funciona con sensores en buen estado. No se ofrece ningún tipo de garantía. Para los derechos de autor detallados
+de las distintas partes del proyecto, consulta <a href="https://github.com/artyom-beilis/skyhopper/blob/main/COPYING.md">https://github.com/artyom-beilis/skyhopper/blob/main/COPYING.md</a></p>
 </div>
 
 <div id='manual_tr_he' class='r2l manual_section'>
@@ -7963,6 +8212,65 @@ var i18n_dicts = {
         "&lt; Prev": "&lt; Préc",
         "User Objects": "Objets utilisateur",
         "Font": "Police"
+    },
+    "es": {
+        "search": "buscar",
+        "Aligned": "Alineado",
+        "Not Aligned": "No alineado",
+        "Select Star": "Elige estrella",
+        "No Gyro": "Sin giroscopio",
+        "[hide]": "[ocultar]",
+        "[edit]": "[editar]",
+        "None": "Ninguna",
+        "LTR": "LTR",
+        "Connect the smartphone to the optical tube such that its top points to the viewing direction and it lies flat on the tube.": "Sujeta el móvil al tubo óptico de forma que su parte superior apunte en la dirección de observación y quede apoyado plano sobre el tubo.",
+        "Settings": "Ajustes",
+        "Then tap <button class=\"ui_but\">Align</button> and tap on the alignment star on the map as usual.": "Después pulsa <button class=\"ui_but\">Alinear</button> y toca la estrella de alineación en el mapa, como de costumbre.",
+        "Show Tutorial": "Mostrar tutorial",
+        "Quick Start Guide": "Guía rápida",
+        "Next &gt;": "Sig. &gt;",
+        "No Geolocation": "Sin geolocalización",
+        "Stars": "Estrellas",
+        "Save": "Guardar",
+        "Small UI": "UI reducida",
+        "GPS Override": "GPS manual",
+        "Bring them home now!": "¡Traedlos a casa ya!",
+        "Never": "Nunca",
+        "Point the telescope to an easily identifiable star or planet <strong>nearby</strong> an object you want to find. For example in order to find M41 or M47, point the telescope to Sirius — this is going to be the <em>alignment star</em>.": "Apunta el telescopio a una estrella o planeta fácil de identificar <strong>cerca</strong> del objeto que quieres encontrar. Por ejemplo, para encontrar M41 o M47, apunta el telescopio a Sirio: esa será la <em>estrella de alineación</em>.",
+        "Enable Device Orientation": "Activar orientación del dispositivo",
+        "Planets": "Planetas",
+        "Don't show on startup": "No mostrar al iniciar",
+        "When the telescope is pointing to the alignment star tap <button class=\"ui_but\">Align</button> button and tap on the alignment star on the map. Once the application is aligned, it tracks the telescope movement using smartphone's sensors.": "Cuando el telescopio apunte a la estrella de alineación, pulsa el botón <button class=\"ui_but\">Alinear</button> y toca la estrella de alineación en el mapa. Una vez alineada, la aplicación sigue el movimiento del telescopio con los sensores del móvil.",
+        "Galaxies": "Galaxias",
+        "Lon:": "Lon:",
+        "For detailed instruction and troubleshooting please refer to the <a href=\"https://youtu.be/AtArqBLWWJ8\">[Video&nbsp;Tutorial]</a>\n          and to the integrated manual via:": "Para instrucciones detalladas y solución de problemas, consulta el <a href=\"https://youtu.be/AtArqBLWWJ8\">[Vídeo&nbsp;tutorial]</a>\n          y el manual integrado en:",
+        "Full S.": "P. compl.",
+        "Night": "Noche",
+        "DSO": "DSO",
+        "Star Names": "Nombres de estrellas",
+        "If you can't see the alignment star on the map, there may be a common compass accuracy problem.": "Si no ves la estrella de alineación en el mapa, puede que haya un problema de precisión de la brújula, algo bastante habitual.",
+        "Open Clusters": "Cúmulos abiertos",
+        "Nebulae": "Nebulosas",
+        "Wiki": "Wiki",
+        "Align on DSO": "Alinear en DSO",
+        "Glob. Clusters": "Cúmulos glob.",
+        "Always": "Siempre",
+        "Once aligned, tap on the object you want to find (for example M41, M47) and follow the direction line on the map till you reach the target. Now you can observe the object you selected.": "Una vez alineado, toca el objeto que quieres encontrar (por ejemplo M41, M47) y sigue la línea de dirección en el mapa hasta llegar al objetivo. Ya puedes observar el objeto seleccionado.",
+        "Constellations": "Constelaciones",
+        "Day Only": "Solo de día",
+        "FOV": "FOV",
+        "Keep Screen On": "Pantalla siempre encendida",
+        "It is recommended to repeat alignment for each new target you want to find": "Se recomienda repetir la alineación para cada nuevo objetivo que quieras encontrar",
+        "Align": "Alinear",
+        "In such a case tap on <button class=\"incdec_but manual_background\">&nbsp;</button> to switch to manual mode and scroll the map left\n           or right till you see the alignment star.": "En ese caso pulsa <button class=\"incdec_but manual_background\">&nbsp;</button> para pasar al modo manual y desplaza el mapa a la izquierda\n           o a la derecha hasta ver la estrella de alineación.",
+        "Lat:": "Lat:",
+        "Pinch Zoom": "Zoom con pellizco",
+        "Stand with Israel against terror!": "¡Apoya a Israel contra el terror!",
+        "List": "Lista",
+        "Discard": "Descartar",
+        "&lt; Prev": "&lt; Ant.",
+        "User Objects": "Objetos de usuario",
+        "Font": "Letra"
     },
     "pt_BR": {
         "search": "Pesquisar",
